@@ -4,7 +4,7 @@ import "antd/dist/antd.css";
 import { Tabs, PageHeader, Layout } from "antd";
 import Login from "../Login";
 import Signup from "../Signup";
-import "../../styles/tab.css";
+import "../../styles/authentication.css";
 const { TabPane } = Tabs;
 const { Content } = Layout;
 

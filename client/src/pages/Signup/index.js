@@ -5,7 +5,7 @@ import "antd/dist/antd.css";
 import { Form, Input, Button, Checkbox } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 
-const Login = () => {
+const Signup = () => {
   const onFinish = (values) => {
     console.log("Received values of form: ", values);
   };
@@ -49,18 +49,15 @@ const Login = () => {
         />
       </Form.Item>
 
-      <Form.Item name="remember" valuePropName="checked" noStyle>
-        <Checkbox>Remember me</Checkbox>
-      </Form.Item>
+      <Form.Item name="remember" valuePropName="checked" noStyle></Form.Item>
 
       <Form.Item>
         <Button type="primary" htmlType="submit" className="login-form-button">
-          Log in
+          Signup
         </Button>
-        Or <a href="">register now!</a>
       </Form.Item>
     </Form>
   );
 };
 
-export default Login;
+export default Signup;
