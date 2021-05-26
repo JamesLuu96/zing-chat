@@ -15,6 +15,7 @@ const typeDefs = gql`
     friends: [User]
     createdAt: String
   }
+  
   type Room {
     _id: ID
     roomName: String
@@ -22,6 +23,7 @@ const typeDefs = gql`
     roomChat: [Chat]
     createdAt: String
   }
+
   type Auth {
     token: ID
     user: User
@@ -38,7 +40,6 @@ const typeDefs = gql`
     login(username: String!, password: String!): Auth
     addChat(roomId: String!, message: String!): Room
     addRoom(roomName: String!): Room
-    
   }
 `;
 
