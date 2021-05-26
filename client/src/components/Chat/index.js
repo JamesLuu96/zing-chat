@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import Nav from "../../components/Nav";
 import { Row, Col, Layout, Input, Tooltip, Avatar, List, Upload } from "antd";
 import { SendOutlined, CameraOutlined } from "@ant-design/icons";
-import UploadImage from "../UploadImage";
-import AppendImage from "../AppendImage";
+const { Search } = Input;
+
 const data = {
   results: [
     {
@@ -98,6 +98,15 @@ const properties = {
 };
 
 function Chat(props) {
+  const onSearch = (value) => console.log(value);
+  const [messages, setMessages] = useState([]);
+  const [message, setMessage] = useState("");
+  
+
+  const sendMessage = (e) => {
+    setMessage([...message, e.target.value]);
+    console.log(message);
+  };
   return (
     <div>
       <Nav />
@@ -113,9 +122,15 @@ function Chat(props) {
           flex="1.5"
           push={1}
           xs="4"
-          style={{ background: "#fff", height: "80vh" }}
+          style={{ background: "#f7f7f7", height: "80vh" }}
         >
           <div>
+            <Search
+              onSearch={onSearch}
+              placeholder="search"
+              style={{ width: 380, marginTop: "2%" }}
+            />
+
             <List
               dataSource={data.results}
               renderItem={(item) => (
@@ -125,7 +140,7 @@ function Chat(props) {
                       <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
                     }
                     title={<a href="https://ant.design">{item.name.last}</a>}
-                    description={item.email}
+                    description="online"
                   />
                 </List.Item>
               )}
@@ -133,28 +148,26 @@ function Chat(props) {
           </div>
         </Col>
         <Col
-          flex="4"
+          flex="3"
           style={{
-            background: "#f4f4f4",
+            background: "#fff",
             height: "80vh",
+            border: "1px solid #f4f4f4",
           }}
           pull={1}
         >
-          <div
-            style={{
-              width: "300px",
-              marginTop: "5rem",
-              height: "400px",
-            }}
-          >
-            <AppendImage />
-          </div>
+          <div>{message}</div>
         </Col>
       </Row>
       <Row justify="space-around">
         <Col flex="1.5"></Col>
-        <Col flex="4" pull={1}>
-          <Input placeholder="Write a message..." />
+        <Col flex="3" pull={1}>
+          <Input
+            placeholder="Write a message..."
+            value={message}
+            onPressEnter={sendMessage}
+            onChange={(e) => setMessage(e.target.value)}
+          />
         </Col>
       </Row>
     </div>

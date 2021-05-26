@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import AppendImage from "../../components/AppendImage";
+
 function Upload() {
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState("");
