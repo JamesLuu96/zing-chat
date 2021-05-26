@@ -3,19 +3,24 @@ const { gql } = require("apollo-server-express");
 const typeDefs = gql`
   type Chat {
     _id: ID
+    username: String
     message: String
-    user: [User]
-    room: [Room]
+    createdAt: String
   }
 
   type User {
     _id: ID
-    name: String
+    username: String
+    rooms: [Room]
     friends: [User]
+    createdAt: String
   }
   type Room {
+    _id: ID
     roomName: String
-    user: [User]
+    username: String
+    roomChat: [Chat]
+    createdAt: String
   }
   type Auth {
     token: ID
@@ -29,10 +34,10 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    addUser(userName: String!, password: String!): Auth
-    login(userName: String!, password: String!): Auth
-    addChat(user: [ID]!): User
-    addRoom(user: [ID]!, roomName: String!): Room
+    addUser(username: String!, password: String!): Auth
+    login(username: String!, password: String!): Auth
+    addChat(roomId: String!, message: String!): Room
+    addRoom(roomName: String!): Room
     
   }
 `;

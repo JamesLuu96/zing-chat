@@ -1,25 +1,23 @@
 const mongoose = require("mongoose");
+const dateFormat = require('../utils/dateFormat')
 
 const { Schema } = mongoose;
 
 const chatSchema = new Schema({
-  user: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
+  username: {
+    type: String,
     required: true,
   },
-
-  room: {
-    type: Schema.Types.ObjectId,
-    ref: "Room",
-    required: true,
-  },
-
   message: {
     type: String,
   },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+    get: timestamp => dateFormat(timestamp)
+  }
 });
 
 const Chat = mongoose.model("Chat", chatSchema);
 
-module.exports = Chat;
+module.exports = {Chat, chatSchema};

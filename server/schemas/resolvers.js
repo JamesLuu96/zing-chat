@@ -11,27 +11,61 @@ const resolvers = {
       }
       throw new AuthenticationError("Not logged in");
     },
+    room: async(parent, args)=>{
+      return Room.find({})
+    },
+    chat: async(parent, args)=>{
+      return Chat.find({})
+    },
   },
 
-//   Mutation: {
-//     addRoom: async (parent, args) => {
-//       const room = await Room.create(args);
-//       return room;
-//     },
+  Mutation: {
+    addUser: async (parent, args) => {
+      const user = await User.create(args);
+      const token = signToken(user);
 
-//     addChat: async (parent, args, context) => {
-    
-//       if (context.user) {
-//         await User.findByIdAndUpdate(context.user._id, {
-//           $push: { chat: message },
-//         });
+      return { token, user };
+    },
+    login: async (parent, { username, password }) => {
+      const user = await User.findOne({ username });
 
-//         return ;
-//       }
+      if (!user) {
+        throw new AuthenticationError('Incorrect credentials');
+      }
 
-//       throw new AuthenticationError("Not logged in");
-//     },
-//   },
+      const correctPw = await user.isCorrectPassword(password);
+
+      if (!correctPw) {
+        throw new AuthenticationError('Incorrect credentials');
+      }
+
+      const token = signToken(user);
+      return { token, user };
+    },
+    addRoom: async (parent, args, context) => {
+      if (context.user) {
+        const room = await Room.create({...args, username: context.user.username})
+        return room
+      }
+
+      throw new AuthenticationError("Not logged in");
+    },
+
+    addChat: async (parent, args, context) => {
+      if (context.user) {
+        const chat = await Chat.create({...args, username: context.user.username})
+        console.log(chat)
+        const room = await Room.findByIdAndUpdate(
+          {_id:args.roomId},
+          {$push:{roomChat:chat._id}},
+          {new: true})
+          .populate('roomChat')
+        return room
+      }
+
+      throw new AuthenticationError("Not logged in");
+    },
+  },
 };
 
 module.exports = resolvers;
