@@ -1,1 +1,7 @@
 @import "~antd/dist/antd.css";
+
+.site-layout-content {
+	height: 100vh;
+	padding: 4%;
+	background: rgb(214, 224, 233);
+}

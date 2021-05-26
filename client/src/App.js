@@ -5,6 +5,7 @@ import Nav from "./components/Nav";
 import Main from "./pages/Main";
 import Login from "./pages/Login";
 import Room from "./pages/Room";
+import { Layout } from "antd";
 
 export default function App() {
 	return (
