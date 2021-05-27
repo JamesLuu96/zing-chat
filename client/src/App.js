@@ -9,7 +9,7 @@ import Main from "./pages/Main";
 import { ApolloProvider } from "@apollo/react-hooks";
 import ApolloClient from "apollo-boost";
 import Authentication from "./pages/Authentication";
-import { StoreProvider } from "./utils/globalState";
+import { StoreProvider } from "./utils/GlobalState";
 import Chat from "./components/Chat";
 const client = new ApolloClient({
   request: (operation) => {
@@ -32,7 +32,7 @@ export default function App() {
           <Switch>
             <Route exact path="/" component={Main} />
             <Route exact path="/login" component={Authentication} />
-            <Route exact path="/room/:id" component={Chat} />
+            {/* <Route exact path="/room/:id" component={Chat} /> */}
           </Switch>
         </StoreProvider>
       </Router>

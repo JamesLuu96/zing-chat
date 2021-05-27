@@ -5,8 +5,8 @@ import ChatCard from "../ChatCard";
 import { ADD_ROOM } from "../../utils/mutations";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import { QUERY_ROOMS } from "../../utils/queries";
-import { useStoreContext } from "../../utils/globalState";
-import { UPDATE_ROOMS } from "../../utils/actions";
+import { useStoreContext } from "../../utils/GlobalState";
+import { UPDATE_ROOMS, UPDATE_ROOM } from "../../utils/actions";
 
 export default function ChatList() {
   const [addRoom, { error }] = useMutation(ADD_ROOM);
@@ -28,9 +28,10 @@ export default function ChatList() {
         } = response;
 
         dispatch({
-          type: UPDATE_ROOMS,
-          rooms: addRoom,
+          type: UPDATE_ROOM,
+          room: addRoom,
         });
+        console.log(rooms);
       }
     } catch (e) {
       console.log(e);
@@ -48,7 +49,7 @@ export default function ChatList() {
       console.log("error");
     }
   }, [loading, data, dispatch]);
-
+  console.log(rooms, "rooms");
   return (
     <>
       <form onSubmit={createRoomHandler}>
@@ -62,7 +63,7 @@ export default function ChatList() {
       >
         {rooms && rooms.length ? (
           <div className="flex-row">
-            {rooms[0].map((room, i) => (
+            {rooms.map((room, i) => (
               <ChatCard key={i} room={room} />
             ))}
           </div>

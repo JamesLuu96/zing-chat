@@ -4,7 +4,7 @@ import { Layout } from "antd";
 import { QUERY_USERS } from "../../utils/queries";
 import { useQuery } from "@apollo/react-hooks";
 import { UPDATE_USERS } from "../../utils/actions";
-import { useStoreContext } from "../../utils/globalState";
+import { useStoreContext } from "../../utils/GlobalState";
 const { Content } = Layout;
 
 export default function UserList() {

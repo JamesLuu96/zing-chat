@@ -3,35 +3,24 @@ const { User, Chat, Room } = require("../models");
 
 db.once("open", async () => {
   await User.deleteMany();
-  await User.create({
-    username: "admin",
-    password: "admin",
-  });
-  await User.create({
-    username: "test",
-    password: "test",
-  });
+  const users = await User.insertMany([
+    { username: "admin", password: "admin" },
+    { username: "testAdmin", password: "testAdmin" },
+  ]);
+  console.log("users seeded");
 
   await Chat.deleteMany();
-
-  await Chat.create({
-    message: "hello",
-    username: User[0]._id,
-  });
-  await Chat.create({
-    message: "holla",
-    username: User[1]._id,
-  });
+  const chats = await Chat.insertMany([
+    { message: "hello", username: users[0]._id },
+    { message: "holla", username: users[1]._id },
+  ]);
+  console.log("chat seeded");
 
   await Room.deleteMany();
-  await Room.create({
-    roomName: "tiny",
-    username: User[0]._id,
-  });
-  await Room.create({
-    roomName: "dark",
-    username: User[1]._id,
-  });
+  const rooms = await Room.insertMany([
+    { roomName: "tiny", username: users[0]._id },
+    { roomName: "dark", username: users[1]._id },
+  ]);
 
   console.log("rooms seeded");
 
