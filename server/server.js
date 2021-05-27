@@ -6,7 +6,7 @@ const { typeDefs, resolvers } = require('./schemas');
 const { authMiddleware } = require('./utils/auth');
 const db = require('./config/connection');
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 4000;
 const app = express();
 const server = new ApolloServer({
   typeDefs,
@@ -27,10 +27,23 @@ if (process.env.NODE_ENV === 'production') {
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
+const http = require('http').createServer(app)
+const io = require('socket.io')(http, { cors: {origin:'*'}})
+
+
+io.on('connection', function(socket){
+  socket.on("send message", function(message){
+    io.emit("receive message", message)
+  })
+})
 
 db.once('open', () => {
-  app.listen(PORT, () => {
+  http.listen(PORT, () => {
     console.log(`API server running on port ${PORT}!`);
     console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
   });
 });
+
+// http.listen(4000, function(){
+//   console.log('listening on port 4000')
+// })
