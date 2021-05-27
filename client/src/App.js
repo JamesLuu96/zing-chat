@@ -32,7 +32,7 @@ export default function App() {
           <Switch>
             <Route exact path="/" component={Main} />
             <Route exact path="/login" component={Authentication} />
-            {/* <Route exact path="/room/:id" component={Chat} /> */}
+            <Route exact path="/room/:id" component={Chat} />
           </Switch>
         </StoreProvider>
       </Router>
