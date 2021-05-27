@@ -1,7 +1,7 @@
 import { List, Card, Avatar, Button } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
-export default function ChatCard({ room }) {
+export default function RoomCard({ room }) {
   return (
     <Link to={`/room/${room._id}`}>
       <Card>

@@ -3,8 +3,6 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import Nav from "./components/Nav";
 import Main from "./pages/Main";
-// import Login from "./pages/Login";
-// import Room from "./pages/Room";
 
 import { ApolloProvider } from "@apollo/react-hooks";
 import ApolloClient from "apollo-boost";

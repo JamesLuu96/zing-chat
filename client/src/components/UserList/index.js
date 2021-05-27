@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import UserCard from "../UserCard";
+import UserCard from "./UserCard";
 import { Layout } from "antd";
 import { QUERY_USERS } from "../../utils/queries";
 import { useQuery } from "@apollo/react-hooks";

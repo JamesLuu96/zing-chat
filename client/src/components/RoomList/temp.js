@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { List } from "antd";
-import ChatCard from "../ChatCard";
+import ChatCard from "./RoomCard";
 
 import { ADD_ROOM } from "../../utils/mutations";
 import { useQuery, useMutation } from "@apollo/react-hooks";
@@ -8,7 +8,7 @@ import { QUERY_ROOMS } from "../../utils/queries";
 import { useStoreContext } from "../../utils/GlobalState";
 import { UPDATE_ROOMS, UPDATE_ROOM } from "../../utils/actions";
 
-export default function ChatList() {
+export default function RoomList() {
   const [addRoom, { error }] = useMutation(ADD_ROOM);
   const { loading, data } = useQuery(QUERY_ROOMS);
 
@@ -26,12 +26,12 @@ export default function ChatList() {
         const {
           data: { addRoom },
         } = response;
-        console.log(response);
-        dispatch({
-          type: UPDATE_ROOM,
-          room: addRoom,
-        });
-        console.log(rooms);
+        // console.log(response);
+        // dispatch({
+        //   type: UPDATE_ROOM,
+        //   room: addRoom,
+        // });
+        // console.log(rooms);
       }
     } catch (e) {
       console.log(e);

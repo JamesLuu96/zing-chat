@@ -10,7 +10,7 @@ const StoreProvider = ({ value = [], ...props }) => {
     users: [],
     rooms: [],
   });
-
+  
   return <Provider value={[state, dispatch]} {...props} />;
 };
 

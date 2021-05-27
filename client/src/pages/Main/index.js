@@ -1,6 +1,6 @@
 import React from "react";
 
-import ChatList from "../../components/ChatList";
+import ChatList from "../../components/RoomList";
 import UserList from "../../components/UserList";
 import NewRoomModal from "../../components/NewRoomModal";
 import { Row, Col, Layout } from "antd";
