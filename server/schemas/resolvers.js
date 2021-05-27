@@ -51,6 +51,7 @@ const resolvers = {
           ...args,
           username: context.user.username,
         });
+        console.log(room);
         return room;
       }
 

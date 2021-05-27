@@ -26,7 +26,7 @@ export default function ChatList() {
         const {
           data: { addRoom },
         } = response;
-
+        console.log(response);
         dispatch({
           type: UPDATE_ROOM,
           room: addRoom,

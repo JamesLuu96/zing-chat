@@ -67,6 +67,7 @@ export const QUERY_ROOMS = gql`
     }
   }
 `;
+
 export const QUERY_CHAT = gql`
   {
     chat {
