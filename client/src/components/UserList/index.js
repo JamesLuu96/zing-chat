@@ -1,56 +1,38 @@
-import React from "react";
+import React, { useEffect } from "react";
 import UserCard from "../UserCard";
-import { Layout, Divider } from "antd";
-
+import { Layout } from "antd";
+import { QUERY_USERS } from "../../utils/queries";
+import { useQuery } from "@apollo/react-hooks";
+import { UPDATE_USERS } from "../../utils/actions";
+import { useStoreContext } from "../../utils/globalState";
 const { Content } = Layout;
 
 export default function UserList() {
-	const data = [
-		{
-			title: "James Luu",
-		},
-		{
-			title: "Fasika Demelash",
-		},
-		{
-			title: "Florence Kamp",
-		},
-		{
-			title: "Shannon Parsons",
-		},
-		{
-			title: "Rodolfo Simmons",
-		},
-		{
-			title: "Irene Marsh",
-		},
-		{
-			title: "James Luu",
-		},
-		{
-			title: "Fasika Demelash",
-		},
-		{
-			title: "Florence Kamp",
-		},
-		{
-			title: "Shannon Parsons",
-		},
-		{
-			title: "Rodolfo Simmons",
-		},
-		{
-			title: "Irene Marsh",
-		},
-	];
+  const { loading, data } = useQuery(QUERY_USERS);
+  const [state, dispatch] = useStoreContext();
+  const { users } = state;
 
-	return (
-		<>
-			<Content style={{ padding: "20px" }}>
-				{data.map((user, i) => {
-					return <UserCard key={i} user={user} />;
-				})}
-			</Content>
-		</>
-	);
+  useEffect(() => {
+    if (data) {
+      const { users } = data;
+
+      dispatch({
+        type: UPDATE_USERS,
+        users: users,
+      });
+    } else if (!loading) {
+      console.log("something went wrong!!");
+    }
+  }, [loading, data]);
+
+  return (
+    <>
+      <Content style={{ padding: "20px" }}>
+        {users[0] &&
+          users[0].map((user, i) => {
+            return <UserCard key={i} user={user} />;
+          })}
+      </Content>
+    </>
+  );
 }

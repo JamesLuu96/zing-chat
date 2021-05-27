@@ -1,13 +1,17 @@
 const express = require("express");
 const { ApolloServer } = require("apollo-server-express");
 const path = require("path");
+const app = express();
+
+const http = require("http").createServer(app);
+const io = require("socket.io")(http, { cors: { origin: "*" } });
 
 const { typeDefs, resolvers } = require("./schemas");
 const { authMiddleware } = require("./utils/auth");
 const db = require("./config/connection");
 
 const PORT = process.env.PORT || 3001;
-const app = express();
+
 const server = new ApolloServer({
   typeDefs,
   resolvers,
@@ -18,6 +22,16 @@ server.applyMiddleware({ app });
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+
+// io.on("connection", function (socket) {
+//   socket.on("send message", function (message) {
+//     io.emit("receive message", message);
+//   });
+// });
+
+http.listen(4000, function () {
+  console.log("listening on port 4000");
+});
 
 // Serve up static assets
 if (process.env.NODE_ENV === "production") {

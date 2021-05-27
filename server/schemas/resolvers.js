@@ -4,6 +4,9 @@ const { signToken } = require("../utils/auth");
 
 const resolvers = {
   Query: {
+    users: async (parent, args) => {
+      return User.find({});
+    },
     user: async (parent, args, context) => {
       if (context.user) {
         const user = await User.findById(context.user._id);
@@ -11,11 +14,11 @@ const resolvers = {
       }
       throw new AuthenticationError("Not logged in");
     },
-    room: async(parent, args)=>{
-      return Room.find({})
+    room: async (parent, args) => {
+      return Room.find({});
     },
-    chat: async(parent, args)=>{
-      return Chat.find({})
+    chat: async (parent, args) => {
+      return Chat.find({});
     },
   },
 
@@ -30,13 +33,13 @@ const resolvers = {
       const user = await User.findOne({ username });
 
       if (!user) {
-        throw new AuthenticationError('Incorrect credentials');
+        throw new AuthenticationError("Incorrect credentials");
       }
 
       const correctPw = await user.isCorrectPassword(password);
 
       if (!correctPw) {
-        throw new AuthenticationError('Incorrect credentials');
+        throw new AuthenticationError("Incorrect credentials");
       }
 
       const token = signToken(user);
@@ -44,8 +47,11 @@ const resolvers = {
     },
     addRoom: async (parent, args, context) => {
       if (context.user) {
-        const room = await Room.create({...args, username: context.user.username})
-        return room
+        const room = await Room.create({
+          ...args,
+          username: context.user.username,
+        });
+        return room;
       }
 
       throw new AuthenticationError("Not logged in");
@@ -53,14 +59,17 @@ const resolvers = {
 
     addChat: async (parent, args, context) => {
       if (context.user) {
-        const chat = await Chat.create({...args, username: context.user.username})
-        console.log(chat)
+        const chat = await Chat.create({
+          ...args,
+          username: context.user.username,
+        });
+        console.log(chat);
         const room = await Room.findByIdAndUpdate(
-          {_id:args.roomId},
-          {$push:{roomChat:chat._id}},
-          {new: true})
-          .populate('roomChat')
-        return room
+          { _id: args.roomId },
+          { $push: { roomChat: chat._id } },
+          { new: true }
+        ).populate("roomChat");
+        return room;
       }
 
       throw new AuthenticationError("Not logged in");

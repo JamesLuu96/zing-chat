@@ -31,7 +31,8 @@ const typeDefs = gql`
   type Query {
     chat: [Chat]
     user: User
-    room: Room
+    room: [Room]
+    users: [User]
   }
 
   type Mutation {

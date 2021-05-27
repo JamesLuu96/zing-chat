@@ -1,6 +1,32 @@
 import gql from "graphql-tag";
-//friends
-
+// queryPost(filter: { datePublished: { ge: "2020-06-15" }}) {
+//   ...
+// }
+export const QUERY_USERS = gql`
+  {
+    users {
+      _id
+      username
+      rooms {
+        _id
+        roomName
+        username
+        roomChat {
+          _id
+          username
+          message
+          createdAt
+        }
+        createdAt
+      }
+      friends {
+        _id
+        username
+      }
+      createdAt
+    }
+  }
+`;
 export const QUERY_USER = gql`
   {
     user {
@@ -20,14 +46,13 @@ export const QUERY_USER = gql`
       }
       friends {
         _id
-        userName
+        username
       }
-      createdAt
     }
   }
 `;
 
-export const QUERY_ROOM = gql`
+export const QUERY_ROOMS = gql`
   {
     room {
       _id
@@ -39,13 +64,16 @@ export const QUERY_ROOM = gql`
         message
         createdAt
       }
-      createdAt
     }
   }
 `;
 export const QUERY_CHAT = gql`
-_id
-username
-message
-createdAt
+  {
+    chat {
+      _id
+      username
+      message
+      createdAt
+    }
+  }
 `;
