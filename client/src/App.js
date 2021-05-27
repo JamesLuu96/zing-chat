@@ -6,6 +6,8 @@ import Main from "./pages/Main";
 import Login from "./pages/Login";
 import Room from "./pages/Room";
 import Chat from "./components/Chat"
+import Draw from './components/Draw'
+
 
 export default function App() {
 	return (
@@ -16,6 +18,7 @@ export default function App() {
 				<Route exact path="/login" component={Login} />
 				<Route exact path="/room" component={Room} />
 				<Route exact path="/chat" component={Chat}/>
+				<Route exact path="/draw" component={Draw}/>
 			</Switch>
 		</Router>
 	);

@@ -16,7 +16,9 @@
   "license": "ISC",
   "dependencies": {
     "faker": "^5.5.3",
-    "if-env": "^1.0.4"
+    "if-env": "^1.0.4",
+    "socket.io": "^4.1.2",
+    "socket.io-client": "^4.1.2"
   },
   "devDependencies": {
     "concurrently": "^5.1.0"

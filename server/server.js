@@ -37,6 +37,12 @@ io.on('connection', function(socket){
   })
 })
 
+io.on('connection', onConnection);
+
+function onConnection(socket){
+  socket.on('drawing', (data) => socket.broadcast.emit('drawing', data));
+}
+
 db.once('open', () => {
   http.listen(PORT, () => {
     console.log(`API server running on port ${PORT}!`);
