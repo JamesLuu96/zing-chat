@@ -33,6 +33,7 @@ export default function ChatList() {
 	return (
 		<>
 			<List
+				id="room-list"
 				pagination={{
 					pageSize: 3,
 				}}>

@@ -46,11 +46,9 @@ export default function UserList() {
 
 	return (
 		<>
-			<Content style={{ padding: "20px" }}>
-				{data.map((user, i) => {
-					return <UserCard key={i} user={user} />;
-				})}
-			</Content>
+			{data.map((user, i) => {
+				return <UserCard key={i} user={user} />;
+			})}
 		</>
 	);
 }

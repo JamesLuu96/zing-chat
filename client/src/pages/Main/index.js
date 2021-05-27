@@ -2,7 +2,7 @@ import React from "react";
 
 import ChatList from "../../components/ChatList";
 import UserList from "../../components/UserList";
-import NewRoomModal from "../../components/NewRoomModal";
+// import NewRoomModal from "../../components/NewRoomModal";
 import { Row, Col, Layout } from "antd";
 
 const { Content } = Layout;
