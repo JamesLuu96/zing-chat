@@ -1,15 +1,21 @@
 import { useReducer } from "react";
-import { UPDATE_ROOMS, UPDATE_USERS } from "./actions";
+import { UPDATE_ROOMS, UPDATE_USERS, UPDATE_ROOM } from "./actions";
 
 export const reducer = (state, action) => {
-  console.log(action.state, "act.state");
-  console.log(state, "state");
   switch (action.type) {
-    case UPDATE_ROOMS:
+    case UPDATE_ROOM:
       return {
         ...state,
-        rooms: [...state.rooms, action.rooms],
+        rooms: [...state.rooms, action.room],
       };
+    case UPDATE_ROOMS:
+      const updatedState = [...state.rooms, ...action.rooms];
+      console.log(updatedState);
+      return {
+        ...state,
+        rooms: updatedState,
+      };
+
     case UPDATE_USERS:
       return {
         ...state,
