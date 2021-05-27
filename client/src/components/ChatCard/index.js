@@ -1,44 +1,38 @@
-import { List, Card, Avatar, Button } from "antd";
 import React from "react";
-import { PlusOutlined } from "@ant-design/icons";
+import Avatar from "react-avatar";
+import { Card, Col, Row, Tag, Button } from "antd";
 
 export default function ChatCard({ room }) {
+	const tag = room.category;
+
+	const user = room.users;
+	console.log(user);
+
 	return (
-		<Card>
-			<List.Item key={room.title}>
-				<List.Item.Meta
-					title={<a href={room.href}>{room.title}</a>}
-					description="hello world"
-				/>
-				{room.content}
-				<Avatar.Group
-					maxCount={2}
-					maxStyle={{
-						color: "#f56a00",
-						backgroundColor: "#fde3cf",
-					}}>
-					<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-					<Avatar
-						style={{
-							backgroundColor: "#f56a00",
-						}}>
-						K
-					</Avatar>
-					<Avatar
-						style={{
-							backgroundColor: "#87d068",
-						}}
-					/>
-					<Avatar
-						style={{
-							backgroundColor: "#1890ff",
-						}}
-					/>
-				</Avatar.Group>
-				<Button type="link" size="large">
-					Join
-				</Button>
-			</List.Item>
+		<Card title={room.title} extra={<Button href="#">Join &rarr;</Button>}>
+			<Row justify="space-between">
+				<Col>
+					{tag.map((tag, i) => {
+						return (
+							<Tag color="magenta" key={i}>
+								{tag}
+							</Tag>
+						);
+					})}
+				</Col>
+				<Col>
+					{user.map((user, i) => {
+						return (
+							<Avatar
+								className="avatar-round"
+								size="32"
+								round={true}
+								name={user}
+							/>
+						);
+					})}
+				</Col>
+			</Row>
 		</Card>
 	);
 }
