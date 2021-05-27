@@ -23,11 +23,11 @@ server.applyMiddleware({ app });
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-// io.on("connection", function (socket) {
-//   socket.on("send message", function (message) {
-//     io.emit("receive message", message);
-//   });
-// });
+io.on("connection", function (socket) {
+  socket.on("send message", function (message) {
+    io.emit("receive message", message);
+  });
+});
 
 http.listen(4000, function () {
   console.log("listening on port 4000");

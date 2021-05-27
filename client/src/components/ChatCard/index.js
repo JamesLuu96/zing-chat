@@ -7,10 +7,10 @@ export default function ChatCard({ room }) {
       <Card>
         <List.Item key={room._id}>
           <List.Item.Meta
-            title={<a>{room.roomName}</a>}
+            title={room.roomName}
             description={`created by ${room.username}`}
           />
-         
+
           <Avatar.Group
             maxCount={2}
             maxStyle={{

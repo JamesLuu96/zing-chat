@@ -16,9 +16,11 @@ class Nav extends React.Component {
         <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]}>
           <Menu.Item key="1">Zing chat</Menu.Item>
           <Menu.Item key="2">
-            <a href="/" onClick={() => Auth.logout()}>
-              Logout
-            </a>
+            <>
+              <a href="/" onClick={() => Auth.logout()}>
+                Logout
+              </a>
+            </>
           </Menu.Item>
         </Menu>
       </Header>
