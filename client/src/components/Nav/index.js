@@ -17,9 +17,11 @@ class Nav extends React.Component {
           <Menu.Item key="1">Zing chat</Menu.Item>
           <Menu.Item key="2">
             <>
-              <a href="/" onClick={() => Auth.logout()}>
-                Logout
-              </a>
+              {Auth.loggedIn() ? (
+                <a href="/" onClick={() => Auth.logout()}>
+                  Logout
+                </a>
+              ) : null}
             </>
           </Menu.Item>
         </Menu>
