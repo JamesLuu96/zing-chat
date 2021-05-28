@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from "react";
+import React, { createContext, useContext, applyMiddleware } from "react";
 import { useChatReducer } from "./reducers";
 
 const StoreContext = createContext();
