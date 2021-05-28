@@ -11,6 +11,8 @@ import ApolloClient from "apollo-boost";
 import Authentication from "./pages/Authentication";
 import { StoreProvider } from "./utils/GlobalState";
 import Chat from "./components/Chat";
+
+import Type from "./components/Type";
 const client = new ApolloClient({
   request: (operation) => {
     const token = localStorage.getItem("id_token");
@@ -30,7 +32,7 @@ export default function App() {
         <StoreProvider>
           <Nav />
           <Switch>
-            <Route exact path="/" component={Main} />
+            <Route exact path="/" component={Type} />
             <Route exact path="/login" component={Authentication} />
             <Route exact path="/room/:id" component={Chat} />
           </Switch>
