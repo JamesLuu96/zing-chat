@@ -11,11 +11,7 @@ export default function Index() {
 		setIsModalVisible(true);
 	};
 
-	const handleOk = () => {
-		setIsModalVisible(false);
-	};
-
-	const handleCancel = () => {
+	const hideModal = () => {
 		setIsModalVisible(false);
 	};
 
@@ -25,10 +21,14 @@ export default function Index() {
 				Open Modal
 			</Button>
 			<Modal
-				title="Basic Modal"
+				title="Create a new room"
 				visible={isModalVisible}
-				onOk={handleOk}
-				onCancel={handleCancel}>
+				onCancel={hideModal}
+				okButtonProps={{
+					form: "create-room",
+					key: "submit",
+					htmlType: "submit",
+				}}>
 				<RoomForm />
 			</Modal>
 			<Row>

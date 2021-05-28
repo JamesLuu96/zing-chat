@@ -3,7 +3,6 @@ import React from "react";
 import {
 	Form,
 	Input,
-	Button,
 	Radio,
 	Select,
 	Cascader,
@@ -14,10 +13,34 @@ import {
 } from "antd";
 
 export default function RoomForm() {
+	const [form] = Form.useForm();
+
+	const onFinish = async () => {
+		try {
+			const values = await form.validateFields();
+			console.log("Success:", values);
+		} catch (errorInfo) {
+			console.log("Failed:", errorInfo);
+		}
+	};
+
 	return (
 		<>
-			<Form labelCol={{ span: 4 }} wrapperCol={{ span: 14 }} layout="vertical">
-				<Form.Item label="Room name">
+			<Form
+				form={form}
+				id="create-room"
+				name="create-room"
+				initialValues={{ remember: true }}
+				onFinish={onFinish}>
+				<Form.Item
+					label="Room name"
+					validateStatus="error"
+					rules={[
+						{
+							required: true,
+							message: "Please enter a room name",
+						},
+					]}>
 					<Input />
 				</Form.Item>
 				<Radio.Group>
@@ -65,9 +88,6 @@ export default function RoomForm() {
 				</Form.Item>
 				<Form.Item label="Switch">
 					<Switch />
-				</Form.Item>
-				<Form.Item label="Button">
-					<Button>Button</Button>
 				</Form.Item>
 			</Form>
 		</>
