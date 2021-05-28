@@ -2,38 +2,42 @@ import React, { useState } from "react";
 import ChatList from "../../components/ChatList";
 import UserList from "../../components/UserList";
 import RoomForm from "../../components/RoomForm";
-import { Row, Col, Button, Modal } from "antd";
+import { Row, Col, Button, Form } from "antd";
 
 export default function Index() {
-	const [isModalVisible, setIsModalVisible] = useState(false);
+	const [visible, setVisible] = useState(false);
 
-	const showModal = () => {
-		setIsModalVisible(true);
+	const showRoomModal = () => {
+		setVisible(true);
 	};
-	const hideModal = () => {
-		setIsModalVisible(false);
+
+	const hideRoomModal = () => {
+		setVisible(false);
 	};
+
 	const onFinish = (values) => {
-		console.log("Success:", values);
-		setIsModalVisible(false);
+		console.log("Finish:", values);
 	};
-
-	const onFinishFailed = (errorInfo) => {
-		console.log("Failed:", errorInfo);
-	};
-
 	return (
 		<>
-			<Button type="primary" onClick={showModal}>
-				Create room
-			</Button>
-			<Modal
-				footer={null}
-				onClose={hideModal}
-				title="Create a new room"
-				visible={isModalVisible}>
-				<RoomForm onFinish={onFinish} onFinishFailed={onFinishFailed} />
-			</Modal>
+			<Form.Provider
+				onFormFinish={(name, { values }) => {
+					if (name === "roomForm") {
+						console.log(values);
+						setVisible(false);
+					}
+				}}>
+				<Button
+					htmlType="button"
+					style={{
+						margin: "0 8px",
+					}}
+					onClick={showRoomModal}>
+					Create room
+				</Button>
+
+				<RoomForm visible={visible} onCancel={hideRoomModal} />
+			</Form.Provider>
 			<Row>
 				<Col id="room-list" flex="4">
 					<ChatList />

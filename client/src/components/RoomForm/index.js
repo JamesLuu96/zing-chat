@@ -1,56 +1,47 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 
-import { Form, Input, Radio, Button } from "antd";
+import { Form, Input, Modal } from "antd";
 
-export default function RoomForm({ onFinish }) {
-	const layout = {
-		labelCol: {
-			span: 6,
-		},
-		wrapperCol: {
-			span: 12,
-		},
+const useResetFormOnCloseModal = ({ form, visible }) => {
+	const prevVisibleRef = useRef();
+	useEffect(() => {
+		prevVisibleRef.current = visible;
+	}, [visible]);
+	const prevVisible = prevVisibleRef.current;
+	useEffect(() => {
+		if (!visible && prevVisible) {
+			form.resetFields();
+		}
+	}, [visible]);
+};
+
+const RoomForm = ({ visible, onCancel }) => {
+	const [form] = Form.useForm();
+	useResetFormOnCloseModal({
+		form,
+		visible,
+	});
+
+	const onOk = () => {
+		form.submit();
 	};
-	const tailLayout = {
-		wrapperCol: {
-			offset: 6,
-			span: 12,
-		},
-	};
+
 	return (
-		<>
-			<Form
-				{...layout}
-				onFinish={onFinish}
-				name="create-form"
-				id="create-room"
-				initialValues={{
-					remember: true,
-				}}>
+		<Modal title="New Room" visible={visible} onOk={onOk} onCancel={onCancel}>
+			<Form form={form} layout="vertical" name="roomForm">
 				<Form.Item
-					label="Room name"
-					name="room-name"
+					name="roomName"
+					label="Room Name"
 					rules={[
 						{
 							required: true,
-							message: "Please enter a room name",
 						},
 					]}>
 					<Input />
 				</Form.Item>
-				<Form.Item label="Room type">
-					{" "}
-					<Radio.Group defaultValue="public">
-						<Radio.Button value="public">Public</Radio.Button>
-						<Radio.Button value="private">Private</Radio.Button>
-					</Radio.Group>
-				</Form.Item>
-				<Form.Item {...tailLayout}>
-					<Button type="primary" htmlType="submit">
-						Submit
-					</Button>
-				</Form.Item>
 			</Form>
-		</>
+		</Modal>
 	);
-}
+};
+
+export default RoomForm;
