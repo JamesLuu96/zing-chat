@@ -10,7 +10,9 @@ export default function Index() {
 	const showModal = () => {
 		setIsModalVisible(true);
 	};
-
+	const hideModal = () => {
+		setIsModalVisible(false);
+	};
 	const onFinish = (values) => {
 		console.log("Success:", values);
 		setIsModalVisible(false);
@@ -25,7 +27,11 @@ export default function Index() {
 			<Button type="primary" onClick={showModal}>
 				Create room
 			</Button>
-			<Modal title="Create a new room" visible={isModalVisible}>
+			<Modal
+				footer={null}
+				onClose={hideModal}
+				title="Create a new room"
+				visible={isModalVisible}>
 				<RoomForm onFinish={onFinish} onFinishFailed={onFinishFailed} />
 			</Modal>
 			<Row>
