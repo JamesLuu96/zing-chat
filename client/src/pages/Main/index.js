@@ -11,21 +11,22 @@ export default function Index() {
 		setIsModalVisible(true);
 	};
 
-	const hideModal = () => {
+	const onFinish = (values) => {
+		console.log("Success:", values);
 		setIsModalVisible(false);
+	};
+
+	const onFinishFailed = (errorInfo) => {
+		console.log("Failed:", errorInfo);
 	};
 
 	return (
 		<>
 			<Button type="primary" onClick={showModal}>
-				Open Modal
+				Create room
 			</Button>
-			<Modal
-				footer={null}
-				onClose={hideModal}
-				title="Create a new room"
-				visible={isModalVisible}>
-				<RoomForm />
+			<Modal title="Create a new room" visible={isModalVisible}>
+				<RoomForm onFinish={onFinish} onFinishFailed={onFinishFailed} />
 			</Modal>
 			<Row>
 				<Col id="room-list" flex="4">
