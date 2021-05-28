@@ -1,40 +1,45 @@
 import React from "react";
 
-import {
-	Form,
-	Input,
-	Radio,
-	Select,
-	Cascader,
-	DatePicker,
-	InputNumber,
-	TreeSelect,
-	Switch,
-} from "antd";
+import { Form, Input, Radio, Select, Button } from "antd";
 
-export default function RoomForm() {
-	const [form] = Form.useForm();
+const layout = {
+	labelCol: {
+		span: 8,
+	},
+	wrapperCol: {
+		span: 16,
+	},
+};
+const tailLayout = {
+	wrapperCol: {
+		offset: 8,
+		span: 16,
+	},
+};
 
-	const onFinish = async () => {
-		try {
-			const values = await form.validateFields();
-			console.log("Success:", values);
-		} catch (errorInfo) {
-			console.log("Failed:", errorInfo);
-		}
+export default function RoomForm({ hideModal }) {
+	const onFinish = (values) => {
+		console.log("Success:", values);
+	};
+
+	const onFinishFailed = (errorInfo) => {
+		console.log("Failed:", errorInfo);
 	};
 
 	return (
 		<>
 			<Form
-				form={form}
+				{...layout}
+				name="create-form"
 				id="create-room"
-				name="create-room"
-				initialValues={{ remember: true }}
-				onFinish={onFinish}>
+				onFinish={onFinish}
+				onFinishFailed={onFinishFailed}
+				initialValues={{
+					remember: true,
+				}}>
 				<Form.Item
 					label="Room name"
-					validateStatus="error"
+					name="room-name"
 					rules={[
 						{
 							required: true,
@@ -43,52 +48,23 @@ export default function RoomForm() {
 					]}>
 					<Input />
 				</Form.Item>
-				<Radio.Group>
-					<Radio.Button value="small">Public</Radio.Button>
-					<Radio.Button value="default">Private</Radio.Button>
-				</Radio.Group>
 
-				<Form.Item label="Select">
+				<Form.Item
+					label="Select"
+					rules={[
+						{
+							required: true,
+							message: "Please input your password!",
+						},
+					]}>
 					<Select>
 						<Select.Option value="demo">Demo</Select.Option>
 					</Select>
 				</Form.Item>
-				<Form.Item label="TreeSelect">
-					<TreeSelect
-						treeData={[
-							{
-								title: "Light",
-								value: "light",
-								children: [{ title: "Bamboo", value: "bamboo" }],
-							},
-						]}
-					/>
-				</Form.Item>
-				<Form.Item label="Cascader">
-					<Cascader
-						options={[
-							{
-								value: "zhejiang",
-								label: "Zhejiang",
-								children: [
-									{
-										value: "hangzhou",
-										label: "Hangzhou",
-									},
-								],
-							},
-						]}
-					/>
-				</Form.Item>
-				<Form.Item label="DatePicker">
-					<DatePicker />
-				</Form.Item>
-				<Form.Item label="InputNumber">
-					<InputNumber />
-				</Form.Item>
-				<Form.Item label="Switch">
-					<Switch />
-				</Form.Item>
+
+				<Button type="primary" htmlType="submit">
+					Submit
+				</Button>
 			</Form>
 		</>
 	);

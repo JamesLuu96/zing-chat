@@ -21,14 +21,10 @@ export default function Index() {
 				Open Modal
 			</Button>
 			<Modal
+				footer={null}
+				onClose={hideModal}
 				title="Create a new room"
-				visible={isModalVisible}
-				onCancel={hideModal}
-				okButtonProps={{
-					form: "create-room",
-					key: "submit",
-					htmlType: "submit",
-				}}>
+				visible={isModalVisible}>
 				<RoomForm />
 			</Modal>
 			<Row>
