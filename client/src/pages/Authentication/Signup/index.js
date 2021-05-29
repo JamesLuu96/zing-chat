@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
 import { useMutation } from "@apollo/react-hooks";
-import Auth from "../../utils/auth";
-import { ADD_USER } from "../../utils/mutations";
+import Auth from "../../../utils/auth";
+import { ADD_USER } from "../../../utils/mutations";
 
 function Signup() {
   const [userInfo, setUserInfo] = useState({ username: "", password: "" });

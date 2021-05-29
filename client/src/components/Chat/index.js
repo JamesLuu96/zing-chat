@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
-import io from "socket.io-client";
-const socket = io.connect("/");
-let name = "";
+import {useSocket} from '../Socket'
+
+const name = "James"
 
 function Chat() {
+  const socket = useSocket()
   const [msg, setMsg] = useState("");
   const [chat, setChat] = useState([]);
   useEffect(() => {
-    name = prompt("What is your name?");
+    
     socket.on("receive message", (message) => {
       setChat((old) => [...old, message]);
     });

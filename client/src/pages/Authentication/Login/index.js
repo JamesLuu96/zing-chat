@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { LOGIN } from "../../utils/mutations";
+import { LOGIN } from "../../../utils/mutations";
 import { useMutation } from "@apollo/react-hooks";
-import Auth from "../../utils/auth";
+import Auth from "../../../utils/auth";
 
 function Login() {
   const [userInfo, setUserInfo] = useState({ username: "", password: "" });
