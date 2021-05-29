@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from "react";
-
 import { Form, Input, Modal } from "antd";
+import Tags from "../Tags";
 
 const useResetFormOnCloseModal = ({ form, visible }) => {
 	const prevVisibleRef = useRef();
@@ -38,6 +38,9 @@ const RoomForm = ({ visible, onCancel }) => {
 						},
 					]}>
 					<Input />
+				</Form.Item>
+				<Form.Item>
+					<Tags />
 				</Form.Item>
 			</Form>
 		</Modal>
