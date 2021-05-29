@@ -22,10 +22,7 @@ export default function Index() {
 					if (name === "roomForm") {
 						let result = {};
 						result.name = values.roomName;
-						result.categories = values.tag;
-
-						console.log(values);
-						console.log(result);
+						result.categories = values.tags;
 						setVisible(false);
 					}
 				}}>

@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import { Form, Input, Modal } from "antd";
-import Tags from "../Tags";
+import ReactTagInput from "@pathofdev/react-tag-input";
+import "@pathofdev/react-tag-input/build/index.css";
 
 const useResetFormOnCloseModal = ({ form, visible }) => {
 	const prevVisibleRef = useRef();
@@ -15,7 +16,8 @@ const useResetFormOnCloseModal = ({ form, visible }) => {
 	}, [visible]);
 };
 
-const RoomForm = ({ visible, onCancel, tag }) => {
+const RoomForm = ({ visible, onCancel }) => {
+	const [tags, setTags] = React.useState([]);
 	const [form] = Form.useForm();
 	useResetFormOnCloseModal({
 		form,
@@ -39,8 +41,14 @@ const RoomForm = ({ visible, onCancel, tag }) => {
 					]}>
 					<Input />
 				</Form.Item>
-				<Form.Item label="Category">
-					<Tags />
+				<Form.Item name="tags" label="Category">
+					<ReactTagInput
+						tags={tags}
+						placeholder="Type and press enter"
+						editable={true}
+						removeOnBackspace={true}
+						onChange={(newTags) => setTags(newTags)}
+					/>
 				</Form.Item>
 			</Form>
 		</Modal>
