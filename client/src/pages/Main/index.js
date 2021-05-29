@@ -15,15 +15,17 @@ export default function Index() {
 		setVisible(false);
 	};
 
-	const onFinish = (values) => {
-		console.log("Finish:", values);
-	};
 	return (
 		<>
 			<Form.Provider
 				onFormFinish={(name, { values }) => {
 					if (name === "roomForm") {
+						let result = {};
+						result.name = values.roomName;
+						result.categories = values.tag;
+
 						console.log(values);
+						console.log(result);
 						setVisible(false);
 					}
 				}}>

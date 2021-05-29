@@ -15,7 +15,7 @@ const useResetFormOnCloseModal = ({ form, visible }) => {
 	}, [visible]);
 };
 
-const RoomForm = ({ visible, onCancel }) => {
+const RoomForm = ({ visible, onCancel, tag }) => {
 	const [form] = Form.useForm();
 	useResetFormOnCloseModal({
 		form,
@@ -39,7 +39,7 @@ const RoomForm = ({ visible, onCancel }) => {
 					]}>
 					<Input />
 				</Form.Item>
-				<Form.Item>
+				<Form.Item label="Category">
 					<Tags />
 				</Form.Item>
 			</Form>

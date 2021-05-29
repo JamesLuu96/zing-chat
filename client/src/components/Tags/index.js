@@ -13,7 +13,6 @@ class Tags extends React.Component {
 
 	handleClose = (removedTag) => {
 		const tags = this.state.tags.filter((tag) => tag !== removedTag);
-		console.log(tags);
 		this.setState({ tags });
 	};
 
@@ -31,7 +30,6 @@ class Tags extends React.Component {
 		if (inputValue && tags.indexOf(inputValue) === -1) {
 			tags = [...tags, inputValue];
 		}
-		console.log(tags);
 		this.setState({
 			tags,
 			inputVisible: false,
@@ -134,6 +132,9 @@ class Tags extends React.Component {
 						<PlusOutlined /> Category
 					</Tag>
 				)}
+				{tags.map((tag, i) => {
+					return <Tag key={i} tag={tag} />;
+				})}
 			</>
 		);
 	}

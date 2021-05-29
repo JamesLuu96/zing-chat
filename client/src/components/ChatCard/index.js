@@ -6,7 +6,6 @@ export default function ChatCard({ room }) {
 	const tag = room.category;
 
 	const user = room.users;
-	console.log(user);
 
 	return (
 		<Card title={room.title} extra={<Button href="#">Join &rarr;</Button>}>
