@@ -59,7 +59,7 @@ const RoomForm = ({ visible, onCancel }) => {
 				<Form.Item name="colors" label="Create your color scheme">
 					<Row>
 						<Col span={8}>
-							<ColorPicker />
+							<ColorPicker state={{ background: "#777" }} />
 						</Col>
 						<Col span={8}>
 							<ColorPicker />
