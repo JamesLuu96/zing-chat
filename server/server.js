@@ -2,7 +2,15 @@ const express = require("express");
 const { ApolloServer } = require("apollo-server-express");
 const path = require("path");
 const app = express();
-const {getUsers, getUsersByRoom, userConnected, userDisconnected} = require('./utils/sockets')
+const {
+  getUsers, 
+  getUsersByRoom, 
+  getUsersWithoutMe, 
+  changeRoom, 
+  userConnected, 
+  userDisconnected, 
+  checkIfAlreadyOnline
+} = require('./utils/sockets')
 
 const { typeDefs, resolvers } = require("./schemas");
 const { authMiddleware } = require("./utils/auth");
@@ -33,21 +41,23 @@ const http = require("http").createServer(app);
 const io = require("socket.io")(http, { cors: { origin: "*" } });
 
 io.on("connection", function (socket) {
-  socket.join('Lobby')
   console.log('someone connected')
-  let myUser;
-  socket.on('user is connecting', function(user){
-    myUser = userConnected(socket.id, user.username, user.room)
-    socket.emit('user is connecting', myUser)
-    socket.broadcast.to('Lobby').emit('user join', myUser)
+  const idToken = JSON.parse(socket.handshake.query.idToken) || undefined
+  const user = {id: idToken._id, username: idToken.username, room: "Lobby", roomName: "Lobby"}
+  if(checkIfAlreadyOnline(user.id)){
+    socket.emit('already logged in')
+    return
+  }
+  userConnected(user)
+  socket.join(user.roomName)
+  socket.on('populate users', ()=>{
+    socket.emit('receive users', getUsers())
   })
-  socket.on('join room', (room)=>{
-    myUser = {...myUser, room: room}
+  socket.broadcast.emit('user joining', user)
+  socket.on('join room', (room, roomName)=>{
+    changeRoom(user.id, room, roomName)
     socket.leaveAll
-    socket.join(room)
-  })
-  socket.on('get online users', ()=>{
-    socket.emit('get online users', getUsers())
+    socket.join(roomName)
   })
   socket.on('add room', room=>{
     io.to('Lobby').emit('add room')
@@ -56,7 +66,7 @@ io.on("connection", function (socket) {
     io.emit("receive message", message);
   });
   socket.on('disconnect', ()=>{
-    myUser && io.emit('user disconnect', myUser) && userDisconnected(myUser.username)
+    user && io.emit('user disconnecting', user.id) && userDisconnected(user.id)
     console.log('someone left...')
   })
 });

@@ -21,7 +21,7 @@ class Nav extends React.Component {
           <Menu.Item key="2">
             <>
               {Auth.loggedIn() ? (
-                <a href="/" onClick={() => Auth.logout()}>
+                <a to="/" onClick={() => Auth.logout()}>
                   Logout
                 </a>
               ) : null}

@@ -4,7 +4,7 @@ import { useMutation } from "@apollo/react-hooks";
 import Auth from "../../../utils/auth";
 import { ADD_USER } from "../../../utils/mutations";
 
-function Signup() {
+function Signup({setIdToken}) {
   const [userInfo, setUserInfo] = useState({ username: "", password: "" });
   const [addUser] = useMutation(ADD_USER);
 
@@ -18,7 +18,7 @@ function Signup() {
         },
       });
       const token = mutationResponse.data.addUser.token;
-      Auth.login(token);
+      setIdToken(token)
     } catch (e) {
       console.log(e);
     }

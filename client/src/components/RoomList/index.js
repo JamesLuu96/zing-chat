@@ -14,9 +14,7 @@ export default function RoomList() {
   const {data, loading} = useQuery(QUERY_ROOMS)
 
   useEffect(()=>{
-    socket.on('add room', room => {
-      setRooms(old=>[...old, room])
-    })
+   
   }, [])
 
   useEffect(()=>{

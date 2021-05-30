@@ -1,4 +1,5 @@
-import React, {useState} from "react";
+import React from "react";
+import useLocalStorage from './hooks/useLocalStorage';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import Nav from "./components/Nav";
@@ -11,6 +12,8 @@ import Authentication from "./pages/Authentication";
 import { StoreProvider } from "./utils/GlobalState";
 import Chat from "./components/Chat";
 import NoMatch from "./pages/Authentication/NoMatch"
+
+
 const client = new ApolloClient({
   request: (operation) => {
     const token = localStorage.getItem("id_token");
@@ -23,16 +26,19 @@ const client = new ApolloClient({
   uri: "/graphql",
 });
 
+
+
 export default function App() {
-  return (
+  const [idToken, setIdToken] = useLocalStorage('id_token')
+  
+  const dashboard = (
     <ApolloProvider client={client}>
       <Router>
-        <Socket>
+        <Socket idToken={idToken}>
           <StoreProvider>
             <Nav />
             <Switch>
               <Route exact path="/" component={Main} />
-              <Route exact path="/login" component={Authentication} />
               <Route exact path="/room/:id" component={Chat} />
               <Route component={NoMatch} />
             </Switch>
@@ -40,5 +46,8 @@ export default function App() {
         </Socket>
       </Router>
     </ApolloProvider>
+  )
+  return (
+    idToken ? dashboard : <ApolloProvider client={client}><Authentication setIdToken={setIdToken}/></ApolloProvider>
   );
 }

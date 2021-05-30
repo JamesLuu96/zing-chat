@@ -6,6 +6,8 @@ import { PlusOutlined } from "@ant-design/icons";
 export default function UserCard({ user }) {
   
   return (
+    <>
+    {user.roomName}
     <List.Item>
       <List.Item.Meta
         avatar={<Avatar name={user.username} size="24" round={true} />}
@@ -13,5 +15,6 @@ export default function UserCard({ user }) {
       />
       <Button icon={<PlusOutlined />} />
     </List.Item>
+    </>
   );
 }

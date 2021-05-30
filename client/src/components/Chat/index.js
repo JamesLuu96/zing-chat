@@ -1,18 +1,23 @@
 import React, { useState, useEffect } from "react";
 import {useSocket} from '../Socket'
+import {useLocation} from 'react-router-dom'
 
 const name = "James"
 
 function Chat() {
+  const location = useLocation()
+  const {roomName, roomId} = location.state
   const socket = useSocket()
   const [msg, setMsg] = useState("");
   const [chat, setChat] = useState([]);
   useEffect(() => {
-    
-    socket.on("receive message", (message) => {
-      setChat((old) => [...old, message]);
-    });
-  }, []);
+    if(socket){
+      socket.emit('join room', roomId, roomName)
+      socket.on("receive message", (message) => {
+        setChat((old) => [...old, message]);
+      });
+    }
+  }, [socket]);
   function submitForm(e) {
     e.preventDefault();
     socket.emit("send message", `${name}: ${msg}`);

@@ -3,7 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 export default function RoomCard({ room }) {
   return (
-    <Link to={`/room/${room._id}`}>
+    <Link to={{pathname: `/room/${room._id}`, state: {roomName: room.roomName, roomId: room._id} }}>
       <Card>
         <List.Item key={room._id}>
           <List.Item.Meta
