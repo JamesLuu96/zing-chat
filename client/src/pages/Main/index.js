@@ -20,10 +20,12 @@ export default function Index() {
 			<Form.Provider
 				onFormFinish={(name, { values }) => {
 					if (name === "roomForm") {
-						let result = {};
-						result.name = values.roomName;
-						result.categories = values.tags;
+						let roomList = [];
+						roomList.title = values.roomName.toString();
+						roomList.category = values.tags;
+						roomList.users = "Test";
 						setVisible(false);
+						console.log(roomList);
 					}
 				}}>
 				<Button

@@ -1,7 +1,8 @@
 import React, { useRef, useEffect } from "react";
-import { Form, Input, Modal } from "antd";
+import { Form, Input, Modal, Row, Col } from "antd";
 import ReactTagInput from "@pathofdev/react-tag-input";
 import "@pathofdev/react-tag-input/build/index.css";
+import ColorPicker from "../ColorPicker";
 
 const useResetFormOnCloseModal = ({ form, visible }) => {
 	const prevVisibleRef = useRef();
@@ -29,7 +30,12 @@ const RoomForm = ({ visible, onCancel }) => {
 	};
 
 	return (
-		<Modal title="New Room" visible={visible} onOk={onOk} onCancel={onCancel}>
+		<Modal
+			title="New Room"
+			width={800}
+			visible={visible}
+			onOk={onOk}
+			onCancel={onCancel}>
 			<Form form={form} layout="vertical" name="roomForm">
 				<Form.Item
 					name="roomName"
@@ -49,6 +55,19 @@ const RoomForm = ({ visible, onCancel }) => {
 						removeOnBackspace={true}
 						onChange={(newTags) => setTags(newTags)}
 					/>
+				</Form.Item>
+				<Form.Item name="colors" label="Create your color scheme">
+					<Row>
+						<Col span={8}>
+							<ColorPicker />
+						</Col>
+						<Col span={8}>
+							<ColorPicker />
+						</Col>
+						<Col span={8}>
+							<ColorPicker />
+						</Col>
+					</Row>
 				</Form.Item>
 			</Form>
 		</Modal>

@@ -3,9 +3,8 @@ import Avatar from "react-avatar";
 import { Card, Col, Row, Tag, Button } from "antd";
 
 export default function ChatCard({ room }) {
-	const tag = room.category;
-
 	const user = room.users;
+	const tag = room.category;
 
 	return (
 		<Card title={room.title} extra={<Button href="#">Join &rarr;</Button>}>

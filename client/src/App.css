@@ -64,3 +64,12 @@ h4.ant-list-item-meta-title {
 	font-size: 18px;
 	margin: 0;
 }
+
+div.ant-col.ant-form-item-label label {
+	font-size: 16px;
+}
+
+div.ant-col.ant-form-item-label {
+	padding: 0;
+	margin-bottom: 4px;
+}

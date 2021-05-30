@@ -2,7 +2,7 @@ import React from "react";
 import { List } from "antd";
 import ChatCard from "../ChatCard";
 
-export default function ChatList() {
+export default function ChatList({ newRoom }) {
 	const data = [
 		{
 			title: "The biggest baddest room",
@@ -27,7 +27,6 @@ export default function ChatList() {
 			users: ["Bogdan Bryan", "Tom Hanks", "Marni Waller"],
 		},
 	];
-
 	return (
 		<>
 			<List
