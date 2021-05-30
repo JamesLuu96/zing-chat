@@ -24,7 +24,9 @@ class ColorPicker extends React.Component {
 	render() {
 		return (
 			<BlockPicker
-				width="90%"
+				className="color-picker"
+				border=""
+				width="100%"
 				triangle="hide"
 				colors={[
 					"#D9E3F0",
@@ -39,9 +41,6 @@ class ColorPicker extends React.Component {
 					"#D9E3F0",
 					"#F47373",
 					"#697689",
-					"#37D67A",
-					"#2CCCE4",
-					"#555555",
 				]}
 				color={this.state.background}
 				onChange={this.handleChange}

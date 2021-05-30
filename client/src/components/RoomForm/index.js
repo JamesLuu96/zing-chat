@@ -31,15 +31,16 @@ const RoomForm = ({ visible, onCancel }) => {
 
 	return (
 		<Modal
-			title="New Room"
+			title="Create a new room"
 			width={800}
 			visible={visible}
 			onOk={onOk}
 			onCancel={onCancel}>
-			<Form form={form} layout="vertical" name="roomForm">
+			<Form layout="vertical" form={form} name="roomForm">
 				<Form.Item
+					requiredMark={"optional"}
 					name="roomName"
-					label="Room Name"
+					label="Room name"
 					rules={[
 						{
 							required: true,
@@ -47,24 +48,24 @@ const RoomForm = ({ visible, onCancel }) => {
 					]}>
 					<Input />
 				</Form.Item>
-				<Form.Item name="tags" label="Category">
+				<Form.Item name="tags" label="Tags">
 					<ReactTagInput
 						tags={tags}
-						placeholder="Type and press enter"
+						placeholder="Add tags..."
 						editable={true}
 						removeOnBackspace={true}
 						onChange={(newTags) => setTags(newTags)}
 					/>
 				</Form.Item>
-				<Form.Item name="colors" label="Create your color scheme">
+				<Form.Item name="colors" label="Color scheme">
 					<Row>
-						<Col span={8}>
-							<ColorPicker state={{ background: "#777" }} />
-						</Col>
-						<Col span={8}>
+						<Col className="color-col" span={8}>
 							<ColorPicker />
 						</Col>
-						<Col span={8}>
+						<Col className="color-col" span={8}>
+							<ColorPicker />
+						</Col>
+						<Col className="color-col" span={8}>
 							<ColorPicker />
 						</Col>
 					</Row>

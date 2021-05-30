@@ -61,15 +61,35 @@ span.ant-tag {
 }
 
 h4.ant-list-item-meta-title {
-	font-size: 18px;
+	font-size: 1px;
 	margin: 0;
 }
 
 div.ant-col.ant-form-item-label label {
-	font-size: 16px;
+	font-size: 18px;
+}
+
+div.ant-row.ant-form-item {
+	margin-bottom: 32px;
 }
 
 div.ant-col.ant-form-item-label {
 	padding: 0;
 	margin-bottom: 4px;
+}
+
+.block-picker {
+	box-shadow: none !important;
+}
+
+.color-col {
+	width: 100%;
+	padding: 4px 16px;
+}
+
+.color-col div {
+	text-align: center;
+	width: 100%;
+	padding: 0;
+	margin: 0 auto;
 }
