@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import ChatList from "../../components/ChatList";
 import UserList from "../../components/UserList";
 import RoomForm from "../../components/RoomForm";
-import { Row, Col, Button, Form } from "antd";
+import { Row, Col } from "antd";
+import Auth from "../../utils/auth";
+import { Link, Redirect } from "react-router-dom";
 
 export default function Index() {
-	const [visible, setVisible] = useState(false);
-
 	const showRoomModal = () => {
 		setVisible(true);
 	};
@@ -14,9 +14,11 @@ export default function Index() {
 	const hideRoomModal = () => {
 		setVisible(false);
 	};
-
+ 
 	return (
-		<>
+		<div>
+    {Auth.loggedIn() ? (
+      <>
 			<Form.Provider
 				onFormFinish={(name, { values }) => {
 					if (name === "roomForm") {
@@ -36,8 +38,7 @@ export default function Index() {
 					onClick={showRoomModal}>
 					Create room
 				</Button>
-
-				<RoomForm visible={visible} onCancel={hideRoomModal} />
+        <RoomForm visible={visible} onCancel={hideRoomModal} />
 			</Form.Provider>
 			<Row>
 				<Col id="room-list" flex="4">
@@ -47,6 +48,10 @@ export default function Index() {
 					<UserList />
 				</Col>
 			</Row>
-		</>
+      </>
+    ) : (
+      <Redirect to="/login" />
+    )}
+		</div>
 	);
 }

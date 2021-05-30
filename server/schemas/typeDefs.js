@@ -1,5 +1,4 @@
 const { gql } = require("apollo-server-express");
-
 const typeDefs = gql`
   type Chat {
     _id: ID
@@ -15,7 +14,7 @@ const typeDefs = gql`
     friends: [User]
     createdAt: String
   }
-  
+
   type Room {
     _id: ID
     roomName: String
