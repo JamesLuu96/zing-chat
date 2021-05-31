@@ -9,7 +9,6 @@ import Socket from "./components/Socket"
 import { ApolloProvider } from "@apollo/react-hooks";
 import ApolloClient from "apollo-boost";
 import Authentication from "./pages/Authentication";
-import { StoreProvider } from "./utils/GlobalState";
 import Chat from "./components/Chat";
 import NoMatch from "./pages/Authentication/NoMatch"
 import Error from "./components/Error"
@@ -31,12 +30,11 @@ const client = new ApolloClient({
 
 export default function App() {
   const [idToken, setIdToken] = useLocalStorage('id_token')
-  
+  console.log(idToken)
   const dashboard = (
     <ApolloProvider client={client}>
       <Router>
         <Socket idToken={idToken}>
-          <StoreProvider>
             <Nav />
             <Switch>
               <Route exact path="/error" component={Error} />
@@ -44,7 +42,6 @@ export default function App() {
               <Route exact path="/room/:id" component={Chat} />
               <Route component={NoMatch} />
             </Switch>
-          </StoreProvider>
         </Socket>
       </Router>
     </ApolloProvider>

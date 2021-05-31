@@ -35,15 +35,7 @@ if (process.env.NODE_ENV === "production") {
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/build/index.html"));
 });
-const http = require('http').createServer(app)
-const io = require('socket.io')(http, { cors: {origin:'*'}})
 
-
-io.on('connection', function(socket){
-  socket.on("send message", function(message){
-    io.emit("receive message", message)
-  })
-})
 
 const http = require("http").createServer(app);
 const io = require("socket.io")(http, { cors: { origin: "*" } });
