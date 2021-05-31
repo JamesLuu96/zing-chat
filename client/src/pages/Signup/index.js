@@ -1,56 +1,111 @@
-import React, { useState } from "react";
+import React from "react";
+import { Form, Input, Row, Button, Upload } from "antd";
+import { UploadOutlined, UserOutlined } from "@ant-design/icons";
 
-import { useMutation } from "@apollo/react-hooks";
-import Auth from "../../utils/auth";
-import { ADD_USER } from "../../utils/mutations";
-import { Link, Redirect } from "react-router-dom";
+export default function Signup() {
+	const [form] = Form.useForm();
 
-function Signup() {
-  const [userInfo, setUserInfo] = useState({ username: "", password: "" });
-  const [addUser] = useMutation(ADD_USER);
+	const normFile = (e) => {
+		console.log("Upload event:", e);
 
-  const handleFormSubmit = async (e) => {
-    e.preventDefault();
-    const mutationResponse = await addUser({
-      variables: {
-        username: userInfo.username,
-        password: userInfo.password,
-      },
-    });
-    const token = mutationResponse.data.addUser.token;
-    Auth.login(token);
-  };
+		if (Array.isArray(e)) {
+			return e;
+		}
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setUserInfo({
-      ...userInfo,
-      [name]: value,
-    });
-  };
+		return e && e.fileList;
+	};
 
-  return (
-    <div className="container my-1">
-      <h2>Signup</h2>
-      <form onSubmit={handleFormSubmit}>
-        <input
-          placeholder="username"
-          name="username"
-          value={userInfo.username}
-          onChange={handleChange}
-        />
+	const onFinish = async (values) => {
+		const formData = new FormData();
+		for (const name in values) {
+			formData.append(name, values[name]); // there should be values.avatar which is a File object
+		}
+		console.log("Received values of form: ", values);
+	};
 
-        <input
-          placeholder="password"
-          name="password"
-          value={userInfo.password}
-          onChange={handleChange}
-        />
+	return (
+		<Row type="flex" justify="center">
+			<Form
+				className="signup-form"
+				style={{ width: "30%" }}
+				form={form}
+				size="large"
+				layout="vertical"
+				name="signup"
+				onFinish={onFinish}
+				scrollToFirstError>
+				<Form.Item
+					name="username"
+					label="Username"
+					tooltip="This will be displayed to other users in chat rooms"
+					rules={[
+						{
+							required: true,
+							message: "Please add a username",
+							whitespace: true,
+						},
+					]}>
+					<Input
+						prefix={<UserOutlined className="site-form-item-icon" />}
+						placeholder="Username"
+					/>{" "}
+				</Form.Item>
+				<Form.Item
+					name="password"
+					label="Password"
+					rules={[
+						{
+							required: true,
+							message: "Please input your password!",
+						},
+					]}
+					hasFeedback>
+					<Input.Password type="password" placeholder="Password" />{" "}
+				</Form.Item>
 
-        <button type="submit">Signup</button>
-      </form>
-    </div>
-  );
+				<Form.Item
+					name="confirm"
+					label="Confirm Password"
+					dependencies={["password"]}
+					hasFeedback
+					rules={[
+						{
+							required: true,
+							message: "Please confirm your password!",
+						},
+						({ getFieldValue }) => ({
+							validator(_, value) {
+								if (!value || getFieldValue("password") === value) {
+									return Promise.resolve();
+								}
+
+								return Promise.reject(
+									new Error("The two passwords that you entered do not match!")
+								);
+							},
+						}),
+					]}>
+					<Input.Password type="password" placeholder="Password" />
+				</Form.Item>
+				<Form.Item
+					name="upload"
+					valuePropName="fileList"
+					getValueFromEvent={normFile}>
+					<Upload
+						maxCount={1}
+						name="avatar"
+						action="/upload.do"
+						listType="picture">
+						<Button icon={<UploadOutlined />}>Upload avatar</Button>
+					</Upload>
+				</Form.Item>
+
+				<Form.Item>
+					<Button type="primary" size="large" htmlType="submit" block>
+						Start chatting
+					</Button>
+				</Form.Item>
+			</Form>
+		</Row>
+	);
 }
-
-export default Signup;

@@ -65,7 +65,7 @@ const RoomForm = ({
 				</Form.Item>
 				<Row>
 					<Col className="color-col" span={8}>
-						<Form.Item name="primary" label="Color scheme">
+						<Form.Item value={color} name="primary" label="Color scheme">
 							<ColorPicker
 								color={color}
 								onChange={handleChange}

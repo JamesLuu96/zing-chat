@@ -1,6 +1,6 @@
 import React from "react";
-import Avatar from "react-avatar";
-import { Card, Col, Row, Tag, Button } from "antd";
+// import Avatar from "react-avatar";
+import { Card, Col, Row, Tag, Button, Avatar } from "antd";
 
 export default function ChatCard({ room }) {
 	const user = room.users;
@@ -21,12 +21,14 @@ export default function ChatCard({ room }) {
 				<Col>
 					{user.map((user, i) => {
 						return (
-							<Avatar
-								className="avatar-round"
-								size="32"
-								round={true}
-								name={user}
-							/>
+							<Avatar.Group maxCount={2}>
+								<Avatar
+									className="avatar-round"
+									size="32"
+									round={true}
+									name={user}
+								/>
+							</Avatar.Group>
 						);
 					})}
 				</Col>
