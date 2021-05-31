@@ -1,9 +1,14 @@
 import React from "react";
 import { Form, Input, Row, Button, Upload } from "antd";
-import { UploadOutlined, UserOutlined } from "@ant-design/icons";
+import { UploadOutlined } from "@ant-design/icons";
+import { useMutation } from "@apollo/react-hooks";
+import Auth from "../../../utils/auth";
+import { ADD_USER } from "../../../utils/mutations";
 
-export default function Signup() {
+export default function Signup({ setIdToken }) {
 	const [form] = Form.useForm();
+
+	const [addUser] = useMutation(ADD_USER);
 
 	const normFile = (e) => {
 		console.log("Upload event:", e);
@@ -16,9 +21,18 @@ export default function Signup() {
 	};
 
 	const onFinish = async (values) => {
-		const formData = new FormData();
-		for (const name in values) {
-			formData.append(name, values[name]); // there should be values.avatar which is a File object
+		const { username, password, upload } = values;
+		try {
+			const mutationResponse = await addUser({
+				variables: {
+					username,
+					password,
+				},
+			});
+			const token = mutationResponse.data.addUser.token;
+			setIdToken(token);
+		} catch (e) {
+			console.log(e);
 		}
 		console.log("Received values of form: ", values);
 	};
@@ -45,10 +59,7 @@ export default function Signup() {
 							whitespace: true,
 						},
 					]}>
-					<Input
-						prefix={<UserOutlined className="site-form-item-icon" />}
-						placeholder="Username"
-					/>{" "}
+					<Input placeholder="Username" />
 				</Form.Item>
 				<Form.Item
 					name="password"
@@ -60,7 +71,7 @@ export default function Signup() {
 						},
 					]}
 					hasFeedback>
-					<Input.Password type="password" placeholder="Password" />{" "}
+					<Input.Password type="password" placeholder="Password" />
 				</Form.Item>
 
 				<Form.Item

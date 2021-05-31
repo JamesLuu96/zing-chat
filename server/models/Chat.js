@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const dateFormat = require('../utils/dateFormat')
+const dateFormat = require("../utils/dateFormat");
 
 const { Schema } = mongoose;
 
@@ -14,10 +14,10 @@ const chatSchema = new Schema({
   createdAt: {
     type: Date,
     default: Date.now,
-    get: timestamp => dateFormat(timestamp)
-  }
+    get: (timestamp) => dateFormat(timestamp),
+  },
 });
 
 const Chat = mongoose.model("Chat", chatSchema);
 
-module.exports = {Chat, chatSchema};
+module.exports = { Chat, chatSchema };

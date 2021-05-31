@@ -1,8 +1,25 @@
 import { Form, Input, Button, Row } from "antd";
 import { UserOutlined } from "@ant-design/icons";
+import { useMutation } from "@apollo/react-hooks";
+import { LOGIN } from "../../../utils/mutations";
 
-export default function Login() {
-	const onFinish = (values) => {
+export default function Login({ setIdToken }) {
+	const [login, { error }] = useMutation(LOGIN);
+	const onFinish = async (values) => {
+		const { username, password } = values;
+		try {
+			const response = await login({
+				variables: {
+					username,
+					password,
+				},
+			});
+			const token = response.data.login.token;
+			setIdToken(token);
+		} catch (error) {
+			console.log(error);
+		}
+
 		console.log("Received values of form: ", values);
 	};
 

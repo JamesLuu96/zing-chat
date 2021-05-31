@@ -1,19 +1,19 @@
 import React from "react";
 
 import { Tabs } from "antd";
-import Login from "../Login";
-import Signup from "../Signup";
+import Login from "./Login";
+import Signup from "./Signup";
 
 const { TabPane } = Tabs;
 
-const Authentication = () => (
+const Authentication = ({ setIdToken }) => (
 	<div className="tab-container" breakpoint="xs">
 		<Tabs defaultActiveKey="1" className="form-tab" centered>
 			<TabPane tab="Login" key="1">
-				<Login />
+				<Login setIdToken={setIdToken} />
 			</TabPane>
 			<TabPane tab="Sign up" key="2">
-				<Signup />
+				<Signup setIdToken={setIdToken} />
 			</TabPane>
 		</Tabs>
 	</div>

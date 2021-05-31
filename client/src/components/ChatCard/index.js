@@ -1,5 +1,5 @@
 import React from "react";
-// import Avatar from "react-avatar";
+import AvatarContact from "react-avatar";
 import { Card, Col, Row, Tag, Button, Avatar } from "antd";
 
 export default function ChatCard({ room }) {
@@ -19,18 +19,20 @@ export default function ChatCard({ room }) {
 					})}
 				</Col>
 				<Col>
+				<Avatar.Group
+					maxCount={5}>
 					{user.map((user, i) => {
 						return (
-							<Avatar.Group maxCount={2}>
-								<Avatar
+								<AvatarContact
+									key={i}
 									className="avatar-round"
 									size="32"
 									round={true}
 									name={user}
 								/>
-							</Avatar.Group>
-						);
-					})}
+								)
+							})}
+					</Avatar.Group>
 				</Col>
 			</Row>
 		</Card>
