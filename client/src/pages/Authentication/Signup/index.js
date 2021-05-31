@@ -1,24 +1,27 @@
 import React, { useState } from "react";
 
 import { useMutation } from "@apollo/react-hooks";
-import Auth from "../../utils/auth";
-import { ADD_USER } from "../../utils/mutations";
-import { Link, Redirect } from "react-router-dom";
+import Auth from "../../../utils/auth";
+import { ADD_USER } from "../../../utils/mutations";
 
-function Signup() {
+function Signup({setIdToken}) {
   const [userInfo, setUserInfo] = useState({ username: "", password: "" });
   const [addUser] = useMutation(ADD_USER);
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    const mutationResponse = await addUser({
-      variables: {
-        username: userInfo.username,
-        password: userInfo.password,
-      },
-    });
-    const token = mutationResponse.data.addUser.token;
-    Auth.login(token);
+    try {
+      const mutationResponse = await addUser({
+        variables: {
+          username: userInfo.username,
+          password: userInfo.password,
+        },
+      });
+      const token = mutationResponse.data.addUser.token;
+      setIdToken(token)
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const handleChange = (event) => {

@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { LOGIN } from "../../utils/mutations";
+import { LOGIN } from "../../../utils/mutations";
 import { useMutation } from "@apollo/react-hooks";
-import Auth from "../../utils/auth";
-function Login() {
+import Auth from "../../../utils/auth";
+
+function Login({setIdToken}) {
   const [userInfo, setUserInfo] = useState({ username: "", password: "" });
   const [login, { error }] = useMutation(LOGIN);
 
@@ -20,7 +21,7 @@ function Login() {
         variables: { username: userInfo.username, password: userInfo.password },
       });
       const token = response.data.login.token;
-      Auth.login(token);
+      setIdToken(token)
     } catch (error) {
       console.log(error);
     }
