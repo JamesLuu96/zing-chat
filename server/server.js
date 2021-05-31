@@ -46,6 +46,7 @@ io.on("connection", function (socket) {
   const user = {id: idToken._id, username: idToken.username, room: "Lobby", roomName: "Lobby"}
   if(checkIfAlreadyOnline(user.id)){
     socket.emit('already logged in')
+    socket.disconnect()
     return
   }
   userConnected(user)
@@ -58,15 +59,16 @@ io.on("connection", function (socket) {
     changeRoom(user.id, room, roomName)
     socket.leaveAll
     socket.join(roomName)
+    io.emit('receive users', getUsers())
   })
   socket.on('add room', room=>{
     io.to('Lobby').emit('add room')
   })
   socket.on("send message", function (message) {
-    io.emit("receive message", message);
+    io.emit("receive message", `${user.username}: ${message}`);
   });
   socket.on('disconnect', ()=>{
-    user && io.emit('user disconnecting', user.id) && userDisconnected(user.id)
+    user && socket.broadcast.emit('user disconnecting', user.id) && userDisconnected(user.id)
     console.log('someone left...')
   })
 });

@@ -12,6 +12,7 @@ import Authentication from "./pages/Authentication";
 import { StoreProvider } from "./utils/GlobalState";
 import Chat from "./components/Chat";
 import NoMatch from "./pages/Authentication/NoMatch"
+import Error from "./components/Error"
 
 
 const client = new ApolloClient({
@@ -38,6 +39,7 @@ export default function App() {
           <StoreProvider>
             <Nav />
             <Switch>
+              <Route exact path="/error" component={Error} />
               <Route exact path="/" component={Main} />
               <Route exact path="/room/:id" component={Chat} />
               <Route component={NoMatch} />

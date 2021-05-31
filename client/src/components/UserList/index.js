@@ -13,7 +13,6 @@ export default function UserList() {
   
   useEffect(() => {
     if(socket){
-
       if(!users.length){
         socket.emit('populate users')
       }
@@ -21,7 +20,7 @@ export default function UserList() {
       socket.emit('join room', "Lobby", "Lobby")
 
       socket.on('receive users', (socketUsers)=>{
-        setUsers(oldUsers=>[...oldUsers, ...socketUsers])
+        setUsers([...socketUsers])
       })
       socket.on('user joining', user=>{
         setUsers(oldUsers=>[...oldUsers, user])
