@@ -25,10 +25,15 @@ export const LOGIN = gql`
 `;
 
 export const ADD_ROOM = gql`
-  mutation addRoom($roomName: String!) {
-    addRoom(roomName: $roomName) {
+  mutation addRoom(
+    $title: String!
+    $colors: Object!
+    $tags: Array!
+    $access: Array!
+  ) {
+    addRoom(title: $title, colors: $colors, tags: $tags, access: $access) {
       _id
-      roomName
+      title
       username
     }
   }
@@ -36,9 +41,22 @@ export const ADD_ROOM = gql`
 
 export const ADD_CHAT = gql`
   mutation addChat($roomId: String!, $message: String!) {
-    addRoom(roomId: $roomId, message: $message) {
+    addChat(roomId: $roomId, message: $message) {
       _id
       roomName
+    }
+  }
+`;
+
+export const ADD_FRIEND = gql`
+  mutation addFriend($friendId: String!) {
+    addFriend(friendId: $friendId) {
+      _id
+      username
+      friends {
+        _id
+        username
+      }
     }
   }
 `;
