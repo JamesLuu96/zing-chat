@@ -1,5 +1,5 @@
 {
-  "name": "mern-shopping",
+  "name": "zing-chat",
   "version": "1.0.0",
   "description": "",
   "main": "server/server.js",
@@ -11,9 +11,11 @@
     "seed": "cd server && npm run seed",
     "heroku-postbuild": "cd client && npm run build"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "faker": "^5.5.3",
     "if-env": "^1.0.4"
   },
   "devDependencies": {

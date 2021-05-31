@@ -9,68 +9,42 @@ import { useStoreContext } from "../../utils/GlobalState";
 import { UPDATE_ROOMS, UPDATE_ROOM } from "../../utils/actions";
 
 export default function ChatList() {
-  const [addRoom, { error }] = useMutation(ADD_ROOM);
-  const { loading, data } = useQuery(QUERY_ROOMS);
+	const data = [
+		{
+			title: "The biggest baddest room",
+			category: ["dogs", "turtles", "cats", "fish"],
+			users: [
+				"Florence Kamp",
+				"Tom Hanks",
+				"Theia Wagner",
+				"John Wallace",
+				"Jennifer Ross",
+				"James Ramirez",
+			],
+		},
+		{
+			title: "Let's talk about vehicles",
+			category: ["cars", "trucks", "transportation", "wheels", "highways"],
+			users: ["Dorothy Graham", "Michael Taylor", "Tilly-Mae Bowen"],
+		},
+		{
+			title: "My personal room",
+			category: ["personal"],
+			users: ["Bogdan Bryan", "Tom Hanks", "Marni Waller"],
+		},
+	];
 
-  const [roomname, setRoom] = useState("");
-
-  const [state, dispatch] = useStoreContext();
-  const { rooms } = state;
-
-  //create room
-  const createRoomHandler = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await addRoom({ variables: { roomName: roomname } });
-      if (response) {
-        const {
-          data: { addRoom },
-        } = response;
-        console.log(response);
-        dispatch({
-          type: UPDATE_ROOM,
-          room: addRoom,
-        });
-        console.log(rooms);
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  //fetch rooms and set to rooms state
-  useEffect(() => {
-    if (data) {
-      dispatch({
-        type: UPDATE_ROOMS,
-        rooms: data.room,
-      });
-    } else if (!loading) {
-      console.log("error");
-    }
-  }, [loading, data, dispatch]);
-  console.log(rooms, "rooms");
-  return (
-    <>
-      <form onSubmit={createRoomHandler}>
-        <input value={roomname} onChange={(e) => setRoom(e.target.value)} />
-        <button type="submit">create</button>
-      </form>
-      <List
-        pagination={{
-          pageSize: 3,
-        }}
-      >
-        {rooms && rooms.length ? (
-          <div className="flex-row">
-            {rooms.map((room, i) => (
-              <ChatCard key={i} room={room} />
-            ))}
-          </div>
-        ) : (
-          []
-        )}
-      </List>
-    </>
-  );
+	return (
+		<>
+			<List
+				id="room-list"
+				pagination={{
+					pageSize: 3,
+				}}>
+				{data.map((room, i) => {
+					return <ChatCard key={i} room={room} />;
+				})}
+			</List>
+		</>
+	);
 }

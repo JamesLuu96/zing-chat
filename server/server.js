@@ -9,6 +9,11 @@ const db = require("./config/connection");
 
 const PORT = process.env.PORT || 4000;
 
+<<<<<<< HEAD
+=======
+const PORT = process.env.PORT || 4000;
+const app = express();
+>>>>>>> ac65faadb5b018c862a485a318078fc8fce88694
 const server = new ApolloServer({
   typeDefs,
   resolvers,
@@ -36,12 +41,23 @@ io.on("connection", function (socket) {
     io.emit("receive message", message);
   });
 });
+const http = require('http').createServer(app)
+const io = require('socket.io')(http, { cors: {origin:'*'}})
 
-// Serve up static assets
 
-db.once("open", () => {
+io.on('connection', function(socket){
+  socket.on("send message", function(message){
+    io.emit("receive message", message)
+  })
+})
+
+db.once('open', () => {
   http.listen(PORT, () => {
     console.log(`API server running on port ${PORT}!`);
     console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
   });
 });
+
+// http.listen(4000, function(){
+//   console.log('listening on port 4000')
+// })

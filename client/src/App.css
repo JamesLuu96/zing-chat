@@ -1,7 +1,66 @@
 @import "~antd/dist/antd.css";
+/* 
+general 
+-------
+*/
+body {
+	background-color: rgb(211, 222, 246);
+}
 
-.site-layout-content {
+/* 
+cards
+------
+*/
+#room-list {
+	padding: 1%;
+}
+
+#user-list {
 	height: 100vh;
+	background-color: white;
+}
+
+div.ant-card {
+	border-radius: 8px;
+	background-color: white;
+	padding: 8px;
+	margin: 12px;
+	box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.1);
+}
+
+div.ant-card-head {
+	margin: 0;
+	padding: 0 8px;
+}
+
+div.ant-card-head-title {
+	margin: 4px;
+	padding: 4px;
+	font-size: 24px;
+}
+
+div.ant-card-body {
+	padding: 12px 16px;
+}
+
+li.ant-list-item {
 	padding: 4%;
-	background: rgb(214, 224, 233);
+}
+#room-list h4.ant-list-item-meta-title {
+	font-size: 24px;
+}
+
+.avatar-round {
+	border: 2px solid white;
+	margin: 0 -6px;
+}
+
+span.ant-tag {
+	padding: 4px 8px;
+	font-size: 1rem;
+}
+
+h4.ant-list-item-meta-title {
+	font-size: 18px;
+	margin: 0;
 }
