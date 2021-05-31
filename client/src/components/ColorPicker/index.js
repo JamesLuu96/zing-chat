@@ -1,53 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { BlockPicker } from "react-color";
 
-function getRandomColor() {
-	var letters = "0123456789ABCDEF";
-	var color = "#";
-	for (var i = 0; i < 6; i++) {
-		color += letters[Math.floor(Math.random() * 16)];
-	}
-	return color;
-}
-
-class ColorPicker extends React.Component {
-	state = {
-		background: getRandomColor(),
+export default function ColorPicker() {
+	const [color, setColor] = useState("#333");
+	const handleChange = (color) => {
+		setColor(color.hex);
+		console.log(color);
 	};
-	handleChange(color, event) {
-		color = "";
-	}
-	handleChangeComplete = (color, event) => {
-		this.setState({ background: color });
+	const onComplete = (color) => {
+		setColor(color.hex);
+		console.log(color);
 	};
 
-	render() {
-		return (
-			<BlockPicker
-				className="color-picker"
-				border=""
-				width="100%"
-				triangle="hide"
-				colors={[
-					"#D9E3F0",
-					"#F47373",
-					"#697689",
-					"#37D67A",
-					"#2CCCE4",
-					"#555555",
-					"#dce775",
-					"#ff8a65",
-					"#ba68c8",
-					"#D9E3F0",
-					"#F47373",
-					"#697689",
-				]}
-				color={this.state.background}
-				onChange={this.handleChange}
-				onChangeComplete={this.handleChangeComplete}
-			/>
-		);
-	}
+	return (
+		<BlockPicker
+			color={color}
+			onChange={handleChange}
+			onChangeComplete={onComplete}
+		/>
+	);
 }
-
-export default ColorPicker;

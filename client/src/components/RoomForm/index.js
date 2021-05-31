@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { Form, Input, Modal, Row, Col } from "antd";
 import ReactTagInput from "@pathofdev/react-tag-input";
 import "@pathofdev/react-tag-input/build/index.css";
@@ -17,7 +17,7 @@ const useResetFormOnCloseModal = ({ form, visible }) => {
 	}, [visible]);
 };
 
-const RoomForm = ({ visible, onCancel }) => {
+const RoomForm = ({ visible, onCancel, handleChange, onComplete, color }) => {
 	const [tags, setTags] = React.useState([]);
 	const [form] = Form.useForm();
 	useResetFormOnCloseModal({
@@ -36,7 +36,13 @@ const RoomForm = ({ visible, onCancel }) => {
 			visible={visible}
 			onOk={onOk}
 			onCancel={onCancel}>
-			<Form layout="vertical" form={form} name="roomForm">
+			<Form
+				initialValues={{
+					data: { title: "", shortDescription: "", description: "", color: "" },
+				}}
+				layout="vertical"
+				form={form}
+				name="roomForm">
 				<Form.Item
 					requiredMark={"optional"}
 					name="roomName"
@@ -60,13 +66,25 @@ const RoomForm = ({ visible, onCancel }) => {
 				<Form.Item name="colors" label="Color scheme">
 					<Row>
 						<Col className="color-col" span={8}>
-							<ColorPicker />
+							<ColorPicker
+								color={color}
+								onChange={handleChange}
+								onChangeComplete={onComplete}
+							/>
 						</Col>
 						<Col className="color-col" span={8}>
-							<ColorPicker />
+							<ColorPicker
+								color={color}
+								onChange={handleChange}
+								onChangeComplete={onComplete}
+							/>
 						</Col>
 						<Col className="color-col" span={8}>
-							<ColorPicker />
+							<ColorPicker
+								color={color}
+								onChange={handleChange}
+								onChangeComplete={onComplete}
+							/>
 						</Col>
 					</Row>
 				</Form.Item>
