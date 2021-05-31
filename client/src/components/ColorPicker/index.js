@@ -14,6 +14,8 @@ export default function ColorPicker() {
 
 	return (
 		<BlockPicker
+			width="100"
+			triangle="hide"
 			color={color}
 			onChange={handleChange}
 			onChangeComplete={onComplete}

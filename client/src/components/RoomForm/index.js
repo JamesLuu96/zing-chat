@@ -1,55 +1,47 @@
-import React, { useRef, useEffect, useState } from "react";
-import { Form, Input, Modal, Row, Col } from "antd";
+import React from "react";
+import { Form, Input, Modal, Row, Col, Radio } from "antd";
 import ReactTagInput from "@pathofdev/react-tag-input";
 import "@pathofdev/react-tag-input/build/index.css";
 import ColorPicker from "../ColorPicker";
 
-const useResetFormOnCloseModal = ({ form, visible }) => {
-	const prevVisibleRef = useRef();
-	useEffect(() => {
-		prevVisibleRef.current = visible;
-	}, [visible]);
-	const prevVisible = prevVisibleRef.current;
-	useEffect(() => {
-		if (!visible && prevVisible) {
-			form.resetFields();
-		}
-	}, [visible]);
-};
-
-const RoomForm = ({ visible, onCancel, handleChange, onComplete, color }) => {
-	const [tags, setTags] = React.useState([]);
+const RoomForm = ({
+	visible,
+	onCreate,
+	onCancel,
+	handleChange,
+	onComplete,
+	color,
+}) => {
 	const [form] = Form.useForm();
-	useResetFormOnCloseModal({
-		form,
-		visible,
-	});
-
-	const onOk = () => {
-		form.submit();
-	};
+	const [tags, setTags] = React.useState([]);
 
 	return (
 		<Modal
-			title="Create a new room"
-			width={800}
+			width="800"
 			visible={visible}
-			onOk={onOk}
-			onCancel={onCancel}>
-			<Form
-				initialValues={{
-					data: { title: "", shortDescription: "", description: "", color: "" },
-				}}
-				layout="vertical"
-				form={form}
-				name="roomForm">
+			title="Create a new room"
+			okText="Create room"
+			cancelText="Cancel"
+			onCancel={onCancel}
+			onOk={() => {
+				form
+					.validateFields()
+					.then((values) => {
+						form.resetFields();
+						onCreate(values);
+					})
+					.catch((info) => {
+						console.log("Validate Failed:", info);
+					});
+			}}>
+			<Form form={form} layout="vertical" name="form_in_modal">
 				<Form.Item
-					requiredMark={"optional"}
-					name="roomName"
+					name="title"
 					label="Room name"
 					rules={[
 						{
 							required: true,
+							message: "Please enter a room name",
 						},
 					]}>
 					<Input />
@@ -63,31 +55,43 @@ const RoomForm = ({ visible, onCancel, handleChange, onComplete, color }) => {
 						onChange={(newTags) => setTags(newTags)}
 					/>
 				</Form.Item>
-				<Form.Item name="colors" label="Color scheme">
-					<Row>
-						<Col className="color-col" span={8}>
-							<ColorPicker
-								color={color}
-								onChange={handleChange}
-								onChangeComplete={onComplete}
-							/>
-						</Col>
-						<Col className="color-col" span={8}>
-							<ColorPicker
-								color={color}
-								onChange={handleChange}
-								onChangeComplete={onComplete}
-							/>
-						</Col>
-						<Col className="color-col" span={8}>
-							<ColorPicker
-								color={color}
-								onChange={handleChange}
-								onChangeComplete={onComplete}
-							/>
-						</Col>
-					</Row>
+				<Form.Item
+					name="access"
+					className="collection-create-form_last-form-item">
+					<Radio.Group>
+						<Radio value="public">Public</Radio>
+						<Radio value="private">Private</Radio>
+					</Radio.Group>
 				</Form.Item>
+				<Row>
+					<Col className="color-col" span={8}>
+						<Form.Item name="primary" label="Color scheme">
+							<ColorPicker
+								color={color}
+								onChange={handleChange}
+								onChangeComplete={onComplete}
+							/>
+						</Form.Item>
+					</Col>
+					<Col className="color-col" span={8}>
+						<Form.Item name="secondary" label="Color scheme">
+							<ColorPicker
+								color={color}
+								onChange={handleChange}
+								onChangeComplete={onComplete}
+							/>
+						</Form.Item>
+					</Col>
+					<Col className="color-col" span={8}>
+						<Form.Item name="tertiary" label="Color scheme">
+							<ColorPicker
+								color={color}
+								onChange={handleChange}
+								onChangeComplete={onComplete}
+							/>
+						</Form.Item>
+					</Col>
+				</Row>
 			</Form>
 		</Modal>
 	);

@@ -7,28 +7,10 @@ import Auth from "../../utils/auth";
 import { Link, Redirect } from "react-router-dom";
 
 export default function Index() {
-	const [roomInfo, setRoomInfo] = useState({
-		roomName: "",
-		username: "",
-		createdAt: "",
-	});
-
-	const onFormFinish = ({ values }) => {
-		setRoomInfo({
-			...roomInfo,
-			values,
-		});
-		setVisible(false);
-		console.log(roomInfo);
-	};
-
 	const [visible, setVisible] = useState(false);
 
-	const showRoomModal = () => {
-		setVisible(true);
-	};
-
-	const hideRoomModal = () => {
+	const onCreate = (values) => {
+		console.log("Received values of form: ", values);
 		setVisible(false);
 	};
 
@@ -36,17 +18,20 @@ export default function Index() {
 		<div>
 			{Auth.loggedIn() ? (
 				<>
-					<Form.Provider onFormFinish={onFormFinish}>
-						<Button
-							htmlType="button"
-							style={{
-								margin: "0 8px",
-							}}
-							onClick={showRoomModal}>
-							Create room
-						</Button>
-						<RoomForm visible={visible} onCancel={hideRoomModal} />
-					</Form.Provider>
+					<Button
+						type="primary"
+						onClick={() => {
+							setVisible(true);
+						}}>
+						Create room
+					</Button>
+					<RoomForm
+						visible={visible}
+						onCreate={onCreate}
+						onCancel={() => {
+							setVisible(false);
+						}}
+					/>
 					<Row>
 						<Col id="room-list" flex="4">
 							<ChatList />
