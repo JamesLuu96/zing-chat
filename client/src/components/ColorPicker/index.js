@@ -1,21 +1,20 @@
 import React, { useState } from "react";
 import { BlockPicker } from "react-color";
 
-export default function ColorPicker({ currentColor }) {
-  const [color, setColor] = useState("#333");
+export default function ColorPicker({ color, setColor, type }) {
+  const initialColor = color[type];
+  const handleChange = (e) => {
+    setColor({ ...color, [type]: e.hex });
+  };
+  const onComplete = (e) => {
+    setColor({ ...color, [type]: e.hex });
+  };
 
-  const handleChange = (color) => {
-    setColor(color.hex);
-  };
-  const onComplete = (color) => {
-    setColor(color.hex);
-  };
-  console.log(color, "color");
   return (
     <BlockPicker
       width="100"
       triangle="hide"
-      color={color}
+      color={initialColor}
       onChange={handleChange}
       onChangeComplete={onComplete}
     />

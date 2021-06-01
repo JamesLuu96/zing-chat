@@ -4,17 +4,14 @@ import ReactTagInput from "@pathofdev/react-tag-input";
 import "@pathofdev/react-tag-input/build/index.css";
 import ColorPicker from "../ColorPicker";
 
-const RoomForm = ({
-  visible,
-  onCreate,
-  onCancel,
-  handleChange,
-  onComplete,
-  color,
-}) => {
+const RoomForm = ({ visible, onCreate, onCancel }) => {
   const [form] = Form.useForm();
   const [tags, setTags] = useState([]);
-
+  const [color, setColor] = useState({
+    primary: "#333",
+    secondary: "#333",
+    tertiary: "#333",
+  });
   return (
     <Modal
       width="800"
@@ -28,7 +25,9 @@ const RoomForm = ({
           .validateFields()
           .then((values) => {
             form.resetFields();
-            onCreate(values);
+            onCreate({ ...values, ...color });
+            setColor({ primary: "#333", secondary: "#333", tertiary: "#333" });
+            setTags([]);
           })
           .catch((info) => {
             console.log("Validate Failed:", info);
@@ -37,7 +36,7 @@ const RoomForm = ({
     >
       <Form form={form} layout="vertical" name="form_in_modal">
         <Form.Item
-          name="title"
+          name="roomName"
           label="Room name"
           rules={[
             {
@@ -60,37 +59,36 @@ const RoomForm = ({
         <Form.Item
           name="privacy"
           className="collection-create-form_last-form-item"
+          rules={[{ required: true, message: "Please input your privacy!" }]}
         >
           <Radio.Group>
-            <Radio value="public">Public</Radio>
+            <Radio value="public" checked="true">
+              Public
+            </Radio>
             <Radio value="private">Private</Radio>
           </Radio.Group>
         </Form.Item>
         <Row>
           <Col className="color-col" span={8}>
-            {/* <Form.Item name="primary" label="Color scheme">
-              <ColorPicker
-                currentColor={color}
-                onChange={handleChange}
-                onChangeComplete={onComplete}
-              />
-            </Form.Item> */}
+            <Form.Item name="primary" label="Color scheme">
+              <ColorPicker color={color} setColor={setColor} type={"primary"} />
+            </Form.Item>
           </Col>
           <Col className="color-col" span={8}>
-            {/* <Form.Item name="secondary" label="Color scheme">
-              <ColorPicker
-                currentColor={color}
-                onChange={handleChange}
-                onChangeComplete={onComplete}
-              />
-            </Form.Item> */}
-          </Col>
-          <Col className="color-col" span={8}>
-            <Form.Item name="color" label="Color scheme">
+            <Form.Item name="secondary" label="Color scheme">
               <ColorPicker
                 color={color}
-                onChange={handleChange}
-                onChangeComplete={onComplete}
+                setColor={setColor}
+                type={"secondary"}
+              />
+            </Form.Item>
+          </Col>
+          <Col className="color-col" span={8}>
+            <Form.Item name="tertiary" label="Color scheme">
+              <ColorPicker
+                color={color}
+                setColor={setColor}
+                type={"tertiary"}
               />
             </Form.Item>
           </Col>

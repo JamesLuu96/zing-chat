@@ -58,6 +58,9 @@ export const QUERY_ROOMS = gql`
       _id
       roomName
       username
+      colors
+      tags
+      privacy
       roomChat {
         _id
         username

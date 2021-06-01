@@ -18,6 +18,18 @@ const roomSchema = new Schema({
   colors: {
     type: Array,
     required: true,
+    validate: {
+      validator: function (colors) {
+        const hex = /^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$/;
+        for (let i = 0; i < colors.length; i++) {
+          if (!hex.test(colors[i])) {
+            return false;
+          }
+        }
+        return true;
+      },
+      message: (colors) => `${colors.value} is not valid!!`,
+    },
   },
   username: {
     type: String,
