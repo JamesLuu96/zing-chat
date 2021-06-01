@@ -20,9 +20,7 @@ export default function RoomList() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    console.log("hello");
     if (data) {
-      console.log(data);
       setRooms((index) => [
         ...index,
         ...data.room.map((room) => {
@@ -95,13 +93,7 @@ export default function RoomList() {
         pagination={{
           pageSize: 5,
         }}
-        renderItem={(room, i) => (
-          <RoomCard
-            key={i}
-            room={{ ...room }}
-            setFilterString={setFilterString}
-          />
-        )}
+        renderItem={(room, i) => <RoomCard key={i} room={{ ...room }} />}
       ></List>
     </>
   );
