@@ -19,7 +19,7 @@ export default function RoomCard({ room, rooms, setRooms }) {
     try {
       const response = await deleteRoom({
         variables: {
-          _id: id,
+          _id: room._id,
         },
       });
       setRooms(rooms.filter((room) => room._id !== id));
