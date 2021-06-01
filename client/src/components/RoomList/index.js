@@ -32,6 +32,9 @@ export default function RoomList() {
       socket.on("add room", (room) => {
         setRooms((index) => [...index, { ...room, users: [] }]);
       });
+      socket.on("delete room", (room) => {
+        setRooms((index) => [...index.filter((old) => old._id !== room._id)]);
+      });
     }
   }, [data]);
 
@@ -95,6 +98,8 @@ export default function RoomList() {
         }}
         renderItem={(room, i) => (
           <RoomCard
+            visible={visible}
+            setVisible={setVisible}
             key={i}
             room={{ ...room }}
             rooms={rooms}

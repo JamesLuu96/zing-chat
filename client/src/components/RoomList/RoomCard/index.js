@@ -5,11 +5,11 @@ import { Link } from "react-router-dom";
 import { DeleteOutlined } from "@ant-design/icons";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import { DELETE_ROOM } from "../../../utils/mutations";
-
-export default function RoomCard({ room, rooms, setRooms }) {
+import { useSocket } from "../../Socket";
+export default function RoomCard({ room, visibile, setVisible }) {
   const { users, tags, roomName } = room;
   const [deleteRoom, { error }] = useMutation(DELETE_ROOM);
-
+  const socket = useSocket();
   const id = room._id;
 
   const deleteHandler = async (event) => {
@@ -22,8 +22,8 @@ export default function RoomCard({ room, rooms, setRooms }) {
           _id: room._id,
         },
       });
-      setRooms(rooms.filter((room) => room._id !== id));
-      console.log(response);
+
+      socket.emit("delete room", room);
     } catch (e) {
       console.log(error);
     }

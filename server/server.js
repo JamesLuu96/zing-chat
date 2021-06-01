@@ -73,6 +73,10 @@ io.on("connection", function (socket) {
     io.emit("add room", room);
   });
 
+  socket.on("delete room", (room) => {
+    io.emit("delete room", room);
+  });
+
   socket.on("send message", function (message) {
     io.to(user.room).emit("receive message", `${user.username}: ${message}`);
   });
