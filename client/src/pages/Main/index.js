@@ -12,20 +12,21 @@ export default function Index() {
   const [addRoom, { error }] = useMutation(ADD_ROOM);
   const onCreate = (values) => {
     console.log("Received values of form: ", values);
-    const { title, tags, access, primaryColor, secondaryColor, tertaryColor } =
-      values;
-    try {
-      const response = addRoom({
-        variables: {
-          title: "",
-          colors: "",
-          tags: [],
-          access: "",
-        },
-      });
-    } catch (e) {
-      console.log(e);
-    }
+    // primaryColor, secondaryColor, tertaryColor
+    const { title, tags, privacy, color } = values;
+    console.log(values);
+    // try {
+    //   const response = addRoom({
+    //     variables: {
+    //       title: "",
+    //       colors: "",
+    //       tags: [],
+    //       privacy: "",
+    //     },
+    //   });
+    // } catch (e) {
+    //   console.log(e);
+    // }
     setVisible(false);
   };
 

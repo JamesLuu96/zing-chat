@@ -41,7 +41,7 @@ const typeDefs = gql`
     addChat(roomId: String!, message: String!): Room
     addRoom(
       title: String!
-      colors: Object!
+      colors: [String]!
       tags: [String]!
       privacy: String!
     ): Room

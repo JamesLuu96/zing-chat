@@ -28,10 +28,10 @@ export const ADD_ROOM = gql`
   mutation addRoom(
     $title: String!
     $colors: Object!
-    $tags: Array!
-    $access: String!
+    $tags: [String]!
+    $privacy: String!
   ) {
-    addRoom(title: $title, colors: $colors, tags: $tags, access: $access) {
+    addRoom(title: $title, colors: $colors, tags: $tags, privacy: $privacy) {
       _id
       title
       username

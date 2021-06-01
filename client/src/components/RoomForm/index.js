@@ -58,7 +58,7 @@ const RoomForm = ({
           />
         </Form.Item>
         <Form.Item
-          name="access"
+          name="privacy"
           className="collection-create-form_last-form-item"
         >
           <Radio.Group>
@@ -68,27 +68,27 @@ const RoomForm = ({
         </Form.Item>
         <Row>
           <Col className="color-col" span={8}>
-            <Form.Item name="primary" label="Color scheme">
+            {/* <Form.Item name="primary" label="Color scheme">
               <ColorPicker
-                value={color}
+                currentColor={color}
                 onChange={handleChange}
                 onChangeComplete={onComplete}
               />
-            </Form.Item>
+            </Form.Item> */}
           </Col>
           <Col className="color-col" span={8}>
-            <Form.Item name="secondary" label="Color scheme">
+            {/* <Form.Item name="secondary" label="Color scheme">
               <ColorPicker
-                value={color}
+                currentColor={color}
                 onChange={handleChange}
                 onChangeComplete={onComplete}
               />
-            </Form.Item>
+            </Form.Item> */}
           </Col>
           <Col className="color-col" span={8}>
-            <Form.Item name="tertiary" label="Color scheme">
+            <Form.Item name="color" label="Color scheme">
               <ColorPicker
-                value={color}
+                color={color}
                 onChange={handleChange}
                 onChangeComplete={onComplete}
               />

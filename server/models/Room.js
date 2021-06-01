@@ -11,12 +11,12 @@ const roomSchema = new Schema({
   tags: {
     type: Array,
   },
-  access: {
+  privacy: {
     type: String,
     required: true,
   },
   colors: {
-    type: Object,
+    type: Array,
     required: true,
   },
   username: {
