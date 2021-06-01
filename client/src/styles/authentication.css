@@ -1,0 +1,19 @@
+
+.ant-tabs{
+    width:50%;
+    margin:0 auto;
+}
+
+.ant-page-header-heading-left{
+    margin: 5rem auto 0 auto;
+  
+}
+.ant-page-header-heading-title{
+    font-size:3rem; 
+    padding:2rem;
+    color:#1890ff;
+}
+.form-tab{
+    margin-top: 0 ;
+    
+}
