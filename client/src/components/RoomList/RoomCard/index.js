@@ -1,42 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Card, Avatar, Button, Col, Row, Tag } from "antd";
 import AvatarContact from "react-avatar";
 import { Link } from "react-router-dom";
 import { DeleteOutlined } from "@ant-design/icons";
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 import { DELETE_ROOM } from "../../../utils/mutations";
-export default function RoomCard({ room }) {
+
+export default function RoomCard({ room, rooms, setRooms }) {
   const { users, tags, roomName } = room;
   const [deleteRoom, { error }] = useMutation(DELETE_ROOM);
-  const id = room._id;
-  console.log(users);
-  const deleteHandler = async (e) => {
-    try {
-      const response = await deleteRoom({
-        variables: {
-          _id: id,
-        },
-      });
 
-      console.log(response);
-    } catch (e) {
-      console.log(e, "error");
-    }
-  };
+  const id = room._id;
 
   const deleteHandler = async (event) => {
     event.preventDefault();
+    event.stopPropagation();
+
     try {
       const response = await deleteRoom({
         variables: {
           _id: id,
         },
       });
-
+      setRooms(rooms.filter((room) => room._id !== id));
       console.log(response);
     } catch (e) {
-      console.log(e, "error");
+      console.log(error);
     }
+  };
+
+  const editHandler = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
   };
 
   return (
@@ -49,20 +44,18 @@ export default function RoomCard({ room }) {
             state: { roomName: room.roomName, roomId: id },
           }}
         >
-          {room.username ? (
-            <Button style={{ marginRight: "1rem" }} onClick={deleteHandler}>
-              Delete <DeleteOutlined />
-            </Button>
-          ) : null}
           <Button>Join &rarr;</Button>
+          {room.username ? (
+            <>
+              <Button style={{ marginRight: "1rem" }} onClick={deleteHandler}>
+                Delete <DeleteOutlined />
+              </Button>
+              <Button onClick={editHandler}>Edit</Button>
+            </>
+          ) : null}
         </Link>
       }
     >
-      {room.username ? (
-        <Button style={{ marginRight: "1rem" }} onClick={deleteHandler}>
-          Delete <DeleteOutlined />
-        </Button>
-      ) : null}
       <Row justify="space-between">
         <Col>
           {tags.map((tag, i) => {

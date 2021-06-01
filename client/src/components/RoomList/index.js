@@ -37,7 +37,7 @@ export default function RoomList() {
 
   const onCreate = async (values) => {
     const { roomName, tags, privacy, primary, secondary, tertiary } = values;
-    console.log(roomName, tags, privacy, primary, secondary, tertiary);
+    console.log(values);
     try {
       const response = await createRoom({
         variables: {
@@ -93,7 +93,14 @@ export default function RoomList() {
         pagination={{
           pageSize: 5,
         }}
-        renderItem={(room, i) => <RoomCard key={i} room={{ ...room }} />}
+        renderItem={(room, i) => (
+          <RoomCard
+            key={i}
+            room={{ ...room }}
+            rooms={rooms}
+            setRooms={setRooms}
+          />
+        )}
       ></List>
     </>
   );

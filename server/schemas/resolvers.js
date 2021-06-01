@@ -79,7 +79,8 @@ const resolvers = {
     deleteRoom: async (parent, args, context) => {
       console.log(args, "args");
       if (context.user) {
-        const room = await Room.findByIdAndRemove({ _id: args._id });
+        const room = await Room.findByIdAndDelete({ _id: args._id });
+        console.log(room, "room");
         return room;
       }
     },

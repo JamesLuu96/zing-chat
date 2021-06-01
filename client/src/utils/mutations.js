@@ -71,7 +71,7 @@ export const ADD_FRIEND = gql`
 export const DELETE_ROOM = gql`
   mutation deleteRoom($_id: String!) {
     deleteRoom(_id: $_id) {
-      room
+      _id
     }
   }
 `;
