@@ -38,6 +38,7 @@ export default function RoomList() {
   const socket = useSocket()
   const [rooms, setRooms] = useState(fakeRooms)
   const [roomName, setRoomName] = useState('')
+  const [filterString, setFilterString] = useState('')
   const [createRoom, { error }] = useMutation(ADD_ROOM);
   const {data, loading} = useQuery(QUERY_ROOMS)
 
@@ -71,13 +72,23 @@ export default function RoomList() {
 
   return (
     <>
+      <label>Filter by Tag: </label>
+      <input value={filterString} onChange={e=>setFilterString(e.target.value)}/>
       <form onSubmit={addRoom}>
           <input value={roomName} onChange={e=>setRoomName(e.target.value)} />
           <button type="submit">create</button>
       </form>
       <List
           id="room-list"
-          dataSource={rooms}
+          dataSource={filterString ? rooms.filter(room=>{
+            for(let i = 0; i < room.category.length; i++){
+              if(room.category[i].includes(filterString)){
+                return true
+              }
+            }
+            return false
+          }
+          ): rooms}
           pagination={{
             pageSize: 5,
           }}
