@@ -74,6 +74,7 @@ export default function RoomList() {
     <>
       <label>Filter by Tag: </label>
       <input value={filterString} onChange={e=>setFilterString(e.target.value)}/>
+      <button onClick={()=>setFilterString("")}>X</button>
       <form onSubmit={addRoom}>
           <input value={roomName} onChange={e=>setRoomName(e.target.value)} />
           <button type="submit">create</button>
@@ -82,7 +83,7 @@ export default function RoomList() {
           id="room-list"
           dataSource={filterString ? rooms.filter(room=>{
             for(let i = 0; i < room.category.length; i++){
-              if(room.category[i].includes(filterString)){
+              if(room.category[i].toLowerCase().includes(filterString.toLowerCase())){
                 return true
               }
             }
@@ -93,7 +94,7 @@ export default function RoomList() {
             pageSize: 5,
           }}
           renderItem={(room, i) => (
-            <RoomCard key={i} room={{...room}} />
+            <RoomCard key={i} room={{...room}} setFilterString={setFilterString} />
           )}>
       </List>
     </>

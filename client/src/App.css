@@ -93,3 +93,7 @@ div.ant-col.ant-form-item-label {
 	padding: 0;
 	margin: 0 auto;
 }
+
+.filterTags {
+	cursor: pointer;
+}

@@ -3,10 +3,13 @@ import { Card, Avatar, Button, Col, Row, Tag } from "antd";
 import AvatarContact from "react-avatar";
 import { Link } from "react-router-dom";
 
-export default function RoomCard({ room }) {
+export default function RoomCard({ room, setFilterString }) {
   const {users, category, roomName} = room
   const id = room._id
 
+  function filterListByTag(tagName){
+	setFilterString(tagName)
+  }
 	return (
 		<Card title={roomName} extra={
       <Link to={{pathname: `/room/${id}`, state: {roomName: room.roomName, roomId: id} }}><Button>Join &rarr;</Button></Link>
@@ -15,7 +18,7 @@ export default function RoomCard({ room }) {
 				<Col>
 					{category.map((tag, i) => {
 						return (
-							<Tag color="magenta" key={i}>
+							<Tag color="magenta" className="filterTags" onClick={e=>filterListByTag(tag)} key={i}>
 								{tag}
 							</Tag>
 						);
