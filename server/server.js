@@ -56,17 +56,23 @@ io.on("connection", function (socket) {
   })
   socket.broadcast.emit('user joining', user)
   socket.on('join room', (room, roomName)=>{
+    socket.leave(user.room)
+    user.room = room
+    user.roomName = roomName
+    console.log(user)
     changeRoom(user.id, room, roomName)
-    socket.leaveAll
-    socket.join(roomName)
+    socket.join(room)
     io.emit('receive users', getUsers())
   })
+
   socket.on('add room', room=>{
-    io.to('Lobby').emit('add room')
+    io.emit('add room', room)
   })
+
   socket.on("send message", function (message) {
-    io.emit("receive message", `${user.username}: ${message}`);
-  });
+    io.to(user.room).emit("receive message", `${user.username}: ${message}`);
+  })
+
   socket.on('disconnect', ()=>{
     user && socket.broadcast.emit('user disconnecting', user.id) && userDisconnected(user.id)
     console.log('someone left...')

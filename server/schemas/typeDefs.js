@@ -39,10 +39,12 @@ const typeDefs = gql`
     addUser(username: String!, password: String!): Auth
     login(username: String!, password: String!): Auth
     addChat(roomId: String!, message: String!): Room
-    addRoom($title: String!
-      $colors: Object!
-      $tags: Array!
-      $access: Array!): Room
+    addRoom(
+      title: String!
+      colors: Object!
+      tags: [String]!
+      privacy: String!
+    ): Room
     addFriend(friendId: String!): User
   }
 `;
