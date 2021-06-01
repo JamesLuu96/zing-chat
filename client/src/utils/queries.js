@@ -1,7 +1,5 @@
 import gql from "graphql-tag";
-// queryPost(filter: { datePublished: { ge: "2020-06-15" }}) {
-//   ...
-// }
+
 export const QUERY_USERS = gql`
   {
     users {
@@ -11,6 +9,9 @@ export const QUERY_USERS = gql`
         _id
         roomName
         username
+        colors
+        tags
+        privacy
         roomChat {
           _id
           username
@@ -36,6 +37,9 @@ export const QUERY_USER = gql`
         _id
         roomName
         username
+        colors
+        tags
+        privacy
         roomChat {
           _id
           username
@@ -58,6 +62,9 @@ export const QUERY_ROOMS = gql`
       _id
       roomName
       username
+      colors
+      tags
+      privacy
       roomChat {
         _id
         username

@@ -1,102 +1,108 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from "react";
 import { List } from "antd";
 import RoomCard from "./RoomCard";
 import { QUERY_ROOMS } from "../../utils/queries";
 import { ADD_ROOM } from "../../utils/mutations";
 import { useQuery, useMutation } from "@apollo/react-hooks";
-import {useSocket} from '../Socket'
-
-const fakeRooms = [
-  {
-    _id: "kkofdsk4",
-    roomName: "The biggest baddest room",
-    category: ["dogs", "turtles", "cats", "fish"],
-    users: [
-      "Florence Kamp",
-      "Tom Hanks",
-      "Theia Wagner",
-      "John Wallace",
-      "Jennifer Ross",
-      "James Ramirez",
-    ],
-  },
-  {
-    _id: "kkofdsk4",
-    roomName: "Let's talk about vehicles",
-    category: ["cars", "trucks", "transportation", "wheels", "highways"],
-    users: ["Dorothy Graham", "Michael Taylor", "Tilly-Mae Bowen"],
-  },
-  {
-    _id: "kkofdsk4",
-    roomName: "My personal room",
-    category: ["personal"],
-    users: ["Bogdan Bryan", "Tom Hanks", "Marni Waller"],
-  },
-];
+import { useSocket } from "../Socket";
+import RoomForm from "../../components/RoomForm";
+import { Button } from "antd";
 
 export default function RoomList() {
-  const socket = useSocket()
-  const [rooms, setRooms] = useState(fakeRooms)
-  const [roomName, setRoomName] = useState('')
-  const [filterString, setFilterString] = useState('')
+  const socket = useSocket();
+  const [rooms, setRooms] = useState([]);
+  const [filterString, setFilterString] = useState("");
+
   const [createRoom, { error }] = useMutation(ADD_ROOM);
-  const {data, loading} = useQuery(QUERY_ROOMS)
 
+  const { data, loading } = useQuery(QUERY_ROOMS);
 
-  useEffect(()=>{
-    if(data){
-      setRooms(index=>[...index, ...data.room.map(room=>{
-        return {...room, category: [], users: []}
-      })])
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    console.log("hello");
+    if (data) {
+      console.log(data);
+      setRooms((index) => [
+        ...index,
+        ...data.room.map((room) => {
+          return { ...room, users: [] };
+        }),
+      ]);
     }
-    if(socket){
-      socket.on('add room', room=>{
-        setRooms(index=>[...index, {...room, category: [], users: []}])
-      })
+    if (socket) {
+      socket.on("add room", (room) => {
+        setRooms((index) => [...index, { ...room, users: [] }]);
+      });
     }
-  }, [data])
+  }, [data]);
 
-  async function addRoom(e){
-    e.preventDefault()
-    setRoomName('')
+  const onCreate = async (values) => {
+    const { roomName, tags, privacy, primary, secondary, tertiary } = values;
+    console.log(roomName, tags, privacy, primary, secondary, tertiary);
     try {
-      const response = await createRoom({ variables: { roomName: roomName } });
-      if (response) {
-        const {data: { addRoom }} = response;
-        socket.emit('add room', addRoom)
-      }
+      const response = await createRoom({
+        variables: {
+          roomName,
+          colors: [primary, secondary, tertiary],
+          tags,
+          privacy,
+        },
+      });
+      socket.emit("add room", response.data.addRoom);
     } catch (e) {
       console.log(e);
     }
-  }
+    setVisible(false);
+  };
 
   return (
     <>
+      <Button
+        type="primary"
+        onClick={() => {
+          setVisible(true);
+        }}
+      >
+        Create room
+      </Button>
+      <RoomForm
+        visible={visible}
+        onCreate={onCreate}
+        onCancel={() => {
+          setVisible(false);
+        }}
+      />
       <label>Filter by Tag: </label>
-      <input value={filterString} onChange={e=>setFilterString(e.target.value)}/>
-      <button onClick={()=>setFilterString("")}>X</button>
-      <form onSubmit={addRoom}>
-          <input value={roomName} onChange={e=>setRoomName(e.target.value)} />
-          <button type="submit">create</button>
-      </form>
+      <input
+        value={filterString}
+        onChange={(e) => setFilterString(e.target.value)}
+      />
       <List
-          id="room-list"
-          dataSource={filterString ? rooms.filter(room=>{
-            for(let i = 0; i < room.category.length; i++){
-              if(room.category[i].toLowerCase().includes(filterString.toLowerCase())){
-                return true
-              }
-            }
-            return false
-          }
-          ): rooms}
-          pagination={{
-            pageSize: 5,
-          }}
-          renderItem={(room, i) => (
-            <RoomCard key={i} room={{...room}} setFilterString={setFilterString} />
-          )}>
-      </List>
+        id="room-list"
+        dataSource={
+          filterString
+            ? rooms.filter((room) => {
+                for (let i = 0; i < room.tags.length; i++) {
+                  if (room.tags[i].includes(filterString)) {
+                    return true;
+                  }
+                }
+                return false;
+              })
+            : rooms
+        }
+        pagination={{
+          pageSize: 5,
+        }}
+        renderItem={(room, i) => (
+          <RoomCard
+            key={i}
+            room={{ ...room }}
+            setFilterString={setFilterString}
+          />
+        )}
+      ></List>
     </>
-  )
+  );
 }

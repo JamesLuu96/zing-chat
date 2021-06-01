@@ -2,34 +2,15 @@ import React from "react";
 import { Card, Avatar, Button, Col, Row, Tag } from "antd";
 import AvatarContact from "react-avatar";
 import { Link } from "react-router-dom";
-import { DeleteOutlined } from "@ant-design/icons";
-import { useMutation } from "@apollo/react-hooks";
-import { DELETE_ROOM } from "../../../utils/mutations";
 
-export default function RoomCard({ room, setFilterString }) {
-  const { users, category, roomName, username } = room;
-  const [deleteRoom, { error }] = useMutation(DELETE_ROOM);
+export default function RoomCard({ room }) {
+  const { users, tags, roomName } = room;
   const id = room._id;
 
-  function filterListByTag(tagName) {
-    setFilterString(tagName);
-  }
-  const deleteHandler = async (e) => {
-    try {
-      const response = await deleteRoom({
-        variables: {
-          _id: id,
-        },
-      });
-
-      console.log(response);
-    } catch (e) {
-      console.log(e, "error");
-    }
-  };
   return (
-    <Card title={roomName}>
-      <Row justify="flex-end">
+    <Card
+      title={roomName}
+      extra={
         <Link
           to={{
             pathname: `/room/${id}`,
@@ -38,22 +19,13 @@ export default function RoomCard({ room, setFilterString }) {
         >
           <Button>Join &rarr;</Button>
         </Link>
-        {room.username ? (
-          <Button style={{ marginRight: "1rem" }} onClick={deleteHandler}>
-            Delete <DeleteOutlined />
-          </Button>
-        ) : null}
-      </Row>
+      }
+    >
       <Row justify="space-between">
         <Col>
-          {category.map((tag, i) => {
+          {tags.map((tag, i) => {
             return (
-              <Tag
-                color="magenta"
-                className="filterTags"
-                onClick={(e) => filterListByTag(tag)}
-                key={i}
-              >
+              <Tag color="magenta" key={i}>
                 {tag}
               </Tag>
             );
