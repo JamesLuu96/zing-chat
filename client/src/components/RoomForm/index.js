@@ -13,16 +13,8 @@ const RoomForm = ({
   color,
 }) => {
   const [form] = Form.useForm();
-  const [roomInfo, setRoomInfo] = useState({
-    colors: { primaryColor: "", secondaryColor: "", tertiaryColor: "" },
-    tags: [],
-    title: "",
-    access: "public",
-  });
-  const changeHandler = (e) => {
-    // const { name, value } = e.target;
-    // setRoomInfo();
-  };
+  const [tags, setTags] = useState([]);
+
   return (
     <Modal
       width="800"
@@ -46,7 +38,6 @@ const RoomForm = ({
       <Form form={form} layout="vertical" name="form_in_modal">
         <Form.Item
           name="title"
-          value={roomInfo.title}
           label="Room name"
           rules={[
             {
@@ -59,11 +50,11 @@ const RoomForm = ({
         </Form.Item>
         <Form.Item name="tags" label="Tags">
           <ReactTagInput
-            value={roomInfo.tags}
+            tags={tags}
             placeholder="Add tags..."
             editable={true}
             removeOnBackspace={true}
-            // onChange={(newTags) => setTags(newTags)}
+            onChange={(newTags) => setTags(newTags)}
           />
         </Form.Item>
         <Form.Item
@@ -71,19 +62,15 @@ const RoomForm = ({
           className="collection-create-form_last-form-item"
         >
           <Radio.Group>
-            <Radio value="public" name="public" onChange={changeHandler}>
-              Public
-            </Radio>
-            <Radio value="private" name="private" onChange={changeHandler}>
-              Private
-            </Radio>
+            <Radio value="public">Public</Radio>
+            <Radio value="private">Private</Radio>
           </Radio.Group>
         </Form.Item>
         <Row>
           <Col className="color-col" span={8}>
             <Form.Item name="primary" label="Color scheme">
               <ColorPicker
-                value={roomInfo.colors.primaryColor}
+                value={color}
                 onChange={handleChange}
                 onChangeComplete={onComplete}
               />
@@ -92,7 +79,7 @@ const RoomForm = ({
           <Col className="color-col" span={8}>
             <Form.Item name="secondary" label="Color scheme">
               <ColorPicker
-                value={roomInfo.colors.secondaryColor}
+                value={color}
                 onChange={handleChange}
                 onChangeComplete={onComplete}
               />
@@ -101,7 +88,7 @@ const RoomForm = ({
           <Col className="color-col" span={8}>
             <Form.Item name="tertiary" label="Color scheme">
               <ColorPicker
-                value={roomInfo.colors.tertiaryColor}
+                value={color}
                 onChange={handleChange}
                 onChangeComplete={onComplete}
               />

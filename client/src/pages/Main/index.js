@@ -1,34 +1,32 @@
 import React, { useState } from "react";
 import RoomList from "../../components/RoomList";
-import ChatList from "../../components/ChatList";
+// import ChatList from "../../components/ChatList";
 
 import UserList from "../../components/UserList";
 import RoomForm from "../../components/RoomForm";
 import { Row, Col, Button, Form } from "antd";
-import { Link, Redirect } from "react-router-dom";
-import { useMutation } from "@apollo/react-hooks";
 import { ADD_ROOM } from "../../utils/mutations";
-
+import { useMutation } from "@apollo/react-hooks";
 export default function Index() {
   const [visible, setVisible] = useState(false);
   const [addRoom, { error }] = useMutation(ADD_ROOM);
-
   const onCreate = (values) => {
     console.log("Received values of form: ", values);
-    const { access, primary, secondary, tags, tertiary, title } = values;
-    console.log(access, primary, secondary, tags, tertiary, title);
-
-    // try {
-    //   const response = await addRoom({
-    //     variables: {
-    //       title: "",
-    //       access: "",
-    //       colors: {},
-    //       tags: "",
-    //     },
-    //   });
-    // } catch (e) {}
-    // setVisible(false);
+    const { title, tags, access, primaryColor, secondaryColor, tertaryColor } =
+      values;
+    try {
+      const response = addRoom({
+        variables: {
+          title: "",
+          colors: "",
+          tags: [],
+          access: "",
+        },
+      });
+    } catch (e) {
+      console.log(e);
+    }
+    setVisible(false);
   };
 
   return (
@@ -51,7 +49,7 @@ export default function Index() {
         />
         <Row>
           <Col id="room-list" flex="4">
-            <ChatList />
+            {/* <ChatList /> */}
             <RoomList />
           </Col>
           <Col id="user-list" flex="2">

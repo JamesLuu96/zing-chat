@@ -29,7 +29,7 @@ export const ADD_ROOM = gql`
     $title: String!
     $colors: Object!
     $tags: Array!
-    $access: Array!
+    $access: String!
   ) {
     addRoom(title: $title, colors: $colors, tags: $tags, access: $access) {
       _id
