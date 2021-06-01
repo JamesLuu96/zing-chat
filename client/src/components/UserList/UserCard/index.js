@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Avatar from "react-avatar";
-import { List, Button } from "antd";
+import { List, Button, Badge } from "antd";
 import { UserAddOutlined } from "@ant-design/icons";
 import { useMutation } from "@apollo/react-hooks";
 import { ADD_FRIEND } from "../../../utils/mutations";
 import { useMyInfo, useSocket } from "../../Socket";
+import { PlusOutlined } from "@ant-design/icons";
 
 export default function UserCard({ user, friends, setFriends }) {
   const [addFriend, { error }] = useMutation(ADD_FRIEND);
@@ -30,17 +31,23 @@ export default function UserCard({ user, friends, setFriends }) {
 
   return (
     <>
-      {user.roomName}
       <List.Item>
         <List.Item.Meta
-          avatar={<Avatar name={user.username} size="24" round={true} />}
+          avatar={
+            <Badge dot status="success" size="default">
+              <Avatar size="24" round={true} name={user.username} />{" "}
+            </Badge>
+          }
           title={user.username}
+          description={`${user.username} - ${user.roomName}`}
         />
+
         {friends.filter((friend) => friend._id === user.id) < 1 &&
-        user.id !== userData._id ? (
+          user.id !== userData._id ? (
           <Button onClick={addFriendHandler} icon={<UserAddOutlined />} />
         ) : null}
       </List.Item>
     </>
+    
   );
 }

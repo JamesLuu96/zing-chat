@@ -3,14 +3,15 @@ import { Card, Avatar, Button, Col, Row, Tag } from "antd";
 import AvatarContact from "react-avatar";
 import { Link } from "react-router-dom";
 import { DeleteOutlined } from "@ant-design/icons";
-import { useMutation, useQuery } from "@apollo/react-hooks";
+import { useMutation } from "@apollo/react-hooks";
 import { DELETE_ROOM } from "../../../utils/mutations";
-import { useSocket } from "../../Socket";
-export default function RoomCard({ room, visibile, setVisible }) {
+import { useSocket, useMyInfo } from "../../Socket";
+export default function RoomCard({ room, setFilterString }) {
   const { users, tags, roomName } = room;
   const [deleteRoom, { error }] = useMutation(DELETE_ROOM);
   const socket = useSocket();
   const id = room._id;
+  const {username} = useMyInfo()
 
   const deleteHandler = async (event) => {
     event.preventDefault();
@@ -34,6 +35,10 @@ export default function RoomCard({ room, visibile, setVisible }) {
     event.stopPropagation();
   };
 
+  function filterListByTag(tagName){
+    setFilterString(tagName)
+  }
+
   return (
     <Card
       title={roomName}
@@ -45,7 +50,7 @@ export default function RoomCard({ room, visibile, setVisible }) {
           }}
         >
           <Button>Join &rarr;</Button>
-          {room.username ? (
+          {room.username === username || username.toLowerCase() === "admin" ? (
             <>
               <Button style={{ marginRight: "1rem" }} onClick={deleteHandler}>
                 Delete <DeleteOutlined />
@@ -60,7 +65,7 @@ export default function RoomCard({ room, visibile, setVisible }) {
         <Col>
           {tags.map((tag, i) => {
             return (
-              <Tag color="magenta" key={i}>
+              <Tag color="magenta" key={i} className="filterTags" onClick={e=>filterListByTag(tag)}>
                 {tag}
               </Tag>
             );

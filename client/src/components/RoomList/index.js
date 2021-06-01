@@ -14,9 +14,7 @@ export default function RoomList() {
   const [filterString, setFilterString] = useState("");
 
   const [createRoom, { error }] = useMutation(ADD_ROOM);
-
   const { data, loading } = useQuery(QUERY_ROOMS);
-
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -98,12 +96,9 @@ export default function RoomList() {
         }}
         renderItem={(room, i) => (
           <RoomCard
-            visible={visible}
-            setVisible={setVisible}
             key={i}
             room={{ ...room }}
-            rooms={rooms}
-            setRooms={setRooms}
+            setFilterString={setFilterString}
           />
         )}
       ></List>
