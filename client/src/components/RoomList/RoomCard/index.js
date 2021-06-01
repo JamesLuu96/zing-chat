@@ -41,6 +41,8 @@ export default function RoomCard({ room, setFilterString }) {
   return (
     <Card
       title={roomName}
+      // headStyle={{ color: room.colors[0]}}
+      // style={{ background: room.colors[2] }}
       extra={
         <Link
           to={{

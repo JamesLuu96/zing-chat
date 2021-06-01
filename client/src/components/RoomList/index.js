@@ -77,6 +77,7 @@ export default function RoomList() {
         value={filterString}
         onChange={(e) => setFilterString(e.target.value)}
       />
+      <button onClick={e=>setFilterString('')}>X</button>
       <List
         id="room-list"
         dataSource={

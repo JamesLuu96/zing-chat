@@ -70,12 +70,12 @@ const RoomForm = ({ visible, onCreate, onCancel }) => {
         </Form.Item>
         <Row>
           <Col className="color-col" span={8}>
-            <Form.Item name="primary" label="Color scheme">
+            <Form.Item name="primary" label="Primary Color">
               <ColorPicker color={color} setColor={setColor} type={"primary"} />
             </Form.Item>
           </Col>
           <Col className="color-col" span={8}>
-            <Form.Item name="secondary" label="Color scheme">
+            <Form.Item name="secondary" label="Secondary Color">
               <ColorPicker
                 color={color}
                 setColor={setColor}
@@ -84,7 +84,7 @@ const RoomForm = ({ visible, onCreate, onCancel }) => {
             </Form.Item>
           </Col>
           <Col className="color-col" span={8}>
-            <Form.Item name="tertiary" label="Color scheme">
+            <Form.Item name="tertiary" label="Tertiary Color">
               <ColorPicker
                 color={color}
                 setColor={setColor}
