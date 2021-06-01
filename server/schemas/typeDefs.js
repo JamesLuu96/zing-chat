@@ -49,6 +49,13 @@ const typeDefs = gql`
       tags: [String]!
       privacy: String!
     ): Room
+    updateRoom(
+      roomId: String!
+      roomName: String!
+      colors: [String]!
+      tags: [String]!
+      privacy: String!
+    ): Room
     addFriend(friendId: String!): User
   }
 `;

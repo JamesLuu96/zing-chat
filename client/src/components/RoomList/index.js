@@ -33,6 +33,17 @@ export default function RoomList() {
       socket.on("delete room", (room) => {
         setRooms((index) => [...index.filter((old) => old._id !== room._id)]);
       });
+      socket.on("edit room", (room) => {
+        console.log(room);
+        setRooms((index) => [
+          ...index.map((old) => {
+            if (old._id === room._id) {
+              return { ...room, users: [] };
+            }
+            return old;
+          }),
+        ]);
+      });
     }
   }, [data]);
 
