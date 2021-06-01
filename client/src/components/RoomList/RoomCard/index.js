@@ -1,57 +1,91 @@
-import { Card, Col, Row, Tag, Button, Avatar } from "antd";
-import { EditOutlined, ArrowRightOutlined } from "@ant-design/icons";
-import Animal from "react-animals";
-
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Card, Avatar, Button, Col, Row, Tag } from "antd";
+import AvatarContact from "react-avatar";
 import { Link } from "react-router-dom";
-const { Meta } = Card;
+import { DeleteOutlined } from "@ant-design/icons";
+import { useMutation } from "@apollo/react-hooks";
+import { DELETE_ROOM } from "../../../utils/mutations";
+import { useSocket, useMyInfo } from "../../Socket";
+export default function RoomCard({ room, setFilterString }) {
+  const { users, tags, roomName } = room;
+  const [deleteRoom, { error }] = useMutation(DELETE_ROOM);
+  const socket = useSocket();
+  const id = room._id;
+  const {username} = useMyInfo()
+  const deleteHandler = async (event) => {
+    event.preventDefault();
+    event.stopPropagation();
 
-export default function RoomCard({ room }) {
-	function stringToColor() {
-		let hex = Math.floor(Math.random() * 0xffffff);
-		let color = "#" + hex.toString(16);
+    try {
+      const response = await deleteRoom({
+        variables: {
+          _id: room._id,
+        },
+      });
 
-		return color;
-	}
-	const user = room.users;
-	const tag = room.tags;
-	return (
-		<Link
-			to={{
-				pathname: `/room/${room._id}`,
-				state: { roomName: room.roomName, roomId: room._id },
-			}}>
-			<Card
-				hoverable="true"
-				bordered="true"
-				className="room-card"
-				title={<a>{room.roomName}</a>}
-				key={room._id}
-				extra={[<Button type="text" size="large" icon={<EditOutlined />} />]}>
-				<Meta description={`created by ${room.username}`} />
-				<Row justify="space-between">
-					<Col>
-						{tag.map((tag, i) => {
-							return (
-								<Tag color="#f50" key={i}>
-									{tag}
-								</Tag>
-							);
-						})}
-					</Col>
-					<Col>
-						<Avatar.Group gap={0} maxCount={5}>
-							{user.map((user, i) => {
-								return (
-									<Avatar style={{ backgroundColor: "#fff" }}>
-										<Animal size="42px" />
-									</Avatar>
-								);
-							})}
-						</Avatar.Group>
-					</Col>
-				</Row>
-			</Card>
-		</Link>
-	);
+      socket.emit("delete room", room);
+    } catch (e) {
+      console.log(error);
+    }
+  };
+
+  const editHandler = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+  };
+
+  function filterListByTag(tagName){
+    setFilterString(tagName)
+  }
+
+  return (
+    <Card
+      title={roomName}
+      extra={
+        <Link
+          to={{
+            pathname: `/room/${id}`,
+            state: { roomName: room.roomName, roomId: id },
+          }}
+        >
+          <Button>Join &rarr;</Button>
+          {room.username === username || username.toLowerCase() === "admin" ? (
+            <>
+              <Button style={{ marginRight: "1rem" }} onClick={deleteHandler}>
+                Delete <DeleteOutlined />
+              </Button>
+              <Button onClick={editHandler}>Edit</Button>
+            </>
+          ) : null}
+        </Link>
+      }
+    >
+      <Row justify="space-between">
+        <Col>
+          {tags.map((tag, i) => {
+            return (
+              <Tag color="magenta" key={i} className="filterTags" onClick={e=>filterListByTag(tag)}>
+                {tag}
+              </Tag>
+            );
+          })}
+        </Col>
+        <Col>
+          <Avatar.Group maxCount={5}>
+            {users.map((user, i) => {
+              return (
+                <AvatarContact
+                  key={i}
+                  className="avatar-round"
+                  size="32"
+                  round={true}
+                  name={user.username}
+                />
+              );
+            })}
+          </Avatar.Group>
+        </Col>
+      </Row>
+    </Card>
+  );
 }
