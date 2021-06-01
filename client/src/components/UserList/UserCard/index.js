@@ -23,7 +23,7 @@ export default function UserCard({ user, friends, setFriends }) {
       });
       socket.emit("add friend", user.id);
       setFriends((old) => [...old, { _id: user.id, username: user.username }]);
-      console.log(response);
+      
     } catch (e) {
       console.log(e);
     }

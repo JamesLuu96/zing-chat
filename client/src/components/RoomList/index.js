@@ -4,7 +4,7 @@ import RoomCard from "./RoomCard";
 import { QUERY_ROOMS } from "../../utils/queries";
 import { ADD_ROOM } from "../../utils/mutations";
 import { useQuery, useMutation } from "@apollo/react-hooks";
-import { useSocket } from "../Socket";
+import { useSocket, useUsers } from "../Socket";
 import RoomForm from "../../components/RoomForm";
 import { Button } from "antd";
 
@@ -16,6 +16,7 @@ export default function RoomList() {
   const [createRoom, { error }] = useMutation(ADD_ROOM);
   const { data, loading } = useQuery(QUERY_ROOMS);
   const [visible, setVisible] = useState(false);
+  const { users } = useUsers();
 
   useEffect(() => {
     if (data) {
@@ -38,7 +39,6 @@ export default function RoomList() {
 
   const onCreate = async (values) => {
     const { roomName, tags, privacy, primary, secondary, tertiary } = values;
-    console.log(values);
     try {
       const response = await createRoom({
         variables: {
@@ -97,9 +97,10 @@ export default function RoomList() {
         renderItem={(room, i) => (
           <RoomCard
             key={i}
-            room={{ ...room }}
+            room={{ ...room, users: users.filter(user=>user.room === room._id) }}
             setFilterString={setFilterString}
           />
+          
         )}
       ></List>
     </>

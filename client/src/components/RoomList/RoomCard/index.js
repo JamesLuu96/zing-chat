@@ -12,7 +12,6 @@ export default function RoomCard({ room, setFilterString }) {
   const socket = useSocket();
   const id = room._id;
   const {username} = useMyInfo()
-
   const deleteHandler = async (event) => {
     event.preventDefault();
     event.stopPropagation();
@@ -80,7 +79,7 @@ export default function RoomCard({ room, setFilterString }) {
                   className="avatar-round"
                   size="32"
                   round={true}
-                  name={user}
+                  name={user.username}
                 />
               );
             })}

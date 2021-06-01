@@ -21,7 +21,7 @@ export default function UserList() {
       setFriends(data.user.friends);
     }
   }, [data]);
-
+  
   useEffect(() => {
     if (socket) {
       if (!users.length) {
