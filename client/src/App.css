@@ -11,8 +11,8 @@ body {
 cards
 ------
 */
-#room-list {
-	padding: 1%;
+.room-list {
+	padding: 2%;
 }
 
 #user-list {
@@ -48,16 +48,6 @@ li.ant-list-item {
 }
 #room-list h4.ant-list-item-meta-title {
 	font-size: 24px;
-}
-
-.avatar-round {
-	border: 2px solid white;
-	margin: 0 -6px;
-}
-
-span.ant-tag {
-	padding: 4px 8px;
-	font-size: 1rem;
 }
 
 h4.ant-list-item-meta-title {
@@ -110,4 +100,52 @@ div#rc-tabs-0-tab-2 {
 	height: 64px;
 	border-radius: 4px;
 	font-size: 24px;
+}
+
+div.ant-card-extra {
+	margin: 0;
+	padding: 0;
+}
+
+div.ant-card-header-wrapper {
+	padding: 0 12px;
+	margin: 0;
+}
+
+div.ant-card-body {
+	padding: 0 12px;
+	margin: 0;
+}
+
+div.ant-card-meta {
+	margin-bottom: 16px;
+}
+
+div.ant-card-meta-description {
+	font-size: 14px;
+}
+
+div.ant-card-head {
+	border: none;
+}
+
+span.ant-avatar-string {
+	width: 32px;
+	height: 32px;
+	object-fit: fill;
+}
+
+.ant-avatar-circle {
+	border: none;
+	margin: 0;
+	padding: 0;
+	align-items: center;
+}
+
+v-animal-image {
+	width: 32px;
+	height: 32px;
+	margin: 0;
+	padding: 0;
+	object-fit: cover;
 }
