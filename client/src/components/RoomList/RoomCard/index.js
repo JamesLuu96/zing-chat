@@ -9,6 +9,20 @@ export default function RoomCard({ room }) {
   const { users, tags, roomName } = room;
   const [deleteRoom, { error }] = useMutation(DELETE_ROOM);
   const id = room._id;
+  console.log(users);
+  const deleteHandler = async (e) => {
+    try {
+      const response = await deleteRoom({
+        variables: {
+          _id: id,
+        },
+      });
+
+      console.log(response);
+    } catch (e) {
+      console.log(e, "error");
+    }
+  };
 
   const deleteHandler = async (event) => {
     event.preventDefault();
@@ -35,6 +49,11 @@ export default function RoomCard({ room }) {
             state: { roomName: room.roomName, roomId: id },
           }}
         >
+          {room.username ? (
+            <Button style={{ marginRight: "1rem" }} onClick={deleteHandler}>
+              Delete <DeleteOutlined />
+            </Button>
+          ) : null}
           <Button>Join &rarr;</Button>
         </Link>
       }
