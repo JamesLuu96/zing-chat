@@ -40,6 +40,7 @@ const typeDefs = gql`
     login(username: String!, password: String!): Auth
     addChat(roomId: String!, message: String!): Room
     addRoom(roomName: String!): Room
+    deleteRoom(_id: String!): Room
   }
 `;
 

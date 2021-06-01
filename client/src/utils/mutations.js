@@ -42,3 +42,10 @@ export const ADD_CHAT = gql`
     }
   }
 `;
+export const DELETE_ROOM = gql`
+  mutation deleteRoom($_id: String!) {
+    deleteRoom(_id: $_id) {
+      room
+    }
+  }
+`;

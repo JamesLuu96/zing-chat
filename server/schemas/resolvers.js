@@ -75,6 +75,13 @@ const resolvers = {
 
       throw new AuthenticationError("Not logged in");
     },
+    deleteRoom: async (parent, args, context) => {
+      console.log(args, "args");
+      if (context.user) {
+        const room = await Room.findByIdAndRemove({ _id: args._id });
+        return room;
+      }
+    },
   },
 };
 
