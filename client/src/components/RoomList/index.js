@@ -48,6 +48,11 @@ export default function RoomList() {
         return {...room, category: [], users: []}
       })])
     }
+    if(socket){
+      socket.on('add room', room=>{
+        setRooms(index=>[...index, {...room, category: [], users: []}])
+      })
+    }
   }, [data])
 
   async function addRoom(e){
@@ -57,7 +62,6 @@ export default function RoomList() {
       const response = await createRoom({ variables: { roomName: roomName } });
       if (response) {
         const {data: { addRoom }} = response;
-        setRooms(index=>[...index, addRoom])
         socket.emit('add room', addRoom)
       }
     } catch (e) {
@@ -82,16 +86,5 @@ export default function RoomList() {
           )}>
       </List>
     </>
-    // <div>
-    //   <form onSubmit={addRoom}>
-    //     <input value={roomName} onChange={e=>setRoomName(e.target.value)} />
-    //     <button type="submit">create</button>
-    //   </form>
-      
-    //   {rooms.map((room, i)=>{
-    //     return <RoomCard key={i} room={room} />
-    //   })}
-      
-    // </div>
   )
 }
