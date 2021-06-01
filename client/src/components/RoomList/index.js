@@ -34,6 +34,23 @@ export default function RoomList() {
       socket.on("delete room", (room) => {
         setRooms((index) => [...index.filter((old) => old._id !== room._id)]);
       });
+      socket.on("edit room", (room) => {
+        console.log(room);
+        setRooms((index) => [
+          ...index.map((old) => {
+            if (old._id === room._id) {
+              return { ...room, users: [] };
+            }
+            return old;
+          }),
+        ]);
+      });
+
+      return () => {
+        socket.off('add room')
+        socket.off("delete room")
+        socket.off("edit room")
+      };
     }
   }, [data]);
 
@@ -84,7 +101,7 @@ export default function RoomList() {
           filterString
             ? rooms.filter((room) => {
                 for (let i = 0; i < room.tags.length; i++) {
-                  if (room.tags[i].includes(filterString)) {
+                  if (room.tags[i].toLowerCase().includes(filterString.toLowerCase())) {
                     return true;
                   }
                 }

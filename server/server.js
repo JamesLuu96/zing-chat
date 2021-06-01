@@ -82,6 +82,9 @@ io.on("connection", function (socket) {
   socket.on("delete room", (room) => {
     io.emit("delete room", room);
   });
+  socket.on("edit room", (room) => {
+    io.emit("edit room", room);
+  });
 
   socket.on("send message", function (message) {
     io.to(user.room).emit("receive message", {name: user.username, message, time: date()});

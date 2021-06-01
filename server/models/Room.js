@@ -14,7 +14,18 @@ const roomSchema = new Schema({
   privacy: {
     type: String,
     required: true,
+    validate: {
+      validator: function (privacy) {
+        if (privacy === "private" || privacy === "public") {
+          return true;
+        }
+
+        return false;
+      },
+      message: (privacy) => `${privacy.value} is not valid!!`,
+    },
   },
+
   colors: {
     type: Array,
     required: true,

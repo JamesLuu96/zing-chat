@@ -2,16 +2,17 @@ import React, { useState } from "react";
 import { Form, Input, Modal, Row, Col, Radio } from "antd";
 import ReactTagInput from "@pathofdev/react-tag-input";
 import "@pathofdev/react-tag-input/build/index.css";
-import ColorPicker from "../ColorPicker";
+import ColorPicker from "../../ColorPicker";
 
-const RoomForm = ({ visible, onCreate, onCancel }) => {
+const EditForm = ({ visible, onCancel, onCreate, room }) => {
   const [form] = Form.useForm();
-  const [tags, setTags] = useState([]);
+  const [tags, setTags] = useState(room.tags);
   const [color, setColor] = useState({
-    primary: "#333",
-    secondary: "#333",
-    tertiary: "#333",
+    primary: room.colors[0],
+    secondary: room.colors[1],
+    tertiary: room.colors[2],
   });
+
   return (
     <Modal
       width="60%"
@@ -25,8 +26,12 @@ const RoomForm = ({ visible, onCreate, onCancel }) => {
           .validateFields()
           .then((values) => {
             form.resetFields();
-            onCreate({ ...values, ...color });
-            setColor({ primary: "#333", secondary: "#333", tertiary: "#333" });
+            onCreate({ ...values, ...color, room });
+            setColor({
+              primary: room.colors[0],
+              secondary: room.colors[1],
+              tertiary: room.colors[2],
+            });
             setTags([]);
           })
           .catch((info) => {
@@ -38,6 +43,7 @@ const RoomForm = ({ visible, onCreate, onCancel }) => {
         <Form.Item
           name="roomName"
           label="Room name"
+          initialValue={room.roomName}
           rules={[
             {
               required: true,
@@ -47,7 +53,7 @@ const RoomForm = ({ visible, onCreate, onCancel }) => {
         >
           <Input />
         </Form.Item>
-        <Form.Item name="tags" label="Tags">
+        <Form.Item name="tags" label="Tags" initialValue={room.tags}>
           <ReactTagInput
             tags={tags}
             placeholder="Add tags..."
@@ -58,6 +64,7 @@ const RoomForm = ({ visible, onCreate, onCancel }) => {
         </Form.Item>
         <Form.Item
           name="privacy"
+          initialValue={room.privacy}
           className="collection-create-form_last-form-item"
           rules={[{ required: true, message: "Please input your privacy!" }]}
         >
@@ -70,12 +77,12 @@ const RoomForm = ({ visible, onCreate, onCancel }) => {
         </Form.Item>
         <Row>
           <Col className="color-col" span={8}>
-            <Form.Item name="primary" label="Primary Color">
+            <Form.Item name="primary" label="Color scheme">
               <ColorPicker color={color} setColor={setColor} type={"primary"} />
             </Form.Item>
           </Col>
           <Col className="color-col" span={8}>
-            <Form.Item name="secondary" label="Secondary Color">
+            <Form.Item name="secondary" label="Color scheme">
               <ColorPicker
                 color={color}
                 setColor={setColor}
@@ -84,7 +91,11 @@ const RoomForm = ({ visible, onCreate, onCancel }) => {
             </Form.Item>
           </Col>
           <Col className="color-col" span={8}>
-            <Form.Item name="tertiary" label="Tertiary Color">
+            <Form.Item
+              name="tertiary"
+              label="Color scheme"
+              initialValue={color}
+            >
               <ColorPicker
                 color={color}
                 setColor={setColor}
@@ -98,4 +109,4 @@ const RoomForm = ({ visible, onCreate, onCancel }) => {
   );
 };
 
-export default RoomForm;
+export default EditForm;

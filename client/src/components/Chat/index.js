@@ -16,6 +16,10 @@ function Chat() {
       socket.on("receive message", ({name, message, time}) => {
         setChat((old) => [...old, `${name}: ${message} at ${time}`]);
       });
+
+      return () => {
+        socket.off('receive message')
+      };
     }
   }, [socket]);
   function submitForm(e) {

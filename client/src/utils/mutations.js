@@ -75,3 +75,33 @@ export const DELETE_ROOM = gql`
     }
   }
 `;
+export const UPDATE_ROOM = gql`
+  mutation updateRoom(
+    $roomId: String!
+    $roomName: String!
+    $colors: [String]!
+    $tags: [String]!
+    $privacy: String!
+  ) {
+    updateRoom(
+      roomId: $roomId
+      roomName: $roomName
+      colors: $colors
+      tags: $tags
+      privacy: $privacy
+    ) {
+      _id
+      roomName
+      username
+      colors
+      tags
+      privacy
+      roomChat {
+        _id
+        username
+        message
+        createdAt
+      }
+    }
+  }
+`;
