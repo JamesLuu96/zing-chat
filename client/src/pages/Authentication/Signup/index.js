@@ -1,11 +1,15 @@
-import React from "react";
-import { Form, Input, Row, Button, Upload } from "antd";
-import { UploadOutlined } from "@ant-design/icons";
+import React, { useState } from "react";
+import { Form, Input, Row, Button, Avatar } from "antd";
 import { useMutation } from "@apollo/react-hooks";
 import Auth from "../../../utils/auth";
 import { ADD_USER } from "../../../utils/mutations";
 
+import { AvatarGenerator } from "random-avatar-generator";
+const generator = new AvatarGenerator();
+console.log(generator.generateRandomAvatar());
+
 export default function Signup({ setIdToken }) {
+	const [currentAvatar, setAvatar] = useState(generator.generateRandomAvatar());
 	const [form] = Form.useForm();
 
 	const [addUser] = useMutation(ADD_USER);
@@ -27,6 +31,7 @@ export default function Signup({ setIdToken }) {
 				variables: {
 					username,
 					password,
+					avatar: currentAvatar,
 				},
 			});
 			const token = mutationResponse.data.addUser.token;
@@ -98,7 +103,7 @@ export default function Signup({ setIdToken }) {
 					]}>
 					<Input.Password type="password" placeholder="Password" />
 				</Form.Item>
-				<Form.Item
+				{/* <Form.Item
 					name="upload"
 					valuePropName="fileList"
 					getValueFromEvent={normFile}>
@@ -109,8 +114,16 @@ export default function Signup({ setIdToken }) {
 						listType="picture">
 						<Button icon={<UploadOutlined />}>Upload avatar</Button>
 					</Upload>
-				</Form.Item>
-
+				</Form.Item> */}
+				<Avatar
+					size={{
+						xxl: 100,
+					}}
+					src={currentAvatar}
+				/>
+				<Button onClick={(e) => setAvatar(generator.generateRandomAvatar())}>
+					Shuffle Avatar
+				</Button>
 				<Form.Item>
 					<Button type="primary" size="large" htmlType="submit" block>
 						Start chatting

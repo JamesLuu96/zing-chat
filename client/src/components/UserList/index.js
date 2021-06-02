@@ -40,7 +40,11 @@ export default function UserList() {
         setUsers((oldUsers) => [...oldUsers.filter((user) => user.id !== id)]);
       });
 
-      return () => socket.off("receive users");
+      return () => {
+        socket.off('user joining')
+        socket.off("receive users")
+        socket.off("user disconnecting")
+      };
     }
   }, [socket]);
 

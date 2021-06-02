@@ -55,18 +55,18 @@ h4.ant-list-item-meta-title {
 	margin: 0;
 }
 
-div.ant-col.ant-form-item-label label {
+/* div.ant-col.ant-form-item-label label {
 	font-size: 18px;
-}
+} */
 
 div.ant-row.ant-form-item {
 	margin-bottom: 32px;
 }
 
-div.ant-col.ant-form-item-label {
+/* div.ant-col.ant-form-item-label {
 	padding: 0;
 	margin-bottom: 4px;
-}
+} */
 
 .block-picker {
 	box-shadow: none !important;
@@ -101,4 +101,77 @@ div.ant-card-body {
 
 div.ant-card-meta-description {
 	padding-bottom: 8px;
+}
+
+.msg-container p {
+	color: white;
+	padding: 12px;
+	margin: 0;
+	font-size: 14px;
+	line-height: 1.2rem;
+}
+
+.friend-msg-content {
+	background-color: rgb(56, 37, 231);
+	border-radius: 0 16px 16px 16px;
+	margin: 0;
+	font-size: 14px;
+	line-height: 1.2rem;
+}
+
+.msg-container {
+	margin-bottom: 8px;
+}
+
+.my-msg-content {
+	font-size: 14px;
+	line-height: 1.2rem;
+	color: white;
+	background-color: rgb(189, 39, 126);
+	padding: 12px;
+	border-radius: 16px 0 16px 16px;
+	margin: 0;
+}
+
+.msg-column {
+	max-width: 50%;
+}
+
+.chat-metadata {
+	display: flex;
+	margin: 0;
+	padding: 0;
+	color: gray;
+	font-size: 12px;
+	line-height: 1.4rem;
+}
+
+.flex-end {
+	justify-content: flex-end;
+}
+.ant-avatar {
+	margin: 4px 8px;
+}
+
+.editor-wrapper {
+	max-height: 200px;
+}
+
+.ant-layout-content {
+	overflow-y: scroll;
+}
+
+.chat-container {
+	background-color: white;
+	margin: 4%;
+}
+
+div.ant-comment-inner {
+	padding: 0;
+	box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+div.text-editor {
+	margin: 0;
+	padding: 0;
 }

@@ -59,6 +59,26 @@ const resolvers = {
       throw new AuthenticationError("Not logged in");
     },
 
+    updateRoom: async (parent, args, context) => {
+      console.log(args);
+      if (context.user) {
+        const room = await Room.findOneAndUpdate(
+          { _id: args.roomId },
+          {
+            $set: {
+              colors: args.colors,
+              tags: args.tags,
+              roomName: args.roomName,
+              privacy: args.privacy,
+            },
+          },
+          { new: true, runValidators: true }
+        );
+
+        return room;
+      }
+    },
+
     addChat: async (parent, args, context) => {
       if (context.user) {
         const chat = await Chat.create({
