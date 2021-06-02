@@ -7,24 +7,20 @@ function PrivateChat({ visible, onClose }) {
 
   const data = [
     {
-      username: "fasika",
-      bio: "Ant Design Title 1",
+      bio: "Ant Design",
+      title: "fasika",
     },
     {
-      username: "James",
-      bio: "Ant Design Title 1",
+      bio: "Ant Design",
+      title: "fasika",
     },
     {
-      username: "Florence",
-      bio: "Ant Design Title 1",
+      bio: "Ant Design",
+      title: "fasika",
     },
     {
-      username: "Jacob",
-      bio: "Ant Design Title 1",
-    },
-    {
-      username: "Nick",
-      bio: "Ant Design Title 1",
+      bio: "Ant Design",
+      title: "fasika",
     },
   ];
 
@@ -33,7 +29,7 @@ function PrivateChat({ visible, onClose }) {
       <Drawer
         title="Messages"
         onClose={onClose}
-        placement="left"
+        placement="right"
         visible={visible}
         closable={false}
       >
@@ -43,14 +39,15 @@ function PrivateChat({ visible, onClose }) {
           renderItem={(item) => (
             <List.Item>
               <List.Item.Meta
-                avatar={<Avatar size="24" round={true} name={item.username} />}
-                title={<a>{item.username}</a>}
-                description={item.bio}
+                avatar={
+                  <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                }
+                title={<a href="https://ant.design">{item.username}</a>}
+                description={item.username}
               />
             </List.Item>
           )}
         />
-        ,
       </Drawer>
     </>
   );
