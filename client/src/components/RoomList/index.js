@@ -85,7 +85,8 @@ export default function RoomList() {
       >
         <div>
           <Button
-            type="primary"
+            style={{ backgroundColor: "#474787", color: "#fff" }}
+            // type="primary"
             onClick={() => {
               setVisible(true);
             }}

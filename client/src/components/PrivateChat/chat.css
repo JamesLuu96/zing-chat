@@ -16,7 +16,7 @@
     bottom: 20px;
     font-size: 40px;
     transform: rotate(-1deg);
-
+    color:#474787;
 }
 .message-icon{
     transform: scaleX(-1);
@@ -43,5 +43,12 @@
   
 }
 .chatBox{
-    background-color: #f7f7f7;
+    background-color: #eaeaf4;
+}
+.ant-btn-primary{
+    color:#fff;
+    background-color: #474787;
+}
+.ant-btn-primary:hover{
+    background-color: #434379;   
 }

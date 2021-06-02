@@ -102,7 +102,8 @@ export default function RoomCard({ room, setFilterString }) {
             {tags.map((tag, i) => {
               return (
                 <Tag
-                  color="magenta"
+                  //magenta
+                  color="#a7a7d1"
                   key={i}
                   className="filterTags"
                   onClick={(e) => filterListByTag(tag)}

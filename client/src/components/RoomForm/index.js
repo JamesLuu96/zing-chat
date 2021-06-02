@@ -14,7 +14,7 @@ const RoomForm = ({ visible, onCreate, onCancel }) => {
   });
   return (
     <Modal
-      style={{ marginTop: "-80px" }}
+      style={{ marginTop: "-80px", backgroundColor: "#474787" }}
       width="40%"
       visible={visible}
       title="Create a new room"

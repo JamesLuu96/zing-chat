@@ -18,6 +18,7 @@ class Nav extends React.Component {
           display: "flex",
           justifyContent: "space-between",
           marginBottom: "2.5rem",
+          backgroundColor: "#474787",
         }}
       >
         {/* <Menu

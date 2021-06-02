@@ -15,7 +15,7 @@ function Private() {
 
   return (
     <div>
-      <Badge count={4} overflowCount={4} className="message-badge">
+      <Badge count={4} overflowCount={4} className="message-badge" >
         <MessageOutlined
           onClick={showPrivateMessage}
           className="message-icon"
