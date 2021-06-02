@@ -105,9 +105,27 @@ div.ant-card-meta-description {
 	padding-bottom: 8px;
 }
 
-.msg-container p {
+.msg-container p,
+.msg-container ul,
+.msg-container ol {
 	color: white;
 	padding: 12px;
+	margin: 0;
+	font-size: 14px;
+	line-height: 1.2rem;
+}
+
+.msg-container h2 {
+	color: white;
+	padding: 16px;
+	margin: 0;
+	font-size: 14px;
+	line-height: 1.2rem;
+}
+
+.msg-container h3 {
+	color: white;
+	padding: 24px;
 	margin: 0;
 	font-size: 14px;
 	line-height: 1.2rem;
