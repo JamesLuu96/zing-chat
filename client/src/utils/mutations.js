@@ -48,10 +48,27 @@ export const ADD_ROOM = gql`
 `;
 
 export const ADD_CHAT = gql`
-  mutation addChat($roomId: String!, $message: String!) {
-    addChat(roomId: $roomId, message: $message) {
+  mutation addChat($roomId: String!, $message: String!, $avatar: String!) {
+    addChat(roomId: $roomId, message: $message, avatar: $avatar) {
       _id
       roomName
+      username
+      colors
+      tags
+      privacy
+      roomChat {
+        _id
+        username
+        message
+        createdAt
+      }
+    }
+  }
+`;
+export const DELETE_CHAT = gql`
+  mutation deleteChat($chatId: String!) {
+    deleteChat(chatId: $chatId) {
+      _id
     }
   }
 `;

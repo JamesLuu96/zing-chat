@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { useSocket } from "../Socket";
+import { useSocket, useMyInfo } from "../Socket";
 import { useLocation } from "react-router-dom";
-import { Badge } from "antd";
-import { MessageOutlined } from "@ant-design/icons";
+import { useMutation, useQuery } from "@apollo/react-hooks";
+import { Badge, Menu, Dropdown, Button } from "antd";
+import { MessageOutlined, EllipsisOutlined } from "@ant-design/icons";
 import PrivateChat from "../PrivateChat";
 import "../PrivateChat/chat.css";
+import { ADD_CHAT, DELETE_CHAT } from "../../utils/mutations";
+import { QUERY_ROOMS } from "../../utils/queries";
 function Chat() {
   const location = useLocation();
   const { roomName, roomId } = location.state;
@@ -12,7 +15,12 @@ function Chat() {
   const [msg, setMsg] = useState("");
   const [chat, setChat] = useState([]);
   const message = ["hello", "bye", "hello", "bye", "nine"];
+
   const [visible, setVisibility] = useState(false);
+  const { data, loading } = useQuery(QUERY_ROOMS);
+  const user = useMyInfo();
+
+  const [addChat] = useMutation(ADD_CHAT);
 
   useEffect(() => {
     if (socket) {
@@ -20,20 +28,35 @@ function Chat() {
       socket.on("receive message", ({ name, message, time }) => {
         setChat((old) => [...old, `${name}: ${message} at ${time}`]);
       });
-
+      if (data) {
+        console.log(data, "rooms query");
+      }
       return () => {
         socket.off("receive message");
       };
     }
   }, [socket]);
-  function submitForm(e) {
+  async function submitForm(e) {
     e.preventDefault();
+
     socket.emit("send message", msg);
+    try {
+      const response = await addChat({
+        variables: {
+          roomId: roomId,
+          message: msg,
+          avatar: user.avatar,
+        },
+      });
+    } catch (e) {
+      console.log(e);
+    }
+
     setMsg("");
   }
-
+  console.log(chat, "chat");
+  console.log(user);
   const showPrivateMessage = (e) => {
-    console.log("clicked");
     e.preventDefault();
     setVisibility(!visible);
   };

@@ -74,6 +74,25 @@ export const QUERY_ROOMS = gql`
     }
   }
 `;
+export const QUERY_ROOM = gql`
+  query room($_id: String!) {
+    room(_id: $_id) {
+      _id
+      roomName
+      username
+      colors
+      tags
+      privacy
+      roomChat {
+        _id
+        username
+        message
+        avatar
+        createdAt
+      }
+    }
+  }
+`;
 
 export const QUERY_CHAT = gql`
   {

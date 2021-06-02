@@ -6,7 +6,7 @@
     height:350px;
     position: absolute;
     right:80px;
-    bottom: 20px;
+    bottom: 48px;
     border-radius: 5px;
     padding:10px;
 }
@@ -33,12 +33,11 @@
     position: absolute;
     bottom:0;
     display: flex;
+    
 }
 .chat{
     width:287px;
     margin-left:-6px;
-    border:none
-}
-.chat-tab{
-    background-color: rgb(32, 144, 196);
+    border:none;
+  
 }
