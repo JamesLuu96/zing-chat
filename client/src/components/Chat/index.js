@@ -4,13 +4,14 @@ import { useLocation } from "react-router-dom";
 import { Badge } from "antd";
 import { MessageOutlined } from "@ant-design/icons";
 import PrivateChat from "../PrivateChat";
+import "../PrivateChat/chat.css";
 function Chat() {
   const location = useLocation();
   const { roomName, roomId } = location.state;
   const socket = useSocket();
   const [msg, setMsg] = useState("");
   const [chat, setChat] = useState([]);
-  const message = ["hello", "bye"];
+  const message = ["hello", "bye", "hello", "bye", "nine"];
   const [visible, setVisibility] = useState(false);
 
   useEffect(() => {
@@ -51,10 +52,10 @@ function Chat() {
       <form onSubmit={submitForm}>
         <input value={msg} onChange={(e) => setMsg(e.target.value)}></input>
       </form>
-      <Badge count={message.length} style={{ margin: "auto 0" }}>
+      <Badge count={message.length} overflowCount={4} className="message-badge">
         <MessageOutlined
-          style={{ fontSize: "2rem" }}
           onClick={showPrivateMessage}
+          className="message-icon"
         />
       </Badge>
       <PrivateChat visible={visible} onClose={onClose} />

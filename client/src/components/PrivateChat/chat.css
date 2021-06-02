@@ -1,0 +1,44 @@
+
+
+.chatBox{
+    width:300px;
+    background-color: #fff;
+    height:350px;
+    position: absolute;
+    right:80px;
+    bottom: 20px;
+    border-radius: 5px;
+    padding:10px;
+}
+.message-badge{
+    position: absolute;
+    right:40px;
+    bottom: 20px;
+    font-size: 40px;
+    transform: rotate(-1deg);
+
+}
+.message-icon{
+    transform: rotate(240deg);
+}
+.newChat{
+    position: absolute;
+    right:20%;
+    bottom: 5px; 
+    width:200px;
+    background-color: #fff;
+    height:400px; 
+}
+.chatInput{
+    position: absolute;
+    bottom:0;
+    display: flex;
+}
+.chat{
+    width:287px;
+    margin-left:-6px;
+    border:none
+}
+.chat-tab{
+    background-color: rgb(32, 144, 196);
+}
