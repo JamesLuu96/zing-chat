@@ -5,7 +5,7 @@ import "./App.css";
 import Nav from "./components/Nav";
 import Main from "./pages/Main";
 import Socket from "./components/Socket";
-import Private from "./components/PrivateChat/Private";
+
 import { ApolloProvider } from "@apollo/react-hooks";
 import Authentication from "./pages/Authentication";
 import Chat from "./components/Chat";
@@ -37,7 +37,6 @@ export default function App() {
             <Route exact path="/room/:id" component={Chat} />
             <Route component={NoMatch} />
           </Switch>
-          <Private />
         </Socket>
       </Router>
     </ApolloProvider>
