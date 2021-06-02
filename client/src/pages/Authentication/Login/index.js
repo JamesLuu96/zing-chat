@@ -1,7 +1,6 @@
 import { Form, Input, Button, Row } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { useMutation } from "@apollo/react-hooks";
-import { LOGIN } from "../../../utils/mutations";
 
 export default function Login({ setIdToken }) {
 	const [login, { error }] = useMutation(LOGIN);

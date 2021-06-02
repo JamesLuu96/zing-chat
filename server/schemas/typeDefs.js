@@ -20,6 +20,9 @@ const typeDefs = gql`
     roomName: String
     username: String
     roomChat: [Chat]
+    colors: [String]
+    tags: [String]
+    privacy: String
     createdAt: String
   }
 
@@ -39,7 +42,21 @@ const typeDefs = gql`
     addUser(username: String!, password: String!): Auth
     login(username: String!, password: String!): Auth
     addChat(roomId: String!, message: String!): Room
-    addRoom(roomName: String!): Room
+    deleteRoom(_id: String!): Room
+    addRoom(
+      roomName: String!
+      colors: [String]!
+      tags: [String]!
+      privacy: String!
+    ): Room
+    updateRoom(
+      roomId: String!
+      roomName: String!
+      colors: [String]!
+      tags: [String]!
+      privacy: String!
+    ): Room
+    addFriend(friendId: String!): User
   }
 `;
 

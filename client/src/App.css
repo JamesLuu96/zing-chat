@@ -94,20 +94,6 @@ div.ant-col.ant-form-item-label {
 	margin: 0 auto;
 }
 
-div#rc-tabs-0-tab-1,
-div#rc-tabs-0-tab-2 {
-	font-size: 24px;
-}
-
-.signup-form span.ant-input-affix-wrapper,
-.login-form span.ant-input-affix-wrapper {
-	height: 64px;
-	border-radius: 4px;
-}
-
-.signup-form button.ant-btn-primary,
-.login-form button.ant-btn-primary {
-	height: 64px;
-	border-radius: 4px;
-	font-size: 24px;
+.filterTags {
+	cursor: pointer;
 }
