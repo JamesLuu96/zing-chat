@@ -13,9 +13,13 @@ function Chat() {
   useEffect(() => {
     if(socket){
       socket.emit('join room', roomId, roomName)
-      socket.on("receive message", (message) => {
-        setChat((old) => [...old, message]);
+      socket.on("receive message", ({name, message, time}) => {
+        setChat((old) => [...old, `${name}: ${message} at ${time}`]);
       });
+
+      return () => {
+        socket.off('receive message')
+      };
     }
   }, [socket]);
   function submitForm(e) {

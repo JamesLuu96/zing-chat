@@ -27,7 +27,6 @@ export default function Socket({children, idToken}) {
     const routerHistory = useHistory();
     useEffect(() => {
         const data = decode(idToken).data
-        console.log(data)
         setInfo(data)
         const newSocket = io(
             '/',

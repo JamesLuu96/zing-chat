@@ -9,7 +9,8 @@ const resolvers = {
     },
     user: async (parent, args, context) => {
       if (context.user) {
-        const user = await User.findById(context.user._id);
+        const user = await User.findById(context.user._id).populate("friends");
+
         return user;
       }
       throw new AuthenticationError("Not logged in");
@@ -58,6 +59,26 @@ const resolvers = {
       throw new AuthenticationError("Not logged in");
     },
 
+    updateRoom: async (parent, args, context) => {
+      console.log(args);
+      if (context.user) {
+        const room = await Room.findOneAndUpdate(
+          { _id: args.roomId },
+          {
+            $set: {
+              colors: args.colors,
+              tags: args.tags,
+              roomName: args.roomName,
+              privacy: args.privacy,
+            },
+          },
+          { new: true, runValidators: true }
+        );
+
+        return room;
+      }
+    },
+
     addChat: async (parent, args, context) => {
       if (context.user) {
         const chat = await Chat.create({
@@ -74,6 +95,28 @@ const resolvers = {
       }
 
       throw new AuthenticationError("Not logged in");
+    },
+    deleteRoom: async (parent, args, context) => {
+      console.log(args, "args");
+      if (context.user) {
+        const room = await Room.findByIdAndDelete({ _id: args._id });
+        console.log(room, "room");
+        return room;
+      }
+    },
+
+    addFriend: async (parent, args, context) => {
+      if (context.user) {
+        const user = await User.findByIdAndUpdate(
+          context.user._id,
+          {
+            $addToSet: { friends: args.friendId },
+          },
+          { new: true }
+        ).populate("friends");
+
+        return user;
+      }
     },
   },
 };

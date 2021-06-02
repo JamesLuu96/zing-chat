@@ -1,35 +1,60 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Avatar from "react-avatar";
 import { List, Button, Badge } from "antd";
+import { UserAddOutlined } from "@ant-design/icons";
+import { useMutation } from "@apollo/react-hooks";
+import { ADD_FRIEND } from "../../../utils/mutations";
+import { useMyInfo, useSocket } from "../../Socket";
 import { PlusOutlined } from "@ant-design/icons";
 import {useHistory} from 'react-router'
 import { Link } from "react-router-dom";
 
 
-export default function UserCard({ user }) {
-	const routerHistory = useHistory();
-	function handleLink(){
-		console.log(user)
-		routerHistory.push(`/room/${user.room}`);
-	}
+export default function UserCard({ user, friends, setFriends }) {
+  const [addFriend, { error }] = useMutation(ADD_FRIEND);
+  const socket = useSocket();
+  const userData = useMyInfo();
 
-	return (
-		<List.Item>
-			<List.Item.Meta
-				avatar={
-					<Badge dot status="success" size="default">
-						<Avatar size="24" round={true} name={user.username} />{" "}
-					</Badge>
-				}
-				title={user.username}
-				description={`${user.username} - ${user.roomName}`}
-			/>
+  const addFriendHandler = async (event) => {
+    event.preventDefault();
+    try {
+      if (user.id === userData._id) {
+        return;
+      }
+      const response = await addFriend({
+        variables: { friendId: user.id },
+      });
+      socket.emit("add friend", user.id);
+      setFriends((old) => [...old, { _id: user.id, username: user.username }]);
+      
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
-			{/* <link to={{pathname: `/room/${user.roomName._id}`}}><Button icon={<PlusOutlined />}/></link> */}
-			{user.room !== "Lobby" ? 
+  return (
+    <>
+      <List.Item>
+        <List.Item.Meta
+          avatar={
+            <Badge dot status="success" size="default">
+              <Avatar size="24" round={true} name={user.username} />{" "}
+            </Badge>
+          }
+          title={user.username}
+          description={`${user.username} - ${user.roomName}`}
+        />
+
+        {friends.filter((friend) => friend._id === user.id) < 1 &&
+          user.id !== userData._id ? (
+          <Button onClick={addFriendHandler} icon={<UserAddOutlined />} />
+        ) : null}
+		{user.room !== "Lobby" ? 
 			<Link to={{pathname: `/room/${user.room}`, state: {roomName: user.roomName, roomId: user.room} }}>
 			<Button icon={<PlusOutlined />}/> 
 			</Link>: null}
-		</List.Item>
-	);
+      </List.Item>
+    </>
+    
+  );
 }
