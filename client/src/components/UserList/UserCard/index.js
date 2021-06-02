@@ -17,6 +17,7 @@ export default function UserCard({ user }) {
 			/>
 
 			<Button icon={<PlusOutlined />} />
+			{/* <Link to={{pathname: `/room/${id}`, state: {roomName: room.roomName, roomId: id} }}><Button icon={<PlusOutlined />} /><Button>Join &rarr;</Button></Link> */}
 		</List.Item>
 	);
 }
