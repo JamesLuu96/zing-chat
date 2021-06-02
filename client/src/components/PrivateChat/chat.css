@@ -19,7 +19,8 @@
 
 }
 .message-icon{
-    transform: rotate(240deg);
+    transform: scaleX(-1);
+    
 }
 .newChat{
     position: absolute;
@@ -40,4 +41,7 @@
     margin-left:-6px;
     border:none;
   
+}
+.chatBox{
+    background-color: #f7f7f7;
 }

@@ -5,6 +5,8 @@ general
 */
 body {
 	background-color: rgb(211, 222, 246);
+ 
+  
 }
 
 /* 
@@ -164,6 +166,7 @@ div.ant-card-meta-description {
 .chat-container {
 	background-color: white;
 	margin: 4%;
+	
 }
 
 div.ant-comment-inner {

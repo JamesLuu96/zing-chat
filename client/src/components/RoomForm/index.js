@@ -14,10 +14,11 @@ const RoomForm = ({ visible, onCreate, onCancel }) => {
   });
   return (
     <Modal
-      width="60%"
+      style={{ marginTop: "-80px" }}
+      width="40%"
       visible={visible}
       title="Create a new room"
-      okText="Create room"
+      okText="Create"
       cancelText="Cancel"
       onCancel={onCancel}
       onOk={() => {

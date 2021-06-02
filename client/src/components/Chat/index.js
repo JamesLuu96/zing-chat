@@ -1,30 +1,18 @@
 import React, { useState, useEffect } from "react";
 import Parser from "html-react-parser";
-import {
-  Comment,
-  Avatar,
-  Form,
-  Button,
-  List,
-  Input,
-  Layout,
-  Col,
-  Row,
-  Badge,
-} from "antd";
-import { SendOutlined, MessageOutlined } from "@ant-design/icons";
-import moment from "moment";
+import { Avatar, Form, Button, Layout, Col, Row } from "antd";
+import { SendOutlined } from "@ant-design/icons";
+import "../PrivateChat/chat.css";
 import TextEditor from "../TextEditor";
 import { useSocket, useMyInfo } from "../Socket";
 import { useLocation } from "react-router-dom";
-import PrivateChat from "../PrivateChat";
+
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import { ADD_CHAT } from "../../utils/mutations";
-import { QUERY_ROOM, QUERY_ROOMS } from "../../utils/queries";
+import { QUERY_ROOM } from "../../utils/queries";
 const { Content } = Layout;
 
 export default function Chat({ handleChange }) {
-  const [visible, setVisibility] = useState(false);
   const location = useLocation();
   const { roomName, roomId } = location.state;
   const user = useMyInfo();
@@ -41,8 +29,8 @@ export default function Chat({ handleChange }) {
 
   useEffect(() => {
     if (data) {
-      const chatData = data.room[0].roomChat
-      setChat(old=>[...chatData, ...old])
+      const chatData = data.room[0].roomChat;
+      setChat((old) => [...chatData, ...old]);
     }
     if (socket) {
       socket.emit("join room", roomId, roomName);
@@ -74,26 +62,18 @@ export default function Chat({ handleChange }) {
 
     setMsg("");
   }
-  console.log(chat)
-  const showPrivateMessage = (e) => {
-    e.preventDefault();
-    setVisibility(!visible);
-  };
-
-  const onClose = () => {
-    setVisibility(!visible);
-  };
 
   return (
     <>
-      <Layout className="chat-container">
+      <Layout className="private-chat">
         <Content
           style={{
             padding: "32px",
             backgroundColor: "#fff",
             margin: "24px 16px 0",
             overflow: "scroll",
-            maxHeight: "60vh",
+            maxHeight: "50vh",
+            width: "70vw",
           }}
         >
           {chat.map((message, i) => (
@@ -128,13 +108,6 @@ export default function Chat({ handleChange }) {
           />
         </Form.Item>
       </Layout>
-      <Badge count={4} overflowCount={4} className="message-badge">
-        <MessageOutlined
-          onClick={showPrivateMessage}
-          className="message-icon"
-        />
-      </Badge>
-      <PrivateChat visible={visible} onClose={onClose} />
     </>
   );
 }
