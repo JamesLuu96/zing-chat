@@ -8,14 +8,21 @@ const toolbar = [
 	["link", "image", "video"],
 	["clean"],
 ];
-export default function TextEditor({ value, setValue }) {
+export default function TextEditor({ value, setValue, submitForm }) {
+	function enterForm(event){
+		if(event.code === "Enter" && !event.shiftKey){
+			submitForm()
+		}
+	}
 	return (
 		<div className="text-editor">
 			<ReactQuill
 				modules={{ toolbar }}
 				theme="snow"
 				value={value}
-				onChange={setValue}></ReactQuill>
+				onKeyDown={(e)=>enterForm(e)}
+				onChange={setValue}>
+			</ReactQuill>
 		</div>
 	);
 }
