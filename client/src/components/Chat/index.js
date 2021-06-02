@@ -49,120 +49,86 @@ export default function Chat({ handleChange }) {
   // 	setMsg("");
   // }
 
-  async function submitForm(e) {
-    e.preventDefault();
-    socket.emit("send message", msg);
-    try {
-      const response = await addChat({
-        variables: {
-          roomId: roomId,
-          message: msg,
-          avatar: user.avatar,
-        },
-      });
-    } catch (e) {
-      console.log(e);
-    }
+	async function submitForm(e) {
+		e.preventDefault();
+		socket.emit("send message", msg);
+		try {
+		const response = await addChat({
+			variables: {
+			roomId: roomId,
+			message: msg,
+			avatar: user.avatar,
+			},
+		});
+		} catch (e) {
+			console.log(e);
+		}
 
-    setMsg("");
-  }
+		setMsg("");
+	}
 
-  return (
-    <>
-      <Layout className="private-chat">
-        <Content
-          style={{
-            padding: "32px",
-            backgroundColor: "#fff",
-            margin: "24px 16px 0",
-            overflow: "scroll",
-            maxHeight: "50vh",
-            width: "70vw",
-          }}
-        >
-          {chat.map((message, i) => (
-            // Renders the message component
-            <Row
-              key={i}
-              className="msg-container friend-msg-container"
-              justify="start"
-            >
-              <Col>
-                <Avatar src={message.avatar}></Avatar>
-              </Col>
-              <Col className="msg-column" flex="auto">
-                <span className="chat-metadata" flex="end">
-                  {message.username}
-                </span>
-                <p className="friend-msg-content">{Parser(message.message)}</p>
-                {<span className="chat-metadata">{message.createdAt}</span>}
-              </Col>
-            </Row>
-          ))}
-        </Content>
-        <Form.Item className="text-editor">
-          <TextEditor value={msg} setValue={setMsg} />
-        </Form.Item>
-        <Form.Item>
-          <Button
-            icon={<SendOutlined />}
-            htmlType="submit"
-            onClick={submitForm}
-            type="primary"
-          />
-        </Form.Item>
-      </Layout>
-    </>
-  );
+	return (
+	<>
+		<Layout className="private-chat">
+		<Content
+			style={{
+			padding: "32px",
+			backgroundColor: "#fff",
+			margin: "24px 16px 0",
+			overflow: "scroll",
+			maxHeight: "50vh",
+			width: "70vw",
+			}}
+		>
+		{chat.map((message, i) => (
+		// Renders the message component
+			<>
+			{message.username !== "zingBot" ?
+		
+			<Row
+				key={i}
+				className="msg-container friend-msg-container"
+				justify="start"
+			>
+				<Col>
+					<Avatar src={message.avatar}></Avatar>
+				</Col>
+				<Col className="msg-column" flex="auto">
+				<span className="chat-metadata" flex="end">
+					{message.username}
+				</span>
+				
+				<div
+					className="friend-msg-content"
+					style={{ padding: "10px", display: "inline-block" }}
+				>
+						{Parser(message.message)}
+				</div>
+				{<span className="chat-metadata">{message.createdAt}</span>}
+				</Col>
+			</Row>
+			:
+				<>
+					<p style={{margin: 0, textAlign: "center"}}>{message.message}</p>
+					<p style={{textAlign: "center", fontSize: "12px", margin: "0 0 13px 0", color: "grey"}}>{message.createdAt}</p>
+				</>
+			}
+			
+			</>
+		))}
+		</Content>
+		<Form.Item className="text-editor">
+			<TextEditor value={msg} setValue={setMsg} />
+		</Form.Item>
+		<Form.Item>
+			<Button
+			icon={<SendOutlined />}
+			htmlType="submit"
+			onClick={submitForm}
+			type="primary"
+			/>
+		</Form.Item>
+		</Layout>
+	</>
+	);
 }
-
-//   return (
-//     <Layout className="chat-container">
-//       <Content
-//         style={{
-//           padding: "32px",
-//           backgroundColor: "#fff",
-//           margin: "24px 16px 0",
-//           overflow: "scroll",
-//           maxHeight: "60vh",
-//         }}
-//       >
-//         {chat.map((message, i) => (
-//           // Renders the message component
-//           <Row
-//             key={i}
-//             className="msg-container friend-msg-container"
-//             justify="start"
-//           >
-//             <Col>
-//               <Avatar>TH</Avatar>
-//             </Col>
-//             <Col className="msg-column" flex="auto">
-//               <span className="chat-metadata" flex="end">
-//                 {message.name}
-//               </span>
-//               <div
-//                 className="friend-msg-content"
-//                 style={{ padding: "10px", display: "inline-block" }}
-//               >
-//                 {Parser(message.message)}
-//               </div>
-//               {<span className="chat-metadata">{message.time}</span>}
-//             </Col>
-//           </Row>
-//         ))}
-//       </Content>
-//       <Form.Item className="text-editor">
-//         <TextEditor value={msg} setValue={setMsg} />
-//       </Form.Item>
-//       <Form.Item>
-//         <Button
-//           icon={<SendOutlined />}
-//           htmlType="submit"
-//           onClick={submitForm}
-//           type="primary"
-//         />
-//       </Form.Item>
-//     </Layout>
-//   );
-// }

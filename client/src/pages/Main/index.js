@@ -4,7 +4,7 @@ import RoomList from "../../components/RoomList";
 import UserList from "../../components/UserList";
 
 import { Row, Col, Layout } from "antd";
-import Private from "../../components/PrivateChat/Private";
+
 const { Content } = Layout;
 
 export default function Index() {
@@ -20,7 +20,6 @@ export default function Index() {
             <UserList />
           </Col>
         </Row>
-        <Private />
       </Content>
     </>
   );

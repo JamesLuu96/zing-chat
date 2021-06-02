@@ -13,6 +13,7 @@ import NoMatch from "./pages/Authentication/NoMatch";
 import Error from "./components/Error";
 import ApolloClient from "apollo-boost";
 import Auth from "./utils/auth";
+import Private from "./components/PrivateChat/Private"
 
 export default function App() {
   const [idToken, setIdToken] = useLocalStorage("id_token");
@@ -37,6 +38,7 @@ export default function App() {
             <Route exact path="/room/:id" component={Chat} />
             <Route component={NoMatch} />
           </Switch>
+          <Private/>
         </Socket>
       </Router>
     </ApolloProvider>

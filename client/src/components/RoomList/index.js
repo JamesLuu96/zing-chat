@@ -105,14 +105,14 @@ export default function RoomList() {
           {/* <label>Filter by Tag: </label> */}
           <Input
             value={filterString}
+            allowClear
             suffix={<SearchOutlined />}
-            placeholder="Filter by Tag"
+            placeholder="Search By Tag"
             onChange={(e) => setFilterString(e.target.value)}
           />
         </div>
       </div>
-      {/* <button onClick={e=>setFilterString('')}>X</button>
-       */}
+
       <List
         id="room-list"
         dataSource={

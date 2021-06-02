@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { Card, Avatar, Button, Col, Row, Tag } from "antd";
+import React, { useState } from "react";
+import { Card, Avatar, Button, Col, Row, Tag, Tooltip } from "antd";
 
-import AvatarContact from "react-avatar";
 import { Link } from "react-router-dom";
 import { DeleteOutlined, EditOutlined, RightOutlined } from "@ant-design/icons";
 import { useMutation } from "@apollo/react-hooks";
@@ -117,13 +116,16 @@ export default function RoomCard({ room, setFilterString }) {
             <Avatar.Group maxCount={5}>
               {users.map((user, i) => {
                 return (
-                  <AvatarContact
-                    key={i}
-                    className="avatar-round"
-                    size="32"
-                    round={true}
-                    name={user.username}
-                  />
+                  <Tooltip title={user.username}>
+                    <Avatar
+                      key={i}
+                      className="avatar-round"
+                      size="32"
+                      src={user.avatar}
+                      round={true}
+                      name={user.username}
+                    />
+                  </Tooltip>
                 );
               })}
             </Avatar.Group>

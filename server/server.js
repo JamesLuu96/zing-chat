@@ -68,16 +68,10 @@ io.on("connection", function (socket) {
   socket.broadcast.emit("user joining", user);
   socket.on("join room", (room, roomName) => {
     socket.broadcast.to(user.room).emit("receive message", {
-      // <<<<<<< HEAD
       username: botName,
       message: `${user.username} has left the room!`,
       createdAt: date(),
       avatar: "",
-      // =======
-      // 				// name: botName,
-      // 				// message: `<p>${user.username} has left the room!</p>`,
-      // 				// time: date(),
-      // >>>>>>> 6cf93a153aae719ca7e047c32daa808a2aebfa1a
     });
     socket.leave(user.room);
     user.room = room;
@@ -86,16 +80,10 @@ io.on("connection", function (socket) {
     socket.join(room);
     io.emit("receive users", getUsers());
     io.to(user.room).emit("receive message", {
-      // <<<<<<< HEAD
       username: botName,
       message: `${user.username} has joined the room!`,
       createdAt: date(),
       avatar: "",
-      // =======
-      // 			name: botName,
-      // 			message: `<p>${user.username} has joined the room!</p>`,
-      // 			time: date(),
-      // >>>>>>> 6cf93a153aae719ca7e047c32daa808a2aebfa1a
     });
   });
 
