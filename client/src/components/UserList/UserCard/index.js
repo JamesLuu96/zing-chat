@@ -6,6 +6,7 @@ import { useMutation } from "@apollo/react-hooks";
 import { ADD_FRIEND } from "../../../utils/mutations";
 import { useMyInfo, useSocket } from "../../Socket";
 import { PlusOutlined } from "@ant-design/icons";
+import { RightSquareOutlined } from "@ant-design/icons";
 import {useHistory} from 'react-router'
 import { Link } from "react-router-dom";
 
@@ -51,7 +52,7 @@ export default function UserCard({ user, friends, setFriends }) {
         ) : null}
 		{user.room !== "Lobby" ? 
 			<Link to={{pathname: `/room/${user.room}`, state: {roomName: user.roomName, roomId: user.room} }}>
-			<Button icon={<PlusOutlined />}/> 
+			<Button icon={<RightSquareOutlined />}/> 
 			</Link>: null}
       </List.Item>
     </>
