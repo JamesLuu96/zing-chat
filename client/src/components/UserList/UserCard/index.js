@@ -2,8 +2,17 @@ import React from "react";
 import Avatar from "react-avatar";
 import { List, Button, Badge } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
+import {useHistory} from 'react-router'
+import { Link } from "react-router-dom";
+
 
 export default function UserCard({ user }) {
+	const routerHistory = useHistory();
+	function handleLink(){
+		console.log(user)
+		routerHistory.push(`/room/${user.room}`);
+	}
+
 	return (
 		<List.Item>
 			<List.Item.Meta
@@ -16,8 +25,11 @@ export default function UserCard({ user }) {
 				description={`${user.username} - ${user.roomName}`}
 			/>
 
-			<Button icon={<PlusOutlined />} />
-			{/* <Link to={{pathname: `/room/${id}`, state: {roomName: room.roomName, roomId: id} }}><Button icon={<PlusOutlined />} /><Button>Join &rarr;</Button></Link> */}
+			{/* <link to={{pathname: `/room/${user.roomName._id}`}}><Button icon={<PlusOutlined />}/></link> */}
+			{user.room !== "Lobby" ? 
+			<Link to={{pathname: `/room/${user.room}`, state: {roomName: user.roomName, roomId: user.room} }}>
+			<Button icon={<PlusOutlined />}/> 
+			</Link>: null}
 		</List.Item>
 	);
 }
