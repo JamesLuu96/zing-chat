@@ -5,32 +5,36 @@ import { Link } from "react-router-dom";
 const { Header } = Layout;
 
 class Nav extends React.Component {
-  handleClick = (e) => {
-    console.log("click ", e);
-    this.setState({ current: e.key });
-  };
+	handleClick = (e) => {
+		console.log("click ", e);
+		this.setState({ current: e.key });
+	};
 
-  render() {
-    return (
-      <Header>
-        <div className="logo" />
-        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]}>
-          
-          <Menu.Item key="1"><Link to="/">Zing chat</Link></Menu.Item>
-          
-          <Menu.Item key="2">
-            <>
-              {Auth.loggedIn() ? (
-                <a to="/" onClick={() => Auth.logout()}>
-                  Logout
-                </a>
-              ) : null}
-            </>
-          </Menu.Item>
-        </Menu>
-      </Header>
-    );
-  }
+	render() {
+		return (
+			<Header>
+				<Menu mode="horizontal" defaultSelectedKeys={["2"]}>
+					<Menu.Item key="1">
+						<h3>
+							<Link style={{ color: "#fff" }} to="/">
+								Zing chat
+							</Link>
+						</h3>
+					</Menu.Item>
+
+					<Menu.Item key="2">
+						<>
+							{Auth.loggedIn() ? (
+								<a className="nav-link" to="/" onClick={() => Auth.logout()}>
+									Logout
+								</a>
+							) : null}
+						</>
+					</Menu.Item>
+				</Menu>
+			</Header>
+		);
+	}
 }
 
 export default Nav;

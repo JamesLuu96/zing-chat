@@ -20,9 +20,10 @@ export default function RoomList() {
 
   useEffect(() => {
     if (data) {
+      console.log(data)
       setRooms((index) => [
         ...index,
-        ...data.room.map((room) => {
+        ...data.rooms.map((room) => {
           return { ...room, users: [] };
         }),
       ]);
@@ -53,7 +54,7 @@ export default function RoomList() {
       };
     }
   }, [data]);
-
+  console.log("rooms: ", rooms)
   const onCreate = async (values) => {
     const { roomName, tags, privacy, primary, secondary, tertiary } = values;
     try {

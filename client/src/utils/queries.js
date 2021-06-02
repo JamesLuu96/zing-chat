@@ -24,6 +24,7 @@ export const QUERY_USERS = gql`
         _id
         username
       }
+      avatar
       createdAt
     }
   }
@@ -48,6 +49,7 @@ export const QUERY_USER = gql`
         }
         createdAt
       }
+      avatar
       friends {
         _id
         username
@@ -58,7 +60,7 @@ export const QUERY_USER = gql`
 
 export const QUERY_ROOMS = gql`
   {
-    room {
+    rooms {
       _id
       roomName
       username

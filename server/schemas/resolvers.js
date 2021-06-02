@@ -101,10 +101,6 @@ const resolvers = {
 
       throw new AuthenticationError("Not logged in");
     },
-    deleteChat: async (parent, args, context) => {
-      const room = await Chat.findOneAndDelete({ _id: args.chatId });
-      return room;
-    },
 
     deleteRoom: async (parent, args, context) => {
       console.log(args, "args");
