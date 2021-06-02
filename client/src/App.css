@@ -175,3 +175,8 @@ div.text-editor {
 	margin: 0;
 	padding: 0;
 }
+
+header.ant-layout-header,
+.ant-menu {
+	background-color: #15293c;
+}

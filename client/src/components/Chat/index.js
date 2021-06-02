@@ -19,22 +19,6 @@ import { useLocation } from "react-router-dom";
 
 const { Content } = Layout;
 
-// const Editor = ({ handleEditorChange, submitting, value }) => (
-// 	<>
-// 		<Form.Item className="text-editor">
-// 			<TextEditor onChange={handleEditorChange} value={value} />
-// 		</Form.Item>
-// 		<Form.Item>
-// 			<Button
-// 				icon={<SendOutlined />}
-// 				htmlType="submit"
-// 				loading={submitting}
-// 				onClick={submitForm}
-// 				type="primary"></Button>
-// 		</Form.Item>
-// 	</>
-// );
-
 export default function Chat({ handleChange }) {
 	const location = useLocation();
 	const { roomName, roomId } = location.state;
