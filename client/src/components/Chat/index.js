@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Parser from "html-react-parser";
 import {
 	Comment,
@@ -25,6 +25,7 @@ export default function Chat({ handleChange }) {
 	const socket = useSocket();
 	const [msg, setMsg] = useState("");
 	const [chat, setChat] = useState([]);
+  const buttonEl = useRef()
 
 	useEffect(() => {
 		if (socket) {
@@ -43,8 +44,6 @@ export default function Chat({ handleChange }) {
 		socket.emit("send message", msg);
 		setMsg("");
 	}
-	console.log(chat);
-	console.log(msg);
 
 	return (
 		<Layout className="chat-container">
@@ -69,14 +68,14 @@ export default function Chat({ handleChange }) {
 							<span className="chat-metadata" flex="end">
 								{message.name}
 							</span>
-							<p className="friend-msg-content">{Parser(message.message)}</p>
+							<div className="friend-msg-content" style={{padding: "10px", display: "inline-block"}}>{Parser(message.message)}</div>
 							{<span className="chat-metadata">{message.time}</span>}
 						</Col>
 					</Row>
 				))}
 			</Content>
 			<Form.Item className="text-editor">
-				<TextEditor value={msg} setValue={setMsg} submitForm={submitForm} />
+				<TextEditor value={msg} setValue={setMsg} />
 			</Form.Item>
 			<Form.Item>
 				<Button

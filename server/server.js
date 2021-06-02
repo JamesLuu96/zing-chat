@@ -71,7 +71,7 @@ io.on("connection", function (socket) {
 			.to(user.room)
 			.emit("receive message", {
 				name: botName,
-				message: `${user.username} has left the room!`,
+				message: `<p>${user.username} has left the room!</p>`,
 				time: date(),
 			});
 		socket.leave(user.room);
@@ -82,7 +82,7 @@ io.on("connection", function (socket) {
 		io.emit("receive users", getUsers());
 		io.to(user.room).emit("receive message", {
 			name: botName,
-			message: `${user.username} has joined the room!`,
+			message: `<p>${user.username} has joined the room!</p>`,
 			time: date(),
 		});
 	});
