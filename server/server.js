@@ -106,6 +106,7 @@ io.on("connection", function (socket) {
       avatar: user.avatar,
     });
   });
+  
 
   socket.on("disconnect", () => {
     user &&

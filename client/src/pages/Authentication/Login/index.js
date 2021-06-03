@@ -23,12 +23,14 @@ export default function Login({ setIdToken }) {
       setIdToken(token);
     } catch (error) {
       console.log(error);
-      message.error(token.errors[0].message);
+      // message.error(token.errors[0].message);
     }
 
     console.log("Received values of form: ", values);
   };
 
+
+ 
   return (
     <Row type="flex" justify="center">
       <Form
@@ -57,6 +59,7 @@ export default function Login({ setIdToken }) {
             prefix={<UserOutlined className="site-form-item-icon" />}
             placeholder="Username"
           />
+          
         </Form.Item>
         <Form.Item
           label="Password"
@@ -75,15 +78,12 @@ export default function Login({ setIdToken }) {
             rules={[
               {
                 required: true,
-
               }
             ]}
           />
-          <Alert message="Error Text" type="error" />
           
         </Form.Item>
         
-
 
         <Form.Item>
           <Button

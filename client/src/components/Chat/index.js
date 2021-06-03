@@ -67,10 +67,21 @@ export default function Chat({ handleChange }) {
 		setMsg("");
 	}
 
+	const scrollBottom = () => {
+		const content = document.getElementById("content");
+		if (document.getElementById("content")) {
+			content.scrollTop = content.scrollHeight;
+		}
+	}
+	scrollBottom();
+
+	
+
 	return (
 	<>
 		<Layout className="private-chat">
 		<Content
+			id = "content" 
 			style={{
 			padding: "32px",
 			backgroundColor: "#fff",

@@ -8,6 +8,11 @@ const Chat = ({ location }) => {
 	const [room, setRoom] = useState("");
 	const ENDPOINT = "localhost:4000";
 
+	socket.on("message", (message) => {
+		outputMessage(message);
+		chatBox.scrollTop = chatBox.scrollHeight;
+	});
+
 	useEffect(() => {
 		const { username, room } = queryString.parse(location.search);
 
