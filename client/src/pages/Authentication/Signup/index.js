@@ -43,10 +43,12 @@ export default function Signup({ setIdToken }) {
 	};
 
 	return (
-		<Row type="flex" justify="center">
+		<Row className="form-card" type="flex" justify="center">
 			<Form
+				style={{
+					width: `90%`,
+				}}
 				className="signup-form"
-				style={{ width: "30%" }}
 				form={form}
 				size="large"
 				layout="vertical"
@@ -64,7 +66,7 @@ export default function Signup({ setIdToken }) {
 							whitespace: true,
 						},
 					]}>
-					<Input placeholder="Username" />
+					<Input placeholder="Username" style={{ padding: "0.8rem" }} />
 				</Form.Item>
 				<Form.Item
 					name="password"
@@ -76,7 +78,11 @@ export default function Signup({ setIdToken }) {
 						},
 					]}
 					hasFeedback>
-					<Input.Password type="password" placeholder="Password" />
+					<Input.Password
+						type="password"
+						placeholder="Password"
+						style={{ padding: "0.8rem" }}
+					/>
 				</Form.Item>
 
 				<Form.Item
@@ -101,7 +107,11 @@ export default function Signup({ setIdToken }) {
 							},
 						}),
 					]}>
-					<Input.Password type="password" placeholder="Password" />
+					<Input.Password
+						type="password"
+						placeholder="Password"
+						style={{ height: "3rem" }}
+					/>
 				</Form.Item>
 				{/* <Form.Item
 					name="upload"

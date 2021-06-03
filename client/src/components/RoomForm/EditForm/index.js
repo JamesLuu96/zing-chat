@@ -15,10 +15,11 @@ const EditForm = ({ visible, onCancel, onCreate, room }) => {
 
   return (
     <Modal
-      width="60%"
+      style={{ marginTop: "-80px" }}
+      width="40%"
       visible={visible}
       title="Create a new room"
-      okText="Create room"
+      okText="Update"
       cancelText="Cancel"
       onCancel={onCancel}
       onOk={() => {

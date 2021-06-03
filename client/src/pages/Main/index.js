@@ -10,11 +10,7 @@ const { Content } = Layout;
 export default function Index() {
 	return (
 		<>
-			<Content
-				style={{
-					padding: "32px",
-					margin: "24px 16px 0",
-				}}>
+			<Content className="dashboard-content">
 				<Row>
 					<Col id="room-list" flex="4">
 						{/* <ChatList /> */}

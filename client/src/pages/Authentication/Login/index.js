@@ -26,7 +26,9 @@ export default function Login({ setIdToken }) {
 	return (
 		<Row type="flex" justify="center">
 			<Form
-				style={{ width: "30%" }}
+				style={{
+					width: `90%`,
+				}}
 				layout="vertical"
 				size="large"
 				name="login"
@@ -45,6 +47,7 @@ export default function Login({ setIdToken }) {
 						},
 					]}>
 					<Input
+						style={{ padding: "0.8rem" }}
 						prefix={<UserOutlined className="site-form-item-icon" />}
 						placeholder="Username"
 					/>
@@ -58,7 +61,11 @@ export default function Login({ setIdToken }) {
 							message: "Please input your Password!",
 						},
 					]}>
-					<Input.Password type="password" placeholder="Password" />
+					<Input.Password
+						type="password"
+						placeholder="Password"
+						style={{ padding: "0.8rem" }}
+					/>
 				</Form.Item>
 
 				<Form.Item>
@@ -66,7 +73,8 @@ export default function Login({ setIdToken }) {
 						type="primary"
 						htmlType="submit"
 						className="login-form-button"
-						block>
+						block
+						style={{ height: "3rem" }}>
 						Log in
 					</Button>
 				</Form.Item>

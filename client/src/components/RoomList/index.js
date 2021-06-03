@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { List } from "antd";
+import { List, Input } from "antd";
 import RoomCard from "./RoomCard";
 import { QUERY_ROOMS } from "../../utils/queries";
 import { ADD_ROOM } from "../../utils/mutations";
@@ -7,6 +7,7 @@ import { useQuery, useMutation } from "@apollo/react-hooks";
 import { useSocket, useUsers } from "../Socket";
 import RoomForm from "../../components/RoomForm";
 import { Button } from "antd";
+import { SearchOutlined } from "@ant-design/icons";
 
 export default function RoomList() {
   const socket = useSocket();
@@ -20,9 +21,10 @@ export default function RoomList() {
 
   useEffect(() => {
     if (data) {
+      console.log(data);
       setRooms((index) => [
         ...index,
-        ...data.room.map((room) => {
+        ...data.rooms.map((room) => {
           return { ...room, users: [] };
         }),
       ]);
@@ -47,13 +49,13 @@ export default function RoomList() {
       });
 
       return () => {
-        socket.off('add room')
-        socket.off("delete room")
-        socket.off("edit room")
+        socket.off("add room");
+        socket.off("delete room");
+        socket.off("edit room");
       };
     }
   }, [data]);
-
+  console.log("rooms: ", rooms);
   const onCreate = async (values) => {
     const { roomName, tags, privacy, primary, secondary, tertiary } = values;
     try {
@@ -74,34 +76,54 @@ export default function RoomList() {
 
   return (
     <>
-      <Button
-        type="primary"
-        onClick={() => {
-          setVisible(true);
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          padding: "10px",
         }}
       >
-        Create room
-      </Button>
-      <RoomForm
-        visible={visible}
-        onCreate={onCreate}
-        onCancel={() => {
-          setVisible(false);
-        }}
-      />
-      <label>Filter by Tag: </label>
-      <input
-        value={filterString}
-        onChange={(e) => setFilterString(e.target.value)}
-      />
-      <button onClick={e=>setFilterString('')}>X</button>
+        <div>
+          <Button
+            style={{ backgroundColor: "#474787", color: "#fff" }}
+            // type="primary"
+            onClick={() => {
+              setVisible(true);
+            }}
+          >
+            Create room
+          </Button>
+          <RoomForm
+            visible={visible}
+            onCreate={onCreate}
+            onCancel={() => {
+              setVisible(false);
+            }}
+          />
+        </div>
+        <div>
+          {/* <label>Filter by Tag: </label> */}
+          <Input
+            value={filterString}
+            allowClear
+            suffix={<SearchOutlined />}
+            placeholder="Search By Tag"
+            onChange={(e) => setFilterString(e.target.value)}
+          />
+        </div>
+      </div>
+
       <List
         id="room-list"
         dataSource={
           filterString
             ? rooms.filter((room) => {
                 for (let i = 0; i < room.tags.length; i++) {
-                  if (room.tags[i].toLowerCase().includes(filterString.toLowerCase())) {
+                  if (
+                    room.tags[i]
+                      .toLowerCase()
+                      .includes(filterString.toLowerCase())
+                  ) {
                     return true;
                   }
                 }
@@ -115,10 +137,12 @@ export default function RoomList() {
         renderItem={(room, i) => (
           <RoomCard
             key={i}
-            room={{ ...room, users: users.filter(user=>user.room === room._id) }}
+            room={{
+              ...room,
+              users: users.filter((user) => user.room === room._id),
+            }}
             setFilterString={setFilterString}
           />
-          
         )}
       ></List>
     </>

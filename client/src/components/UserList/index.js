@@ -21,7 +21,7 @@ export default function UserList() {
       setFriends(data.user.friends);
     }
   }, [data]);
-  
+
   useEffect(() => {
     if (socket) {
       if (!users.length) {
@@ -41,21 +41,28 @@ export default function UserList() {
       });
 
       return () => {
-        socket.off('user joining')
-        socket.off("receive users")
-        socket.off("user disconnecting")
+        socket.off("user joining");
+        socket.off("receive users");
+        socket.off("user disconnecting");
       };
     }
   }, [socket]);
 
   return (
     <>
-      <Content style={{ padding: "20px" }}>
+      <div>
         {users &&
           users.map((user, i) => {
-            return <UserCard key={i} user={user} friends={friends} setFriends={setFriends}/>;
+            return (
+              <UserCard
+                key={i}
+                user={user}
+                friends={friends}
+                setFriends={setFriends}
+              />
+            );
           })}
-      </Content>
+      </div>
     </>
   );
 }

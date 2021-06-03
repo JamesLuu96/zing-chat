@@ -15,9 +15,14 @@ const resolvers = {
       }
       throw new AuthenticationError("Not logged in");
     },
-    room: async (parent, args) => {
-      return Room.find({});
+    rooms: async (parent, args) => {
+      return Room.find({}).populate("roomChat");
     },
+
+    room: async (parent, args) => {
+      return Room.find({ _id: args._id }).populate("roomChat");
+    },
+
     chat: async (parent, args) => {
       return Chat.find({});
     },
@@ -96,6 +101,7 @@ const resolvers = {
 
       throw new AuthenticationError("Not logged in");
     },
+
     deleteRoom: async (parent, args, context) => {
       console.log(args, "args");
       if (context.user) {

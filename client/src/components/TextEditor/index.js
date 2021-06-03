@@ -1,6 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import ReactQuill from "react-quill";
+import Quill from "quill";
 import "react-quill/dist/quill.snow.css";
+var Block = Quill.import("blots/block");
+
+Block.tagName = "DIV";
+Quill.register(Block, true);
+
 const toolbar = [
 	[{ header: [1, 2, false] }],
 	["bold", "italic", "underline", "strike"],
@@ -13,7 +19,6 @@ export default function TextEditor({ value, setValue }) {
 		<div className="text-editor">
 			<ReactQuill
 				modules={{ toolbar }}
-				theme="snow"
 				value={value}
 				onChange={setValue}></ReactQuill>
 		</div>

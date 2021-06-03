@@ -1,4 +1,6 @@
 import React from "react";
+import { Layout } from "antd";
+
 import useLocalStorage from "./hooks/useLocalStorage";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.less";
@@ -13,7 +15,9 @@ import NoMatch from "./pages/Authentication/NoMatch";
 import Error from "./components/Error";
 import ApolloClient from "apollo-boost";
 import Auth from "./utils/auth";
+import Private from "./components/PrivateChat/Private";
 
+const { Content } = Layout;
 export default function App() {
 	const [idToken, setIdToken] = useLocalStorage("id_token");
 	const client = new ApolloClient({
@@ -32,11 +36,14 @@ export default function App() {
 				<Socket idToken={idToken}>
 					<Nav idToken={idToken} />
 					<Switch>
-						<Route exact path="/error" component={Error} />
-						<Route exact path="/" component={Main} />
-						<Route exact path="/room/:id" component={Chat} />
-						<Route component={NoMatch} />
+						<Content align="center">
+							<Route exact path="/error" component={Error} />
+							<Route exact path="/" component={Main} />
+							<Route exact path="/room/:id" component={Chat} />
+							<Route component={NoMatch} />
+						</Content>
 					</Switch>
+					<Private />
 				</Socket>
 			</Router>
 		</ApolloProvider>
