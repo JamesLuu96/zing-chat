@@ -19,7 +19,10 @@ cards
 
 #user-list {
 	height: 100vh;
-	background-color: white;
+	background-color: white;	
+}
+.ant-list-item:hover {
+	background-color: rgb(224, 227, 233);
 }
 
 div.ant-card {

@@ -50,7 +50,7 @@ export default function UserList() {
 
   return (
     <>
-      <div>
+      <div class = "uCard">
         {users &&
           users.map((user, i) => {
             return (
