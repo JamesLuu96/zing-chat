@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Parser from "html-react-parser";
 import { Avatar, Form, Button, Layout, Col, Row } from "antd";
+
 import { SendOutlined } from "@ant-design/icons";
 import "../PrivateChat/chat.css";
 import TextEditor from "../TextEditor";
@@ -10,7 +11,7 @@ import { useLocation } from "react-router-dom";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import { ADD_CHAT } from "../../utils/mutations";
 import { QUERY_ROOM } from "../../utils/queries";
-const { Content } = Layout;
+const { Content, Sider } = Layout;
 
 export default function Chat({ handleChange }) {
   const location = useLocation();
@@ -100,7 +101,8 @@ export default function Chat({ handleChange }) {
             </Row>
           ))}
         </Content>
-        <Form.Item className="text-editor">
+
+        <Form.Item className="text-editor" style={{ width: "71%" }}>
           <TextEditor value={msg} setValue={setMsg} />
         </Form.Item>
         <Form.Item>

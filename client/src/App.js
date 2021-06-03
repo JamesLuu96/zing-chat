@@ -13,7 +13,7 @@ import NoMatch from "./pages/Authentication/NoMatch";
 import Error from "./components/Error";
 import ApolloClient from "apollo-boost";
 import Auth from "./utils/auth";
-
+import Paint from "./components/Paint";
 export default function App() {
   const [idToken, setIdToken] = useLocalStorage("id_token");
   const client = new ApolloClient({
@@ -35,6 +35,7 @@ export default function App() {
             <Route exact path="/error" component={Error} />
             <Route exact path="/" component={Main} />
             <Route exact path="/room/:id" component={Chat} />
+            <Route exact path="/paint" component={Paint} />
             <Route component={NoMatch} />
           </Switch>
         </Socket>
