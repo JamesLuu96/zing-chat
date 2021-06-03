@@ -23,7 +23,7 @@ export default function Login({ setIdToken }) {
       setIdToken(token);
     } catch (error) {
       console.log(error);
-      message.error();
+      message.error(token.errors[0].message);
     }
 
     console.log("Received values of form: ", values);
@@ -80,7 +80,7 @@ export default function Login({ setIdToken }) {
             ]}
           />
           <Alert message="Error Text" type="error" />
-          <message.error> </message.error>
+          
         </Form.Item>
         
 
