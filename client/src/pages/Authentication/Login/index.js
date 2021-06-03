@@ -1,7 +1,12 @@
-import { Form, Input, Button, Row } from "antd";
+import { Form, Input, Button, Row, Alert, message } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { useMutation } from "@apollo/react-hooks";
 import { LOGIN } from "../../../utils/mutations";
+
+
+function handleError() {
+  console.log("LAKUSDYF9PO82Q73ROILU23H4RWF")
+};
 
 export default function Login({ setIdToken }) {
   const [login, { error }] = useMutation(LOGIN);
@@ -18,6 +23,7 @@ export default function Login({ setIdToken }) {
       setIdToken(token);
     } catch (error) {
       console.log(error);
+      message.error();
     }
 
     console.log("Received values of form: ", values);
@@ -66,8 +72,18 @@ export default function Login({ setIdToken }) {
             type="password"
             placeholder="Password"
             style={{ padding: "0.8rem" }}
+            rules={[
+              {
+                required: true,
+
+              }
+            ]}
           />
+          <Alert message="Error Text" type="error" />
+          <message.error> </message.error>
         </Form.Item>
+        
+
 
         <Form.Item>
           <Button
