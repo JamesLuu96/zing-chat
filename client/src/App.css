@@ -158,9 +158,15 @@ div.ant-card-meta-description {
 	font-size: 14px;
 	line-height: 1.2rem;
     overflow-wrap: break-word;
+	
 }
 
-
+.friend-msg-content img{
+	width:50%;
+	height:50%;
+	text-align: center;
+	background-color: none;
+}
 
 .msg-container {
 	margin-bottom: 8px;
@@ -231,8 +237,9 @@ header.ant-layout-header,
 
     margin-top: 5%;
     height: 60vh;
+	padding: 0 10%;
 	background-color:#fff;
-	
+	overflow-x: hidden;
 }
 
 .user-list{
@@ -283,4 +290,9 @@ justify-content: flex-end;
 	right:0%;
 	top:-220%;
 	
+}
+.ql-editor p, .ql-editor ol, .ql-editor ul, .ql-editor pre, .ql-editor blockquote, .ql-editor h1, .ql-editor h2, .ql-editor h3, .ql-editor h4, .ql-editor h5, .ql-editor h6{
+	overflow: hidden;
+	width:40px;
+	height:50px;
 }

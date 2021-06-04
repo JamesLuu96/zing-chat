@@ -48,6 +48,7 @@
 }
 .chatBox{
     background-color: #f4f4f4; 
+   
 }
 .ant-btn-primary{
     color:#fff;
@@ -64,12 +65,12 @@
 .private-chat li{
     background-color: #434379;
     list-style: none;
-
     border-bottom-left-radius: 18px;
     border-top-right-radius: 18px;
     border-bottom-right-radius: 18px;
     padding:0 10px 0 10px;
-    overflow-wrap: break-word;
+    word-break: break-all;
+
 }
 .private-converation{
     padding:0 10px 0 10px;
@@ -79,12 +80,14 @@
     background-color: #E4E6EB;
     margin-bottom: 10px;
     display: inline-block;
-
+    overflow-wrap: break-word;
+   
 }
 .private-chat li:nth-child(even){
     background-color: #9340bd88;
 	color: #fff;
     margin-bottom: 10px;
-   
+  
 }
+
 /*--------Chat-----------*/

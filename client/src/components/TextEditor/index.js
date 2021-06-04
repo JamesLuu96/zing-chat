@@ -25,7 +25,6 @@ export default function TextEditor({ value, setValue }) {
         value={value}
         onChange={setValue}
       ></ReactQuill>
-      <div>{/* <Picker /> */}</div>
     </div>
   );
 }

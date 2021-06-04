@@ -17,7 +17,7 @@ export default function UserList() {
   const { data, loading } = useQuery(QUERY_USER);
 
   useEffect(() => {
-    if (data) {
+    if (data && data.length) {
       setFriends(data.user.friends);
     }
   }, [data]);
