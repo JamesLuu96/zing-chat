@@ -100,7 +100,6 @@ export default function RoomCard({ room, setFilterString }) {
 							return (
 								<Tag
 									style={{
-										borderRadius: "16px",
 										margin: "2px",
 										padding: "0 8px",
 									}}

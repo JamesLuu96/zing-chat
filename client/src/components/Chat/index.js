@@ -1,15 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import Parser from "html-react-parser";
-import {
-	Avatar,
-	Form,
-	Button,
-	Col,
-	Row,
-	PageHeader,
-	Layout,
-	message,
-} from "antd";
+import { Avatar, Form, Button, Col, Row, Layout, message } from "antd";
 import { SendOutlined } from "@ant-design/icons";
 import "../PrivateChat/chat.css";
 import TextEditor from "../TextEditor";
@@ -23,6 +14,8 @@ import { QUERY_ROOM } from "../../utils/queries";
 const { Content } = Layout;
 
 export default function Chat({ handleChange }) {
+	const [room, setRoom] = useState({ colors: ["#fff", "#fff", "#fff"] });
+
 	const location = useLocation();
 	const { roomName, roomId } = location.state;
 	const user = useMyInfo();
@@ -40,6 +33,7 @@ export default function Chat({ handleChange }) {
 		if (data) {
 			const chatData = data.room[0].roomChat;
 			setChat((old) => [...chatData, ...old]);
+			setRoom(data.room[0]);
 		}
 		if (socket) {
 			socket.emit("join room", roomId, roomName);
@@ -74,21 +68,27 @@ export default function Chat({ handleChange }) {
 	return (
 		<>
 			<Layout>
-				<Row>
-					<Col
+				<Row
+					style={{
+						backgroundColor: room.colors[0],
+					}}>
+					{/* <Col
 						style={{
 							backgroundColor: "#fff",
 							boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.2)",
 						}}
-						span={4}>
+						span={5}>
 						<h1>
 							{user.length} users in {roomName}
 						</h1>
 						<UserList />
-					</Col>
+					</Col> */}
 					<Content
 						style={{
+							borderRadius: "8px",
 							overflow: "hidden",
+							margin: "4% 6%",
+							boxShadow: "2px 2px 8px rgba(0, 0, 0, 0.1)",
 						}}>
 						<Content
 							style={{
@@ -97,32 +97,70 @@ export default function Chat({ handleChange }) {
 								overflowX: "hidden",
 								overflowY: "scroll",
 								height: "50vh",
+								borderBottom: "2px solid #e6e6e6",
 							}}>
 							{chat.map((message, i) => (
 								// Renders the message component
 								<>
 									{message.username !== "zingBot" ? (
-										<Row key={i} className="friend-msg-container">
-											<Col>
-												<Avatar src={message.avatar}></Avatar>
-											</Col>
-											<Col className="msg-column" flex="auto">
-												<span className="chat-metadata">
-													{message.username}
-												</span>
-
-												<div
-													className="friend-msg-content"
-													style={{ padding: "12px", textAlign: "left" }}>
-													{Parser(message.message)}
-												</div>
-												{
-													<span className="chat-metadata">
-														{message.createdAt}
+										message.username === user.username ? (
+											<Row justify="end" key={i} className="msg-container">
+												<Col align="right" className="my-chat">
+													<span
+														style={{
+															align: "right",
+															textAlign: "right",
+														}}
+														className="chat-metadata">
+														{message.username}, {message.createdAt}
 													</span>
-												}
-											</Col>
-										</Row>
+
+													<div
+														className="my-chat"
+														style={{
+															display: "inline-block",
+															textAlign: "left",
+
+															backgroundColor: room.colors[1],
+															padding: "12px",
+															marginBottom: "16px",
+														}}>
+														{Parser(message.message)}
+													</div>
+												</Col>
+												<Col>
+													<Avatar src={message.avatar}></Avatar>
+												</Col>
+											</Row>
+										) : (
+											<Row justify="start" key={i} className="msg-container">
+												<Col>
+													<Avatar src={message.avatar}></Avatar>
+												</Col>
+												<Col align="left">
+													<span
+														style={{
+															align: "right",
+															textAlign: "right",
+														}}
+														className="chat-metadata">
+														{message.username}, {message.createdAt}
+													</span>
+
+													<div
+														style={{
+															display: "inline-block",
+															textAlign: "left",
+															padding: "12px",
+															marginBottom: "16px",
+															backgroundColor: room.colors[2],
+														}}
+														className="their-chat">
+														{Parser(message.message)}
+													</div>
+												</Col>
+											</Row>
+										)
 									) : (
 										<>
 											<p style={{ margin: 0, textAlign: "center" }}>
@@ -132,7 +170,7 @@ export default function Chat({ handleChange }) {
 												style={{
 													textAlign: "center",
 													fontSize: "12px",
-													margin: "0 0 13px 0",
+													margin: "0 0 12px 0",
 													color: "grey",
 												}}>
 												{message.createdAt}
@@ -146,7 +184,6 @@ export default function Chat({ handleChange }) {
 							style={{
 								padding: "24px",
 								backgroundColor: "#fff",
-
 								height: "20vh",
 								overflow: "hidden",
 							}}>
