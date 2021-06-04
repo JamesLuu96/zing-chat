@@ -176,9 +176,6 @@ div.ant-card-meta-description {
 	margin: 0;
 }
 
-.msg-column {
-	max-width: 50%;
-}
 
 .chat-metadata {
 	display: flex;
@@ -217,9 +214,12 @@ div.ant-comment-inner {
 }
 
 div.text-editor {
-	margin: 0;
+	margin: -1.6px;
 	padding: 0;
+	position: relative;
+	background-color: #fff;
 }
+
 
 header.ant-layout-header,
 .ant-menu {
@@ -229,30 +229,54 @@ header.ant-layout-header,
 
     margin-top: 5%;
     height: 60vh;
-    background-color: #f7f8f9;
+	background-color:#fff;
+	
 }
 
 .user-list{
     background-color: #fff;
 	margin: 3% 1% 0 0;
     height: 60vh;
+	border-radius: 10px;
+	overflow: scroll;
 }
 .chat-box{
 	margin-left:25px ;	
+	border-radius: 10px;
 }
 
-
-.msg-column :nth-child(odd) {
-	background-color: #fff; 
-	display: inline-block;
+.their-chat{
 	margin-right: 150px;
 }
-.your-message {
-	text-align: right;
+.their-chat .friend-msg-content{
+	display: inline-block;
+color:#000000b9;	
+background-color: #bbb2be59;
+
 }
-.msg-column :nth-child(even) {
-	background-color: #725d7e7a;
-	
+.my-chat .friend-msg-content{
+	background-color: #9340bd88;
 	color: #fff;
+	display: inline-block;
 }
 
+.chat-header{
+font-size: 20px;
+position: fixed;
+width:53.85%;
+z-index: 9999;
+background-color: #fff;
+color:#783699e1;
+
+font-weight: bold;
+display: flex;
+padding: 10px;
+justify-content: flex-end;
+
+}
+.send-chat{
+	position: absolute;
+	right:0%;
+	top:-220%;
+	
+}
