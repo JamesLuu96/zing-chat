@@ -4,11 +4,29 @@ general
 -------
 */
 body {
-	background-color: rgb(211, 222, 246);
- 
-  
+	 /* background-color: rgb(211, 222, 246);  */
+ background-color: #eff3fc;
+height:100vh;
+overflow: hidden;
 }
-
+ ::-webkit-scrollbar {
+	width: 5px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+	background: #f1f1f1; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+	background: rgb(209, 208, 208);
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+	background: #555; 
+  } */
 /* 
 cards
 ------
@@ -20,12 +38,13 @@ cards
 #user-list {
 	height: 100vh;
 	background-color: white;
+	overflow: scroll;
 }
 
 div.ant-card {
 	border-radius: 8px;
 	background-color: white;
-	padding: 8px;
+	padding: 4px;
 	margin: 12px;
 	box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.1);
 }
@@ -108,11 +127,12 @@ div.ant-card-meta-description {
 .msg-container p,
 .msg-container ul,
 .msg-container ol {
-	color: white;
+	color: #555;
 	padding: 12px;
 	margin: 0;
 	font-size: 14px;
 	line-height: 1.2rem;
+	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 .msg-container h2 {
@@ -132,12 +152,15 @@ div.ant-card-meta-description {
 }
 
 .friend-msg-content {
-	background-color: rgb(56, 37, 231);
+	background-color: #fff;
 	border-radius: 0 16px 16px 16px;
 	margin: 0;
 	font-size: 14px;
 	line-height: 1.2rem;
+    overflow-wrap: break-word;
 }
+
+
 
 .msg-container {
 	margin-bottom: 8px;
@@ -165,6 +188,7 @@ div.ant-card-meta-description {
 	font-size: 12px;
 	line-height: 1.4rem;
 }
+
 
 .flex-end {
 	justify-content: flex-end;
@@ -201,3 +225,34 @@ header.ant-layout-header,
 .ant-menu {
 	background-color: #15293c;
 }
+.chat-area{
+
+    margin-top: 5%;
+    height: 60vh;
+    background-color: #f7f8f9;
+}
+
+.user-list{
+    background-color: #fff;
+	margin: 3% 1% 0 0;
+    height: 60vh;
+}
+.chat-box{
+	margin-left:25px ;	
+}
+
+
+.msg-column :nth-child(odd) {
+	background-color: #fff; 
+	display: inline-block;
+	margin-right: 150px;
+}
+.your-message {
+	text-align: right;
+}
+.msg-column :nth-child(even) {
+	background-color: #725d7e7a;
+	
+	color: #fff;
+}
+

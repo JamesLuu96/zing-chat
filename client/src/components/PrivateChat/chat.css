@@ -44,12 +44,16 @@
   
 }
 .chatBox{
-    background-color: #eaeaf4;
+    /* background-color: #eaeaf4; */
+    background-color: #F2F3F5;
 }
 .ant-btn-primary{
     color:#fff;
     background-color: #474787;
+
 }
 .ant-btn-primary:hover{
     background-color: #434379;   
 }
+
+/*--------Chat-----------*/

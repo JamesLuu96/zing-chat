@@ -52,7 +52,6 @@ function PrivateChat({setCount}) {
     }
   }, [socket, openChat, visible, currentConv])
 
-
   setCount(notif.length)
 
   useEffect(()=>{
@@ -112,7 +111,7 @@ function PrivateChat({setCount}) {
               ></List>
             </TabPane>
             <TabPane tab="Conversations" key="2">
-              {currentConv ?
+              {currentConv.username !== "" ?
               <>
                 <div>
                 <List.Item.Meta
