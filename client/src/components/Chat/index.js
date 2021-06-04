@@ -5,18 +5,22 @@ import { Avatar, Form, Button, Layout, Col, Row, PageHeader } from "antd";
 import { SendOutlined } from "@ant-design/icons";
 import "../././../App.css";
 import TextEditor from "../TextEditor";
-import { useSocket, useMyInfo } from "../Socket";
+import { useSocket, useMyInfo, useUsers } from "../Socket";
 import { useLocation } from "react-router-dom";
 
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import { ADD_CHAT } from "../../utils/mutations";
 import { QUERY_ROOM } from "../../utils/queries";
-const { Content, Sider } = Layout;
-const sampledata = [{ name: "fasika" }];
+const { Content } = Layout;
+
 export default function Chat() {
   const location = useLocation();
   const { roomId, roomName } = location.state;
   const user = useMyInfo();
+  const allUsers = useUsers().users;
+  const [users, setUsers] = useState(
+    allUsers.filter((user) => user.room === roomId)
+  );
   const [addChat] = useMutation(ADD_CHAT);
   const { data, loading } = useQuery(QUERY_ROOM, {
     variables: {
@@ -28,21 +32,32 @@ export default function Chat() {
   const [msg, setMsg] = useState("");
   const [chat, setChat] = useState([]);
   const chatBox = document.querySelector(".chat-area");
+
   useEffect(() => {
-    // chatBox.scrollTop = chatBox.scrollHeight;
     if (data) {
       const chatData = data.room[0].roomChat;
       setChat((old) => [...chatData, ...old]);
     }
     if (socket) {
+      if (!users.length) {
+        socket.emit("populate users");
+      }
       socket.emit("join room", roomId, roomName);
 
       socket.on("receive message", (message) => {
         setChat((old) => [...old, message]);
       });
-
+      socket.on("receive users", (socketUsers) => {
+        setUsers(socketUsers);
+      });
+      socket.on("user disconnecting", (id) => {
+        console.log(id);
+        setUsers((oldUsers) => [...oldUsers.filter((user) => user.id !== id)]);
+      });
       return () => {
         socket.off("receive message");
+        socket.off("receive users");
+        socket.off("user disconnecting");
       };
     }
   }, [data, socket]);
@@ -64,6 +79,9 @@ export default function Chat() {
       console.log(e);
     }
   }
+  if (chatBox) {
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
 
   return (
     <>
@@ -78,34 +96,33 @@ export default function Chat() {
                 borderBottom: "0.5px solid #7836992f",
               }}
             />
-            {sampledata.map((user) => (
+            {users.map((user) => (
               <div
-                key={user.name}
+                key={user.username}
                 style={{
                   backgroundColor: "#FFF",
                   marginBottom: "1rem",
                 }}
               >
-                <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-                <span>{user.name}</span>
+                <Avatar src={user.avatar} />
+                <span>{user.username}</span>
               </div>
             ))}
           </Col>
           <Col span={13}>
             <Content className="chat-area">
-              <div className="chat-header"><span>Group Chat</span></div>
+              <div className="chat-header">
+                <span>Group Chat</span>
+              </div>
               {chat.map((message, i) => (
                 // Renders the message component
-                <>
+                <div key={i}>
                   {message.username !== "zingBot" ? (
                     <Row
-                      key={i}
                       className="msg-container friend-msg-container"
                       justify="start"
                     >
-                      <Col>
-                        <Avatar src={message.avatar}></Avatar>
-                      </Col>
+                      <Col>{/* <Avatar src={message.avatar}></Avatar> */}</Col>
 
                       <Col
                         className={
@@ -148,7 +165,7 @@ export default function Chat() {
                       </p>
                     </>
                   )}
-                </>
+                </div>
               ))}
             </Content>
           </Col>
