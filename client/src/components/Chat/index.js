@@ -12,8 +12,8 @@ import { useMutation, useQuery } from "@apollo/react-hooks";
 import { ADD_CHAT } from "../../utils/mutations";
 import { QUERY_ROOM } from "../../utils/queries";
 const { Content, Sider } = Layout;
-
-export default function Chat({ handleChange }) {
+const sampledata = [{ name: "fasika" }];
+export default function Chat() {
   const location = useLocation();
   const { roomId, roomName } = location.state;
   const user = useMyInfo();
@@ -27,12 +27,6 @@ export default function Chat({ handleChange }) {
   const socket = useSocket();
   const [msg, setMsg] = useState("");
   const [chat, setChat] = useState([]);
-  const sampledata = [
-    { name: "bunny" },
-    { name: "carrot" },
-    { name: "Easter" },
-    { name: "new" },
-  ];
 
   useEffect(() => {
     if (data) {
@@ -54,8 +48,9 @@ export default function Chat({ handleChange }) {
   async function submitForm(e) {
     e.preventDefault();
     socket.emit("send message", msg);
+    setMsg("");
     try {
-      const response = await addChat({
+      await addChat({
         variables: {
           roomId: roomId,
           message: msg,
@@ -65,8 +60,6 @@ export default function Chat({ handleChange }) {
     } catch (e) {
       console.log(e);
     }
-
-    setMsg("");
   }
 
   return (
