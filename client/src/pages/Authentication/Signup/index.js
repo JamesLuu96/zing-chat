@@ -65,7 +65,7 @@ export default function Signup({ setIdToken }) {
               required: true,
               message: "Please add a username 3-20 characters long!",
               whitespace: true,
-              pattern: new RegExp(/^[A-Za-z0-9_-]{3,20}$/)
+              pattern: new RegExp(/^[A-Za-z0-9_!@./#?&+-]{3,20}$/)
             },
           ]}
         >
