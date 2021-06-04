@@ -200,7 +200,9 @@ div.ant-card-meta-description {
 
 .ant-layout-content {
 	overflow-y: scroll;
+	
 }
+
 
 .chat-container {
 	background-color: white;
@@ -239,6 +241,7 @@ header.ant-layout-header,
     height: 60vh;
 	border-radius: 10px;
 	overflow: scroll;
+	
 }
 .chat-box{
 	margin-left:25px ;	
