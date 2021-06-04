@@ -9,7 +9,7 @@ const resolvers = {
     },
     user: async (parent, args, context) => {
       if (context.user) {
-        const user = await User.findById(context.user._id).populate("friends");
+        const user = await User.findById(context.user._id).populate("friends").populate("friendRequests");
 
         return user;
       }
@@ -134,8 +134,16 @@ const resolvers = {
             $addToSet: { friends: args.friendId }
           },
           { new: true }
-        ).populate("friends");
+        ).populate("friends")
+        .populate("friendRequests");
 
+        await User.findByIdAndUpdate(
+          args.friendId,
+          {
+            $addToSet: { friendRequests: context.user._id }
+          }
+        )
+        
         return user;
       }
     },

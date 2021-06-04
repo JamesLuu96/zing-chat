@@ -20,6 +20,7 @@ function PrivateChat({setCount}) {
   const [sendDM] = useMutation(SEND_DM)
   const socket = useSocket()
   const [notif, setNotif] = useState([])
+  const [friendRequests, setFriendRequests] = useState([])
 
   useEffect(()=>{
     if(openChat === "2" && visible){
@@ -28,6 +29,7 @@ function PrivateChat({setCount}) {
     }
     if(openChat === "1" && visible){
       console.log('erase friend requests')
+      setNotif(old=>old.filter(names=>names !== "friend request"))
     }
   }, [openChat, visible])
   
@@ -35,6 +37,8 @@ function PrivateChat({setCount}) {
     if(socket){
       socket.off('receive DM')
       socket.off('add friend')
+      socket.off('friend request')
+
       socket.on('receive DM', (message)=>{
         if(openChat !== "2" || visible === false || (currentConv.username !== message.sender)){
           setNotif(old=>[...old, message.sender])
@@ -45,9 +49,18 @@ function PrivateChat({setCount}) {
       socket.on('add friend', friend=>{
         setFriends(old=> [...old, friend])
       })
+      socket.on('friend request', friend=>{
+        if(openChat !== "1" || visible === false){
+          console.log('friend request from: ', friend)
+          setNotif(old=>[...old, "friend request"])
+          setCount(notif.length)
+        }
+        setFriendRequests(old=>[...old, friend])
+      })
       return ()=>{
         socket.off('receive DM')
         socket.off('add friend')
+        socket.off('friend request')
       }
     }
   }, [socket, openChat, visible, currentConv])
@@ -59,6 +72,7 @@ function PrivateChat({setCount}) {
     }else{
       setCurrentConvChat(user.privateMessages)
       setFriends(user.friends)
+      setFriendRequests(user.friendRequests)
     }
   }, [user])
 
@@ -81,6 +95,10 @@ function PrivateChat({setCount}) {
     newChatHandler("2")
     setCurrentConv(friend)
   }
+  function isFriend(friend){
+    return friendRequests.filter(user=>user.username === friend.username).length
+  }
+
   return (
     <>
       {visible && (
@@ -90,7 +108,7 @@ function PrivateChat({setCount}) {
               <List
                 dataSource={friends}
                 renderItem={(friend, i) => (
-                  <List.Item key={i} onClick={() => clickFriendHandler(friend)}>
+                  <List.Item key={i} onClick={() => isFriend(friend) && clickFriendHandler(friend)}>
                     <List.Item.Meta
                       avatar={
                         users.filter(user=>user.id === friend._id).length ? 

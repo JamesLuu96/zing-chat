@@ -115,6 +115,7 @@ io.on("connection", function (socket) {
   socket.on('add friend', friend=>{
     console.log(friend)
     socket.emit('add friend', {...friend, _id: friend.id})
+    io.to(friend.id).emit('friend request', user)
   })
 
   socket.on("disconnect", () => {

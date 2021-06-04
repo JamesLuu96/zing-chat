@@ -60,6 +60,12 @@ const userSchema = new Schema({
 			ref: "User",
 		},
 	],
+	friendRequests: [
+		{
+			type: Schema.Types.ObjectId,
+			ref: "User",
+		},
+	],
 	createdAt: {
 		type: Date,
 		default: Date.now,

@@ -18,6 +18,7 @@ export default function UserList() {
 
   useEffect(() => {
     if (data) {
+      if(data.user !== null)
       setFriends(data.user.friends);
     }
   }, [data]);

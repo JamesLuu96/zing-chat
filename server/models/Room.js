@@ -9,7 +9,8 @@ const roomSchema = new Schema({
     required: true,
   },
   password: {
-    type: String
+    type: String,
+    default: ""
   },
   tags: {
     type: Array,

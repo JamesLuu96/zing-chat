@@ -24,6 +24,7 @@ const typeDefs = gql`
     avatar: String
     rooms: [Room]
     friends: [User]
+    friendRequests: [User]
     createdAt: String
   }
 
@@ -60,6 +61,7 @@ const typeDefs = gql`
     deleteRoom(_id: String!): Room
     addRoom(
       roomName: String!
+      password: String
       colors: [String]!
       tags: [String]!
       privacy: String!
