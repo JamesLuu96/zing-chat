@@ -28,7 +28,9 @@ export default function Socket({ children, idToken }) {
   useEffect(() => {
     const data = decode(idToken).data;
     setInfo(data);
-    const newSocket = io("/", { query: { idToken: JSON.stringify(data) } });
+    const newSocket = io("/", {
+      query: { idToken: JSON.stringify(data) },
+    });
     setSocket(newSocket);
     newSocket.on("already logged in", () => {
       routerHistory.push("/error");

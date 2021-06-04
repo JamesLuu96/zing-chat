@@ -17,7 +17,7 @@ class Nav extends React.Component {
         style={{
           display: "flex",
           justifyContent: "space-between",
-          marginBottom: "2.5rem",
+          marginBottom: "0.5rem",
           backgroundColor: "#474787",
         }}
       >

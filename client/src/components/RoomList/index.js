@@ -80,7 +80,7 @@ export default function RoomList() {
         style={{
           display: "flex",
           justifyContent: "space-between",
-          padding: "10px",
+          padding: "2px",
         }}
       >
         <div>
@@ -132,7 +132,8 @@ export default function RoomList() {
             : rooms
         }
         pagination={{
-          pageSize: 5,
+          pageSize: 4,
+          hideOnSinglePage: true,
         }}
         renderItem={(room, i) => (
           <RoomCard

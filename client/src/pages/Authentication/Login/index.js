@@ -1,10 +1,12 @@
-import { Form, Input, Button, Row } from "antd";
+import React, { useState } from "react";
+import { Form, Input, Button, Row, Alert } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { useMutation } from "@apollo/react-hooks";
 import { LOGIN } from "../../../utils/mutations";
 
 export default function Login({ setIdToken }) {
   const [login, { error }] = useMutation(LOGIN);
+
   const onFinish = async (values) => {
     const { username, password } = values;
     try {
@@ -17,7 +19,7 @@ export default function Login({ setIdToken }) {
       const token = response.data.login.token;
       setIdToken(token);
     } catch (error) {
-      console.log(error);
+      console.log(error, "error");
     }
 
     console.log("Received values of form: ", values);
@@ -26,7 +28,7 @@ export default function Login({ setIdToken }) {
   return (
     <Row type="flex" justify="center">
       <Form
-        style={{ width: "25%", marginTop: "5rem" }}
+        style={{ width: "25%" }}
         layout="vertical"
         size="large"
         name="login"

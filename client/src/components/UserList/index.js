@@ -50,7 +50,7 @@ export default function UserList() {
 
   return (
     <>
-      <div>
+      <div style={{ height: "100vh" }}>
         {users &&
           users.map((user, i) => {
             return (
