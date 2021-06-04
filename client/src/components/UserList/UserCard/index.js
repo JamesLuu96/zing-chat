@@ -21,49 +21,40 @@ export default function UserCard({ user, friends, setFriends }) {
       const response = await addFriend({
         variables: { friendId: user.id },
       });
-      socket.emit("add friend", user);
+      socket.emit("add friend", user.id);
       setFriends((old) => [...old, { _id: user.id, username: user.username }]);
     } catch (e) {
       console.log(e);
     }
   };
+  console.log(user);
 
   return (
     <>
-      <List.Item>
+      <List.Item
+        style={{
+          border: "1px solid #dadada",
+          borderRadius: "6px",
+          margin: "12px",
+          padding: "8px",
+        }}
+      >
         <List.Item.Meta
-          avatar={
-            <Badge dot status="success" size="default">
-              <Avatar src={user.avatar} />
-            </Badge>
+          avatar={<Avatar src={user.avatar} size={56} />}
+          title={
+            <h3
+              style={{ marginTop: "8px", marginBottom: "0" }}
+              align="left"
+            >{`${user.username} `}</h3>
           }
-          style={{ color: "red" }}
-          title={user.username}
-          description={`${user.username} - ${user.roomName}`}
+          description={
+            <p style={{ marginTop: "0" }} align="left">{`${user.roomName}`}</p>
+          }
         />
 
-<<<<<<< HEAD
-        {friends.length &&
-=======
-        {friends &&
->>>>>>> 5a077a93664f928719b41d99cb2c3a2d425a7a22
-        friends.filter((friend) => friend._id === user.id) < 1 &&
+        {friends.filter((friend) => friend._id === user.id) < 1 &&
         user.id !== userData._id ? (
-          <Tooltip title={`Add ${user.username}?`}>
-            <Button onClick={addFriendHandler} icon={<UserAddOutlined />} />
-          </Tooltip>
-        ) : null}
-        {user.room !== "Lobby" ? (
-          <Tooltip title={`Join ${user.username}'s room?`}>
-            <Link
-              to={{
-                pathname: `/room/${user.room}`,
-                state: { roomName: user.roomName, roomId: user.room },
-              }}
-            >
-              <Button icon={<RightSquareOutlined />} />
-            </Link>
-          </Tooltip>
+          <Button onClick={addFriendHandler} icon={<UserAddOutlined />} />
         ) : null}
       </List.Item>
     </>

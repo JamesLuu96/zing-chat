@@ -7,10 +7,9 @@ import { LOGIN } from "../../../utils/mutations";
 export default function Login({ setIdToken }) {
   const [login, { error }] = useMutation(LOGIN);
   const [errorMessage, setErrorMessage] = useState(false);
-
   const onFinish = async (values) => {
+    setErrorMessage(false);
     const { username, password } = values;
-
     try {
       const response = await login({
         variables: {
@@ -40,7 +39,9 @@ export default function Login({ setIdToken }) {
       </Row>
       <Row type="flex" justify="center">
         <Form
-          style={{ width: "25%" }}
+          style={{
+            width: `90%`,
+          }}
           layout="vertical"
           size="large"
           name="login"

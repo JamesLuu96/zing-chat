@@ -6,8 +6,9 @@ import { ADD_ROOM } from "../../utils/mutations";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import { useSocket, useUsers } from "../Socket";
 import RoomForm from "../../components/RoomForm";
-import { Button } from "antd";
-import { SearchOutlined } from "@ant-design/icons";
+import { Button, Row, Col } from "antd";
+
+import { SearchOutlined, PlusOutlined } from "@ant-design/icons";
 
 export default function RoomList() {
   const socket = useSocket();
@@ -21,6 +22,7 @@ export default function RoomList() {
 
   useEffect(() => {
     if (data) {
+      console.log(data);
       setRooms((index) => [
         ...index,
         ...data.rooms.map((room) => {
@@ -54,7 +56,7 @@ export default function RoomList() {
       };
     }
   }, [data]);
-
+  console.log("rooms: ", rooms);
   const onCreate = async (values) => {
     const { roomName, tags, privacy, primary, secondary, tertiary } = values;
     try {
@@ -75,25 +77,44 @@ export default function RoomList() {
 
   return (
     <>
-      <div
+      <Row
         style={{
-          display: "flex",
-          justifyContent: "space-between",
-          padding: "2px",
+          padding: "0 4%",
+          marginTop: "4%",
         }}
       >
-        <div>
-          <Button
+        <Col align="left" flex="auto">
+          <h1 style={{ margin: 0 }}>{rooms.length} rooms</h1>
+        </Col>
+        <Col align="right" span={12}>
+          <Input
+            size="large"
             style={{
-              backgroundColor: "#474787",
+              borderRadius: "32px",
+              padding: "8px 16px",
+            }}
+            value={filterString}
+            allowClear
+            suffix={<SearchOutlined />}
+            placeholder="Search By Tag"
+            onChange={(e) => setFilterString(e.target.value)}
+          />
+        </Col>
+
+        <Col align="right" span={3}>
+          <Button
+            icon={<PlusOutlined />}
+            shape="round"
+            size="large"
+            style={{
+              backgroundColor: "#434379",
               color: "#fff",
             }}
-            // type="primary"
             onClick={() => {
               setVisible(true);
             }}
           >
-            Create room
+            Room
           </Button>
           <RoomForm
             visible={visible}
@@ -102,20 +123,11 @@ export default function RoomList() {
               setVisible(false);
             }}
           />
-        </div>
-        <div>
-          {/* <label>Filter by Tag: </label> */}
-          <Input
-            value={filterString}
-            allowClear
-            suffix={<SearchOutlined />}
-            placeholder="Search By Tag"
-            onChange={(e) => setFilterString(e.target.value)}
-          />
-        </div>
-      </div>
+        </Col>
+      </Row>
 
       <List
+        style={{ padding: "1% 4%" }}
         id="room-list"
         dataSource={
           filterString

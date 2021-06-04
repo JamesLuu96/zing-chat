@@ -107,15 +107,15 @@ io.on("connection", function (socket) {
     });
   });
 
-  socket.on('send DM', (message, receiverId )=> {
-    console.log(receiverId)
-    io.to(receiverId).emit('receive DM', {...message, sender: user.username})
-  })
+  socket.on("send DM", (message, receiverId) => {
+    console.log(receiverId);
+    io.to(receiverId).emit("receive DM", { ...message, sender: user.username });
+  });
 
-  socket.on('add friend', friend=>{
-    console.log(friend)
-    socket.emit('add friend', {...friend, _id: friend.id})
-  })
+  socket.on("add friend", (friend) => {
+    console.log(friend);
+    socket.emit("add friend", { ...friend, _id: friend.id });
+  });
 
   socket.on("disconnect", () => {
     user &&

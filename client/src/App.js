@@ -1,7 +1,9 @@
 import React from "react";
+import { Layout } from "antd";
+
 import useLocalStorage from "./hooks/useLocalStorage";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import "./App.css";
+import "./App.less";
 import Nav from "./components/Nav";
 import Main from "./pages/Main";
 import Socket from "./components/Socket";
@@ -13,10 +15,10 @@ import NoMatch from "./pages/Authentication/NoMatch";
 import Error from "./components/Error";
 import ApolloClient from "apollo-boost";
 import Auth from "./utils/auth";
-import Private from "./components/PrivateChat/Private"
-import BlurHandler from "./components/PrivateChat/BlurHandler"
+import Private from "./components/PrivateChat/Private";
+import BlurHandler from "./components/PrivateChat/BlurHandler";
 
-import Paint from "./components/Paint";
+// import Paint from "./components/Paint";
 export default function App() {
   const [idToken, setIdToken] = useLocalStorage("id_token");
   const client = new ApolloClient({
@@ -38,11 +40,11 @@ export default function App() {
             <Route exact path="/error" component={Error} />
             <Route exact path="/" component={Main} />
             <Route exact path="/room/:id" component={Chat} />
-            <Route exact path="/paint" component={Paint} />
+            {/* <Route exact path="/paint" component={Paint} /> */}
             <Route component={NoMatch} />
           </Switch>
           <BlurHandler>
-            <Private/>
+            <Private />
           </BlurHandler>
         </Socket>
       </Router>
