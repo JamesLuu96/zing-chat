@@ -248,19 +248,19 @@ header.ant-layout-header,
 	border-radius: 10px;
 }
 
-.their-chat{
-	margin-right: 150px;
-}
+
 .their-chat .friend-msg-content{
 	display: inline-block;
 color:#000000b9;	
 background-color: #bbb2be59;
+
 
 }
 .my-chat .friend-msg-content{
 	background-color: #9340bd88;
 	color: #fff;
 	display: inline-block;
+	text-align: right; 
 }
 
 .chat-header{
