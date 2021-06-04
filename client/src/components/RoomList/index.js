@@ -54,7 +54,7 @@ export default function RoomList() {
       };
     }
   }, [data]);
-  
+
   const onCreate = async (values) => {
     const { roomName, tags, privacy, primary, secondary, tertiary } = values;
     try {
@@ -84,7 +84,10 @@ export default function RoomList() {
       >
         <div>
           <Button
-            style={{ backgroundColor: "#474787", color: "#fff" }}
+            style={{
+              backgroundColor: "#474787",
+              color: "#fff",
+            }}
             // type="primary"
             onClick={() => {
               setVisible(true);

@@ -270,13 +270,14 @@ width:53.85%;
 z-index: 9999;
 background-color: #fff;
 color:#783699e1;
-
 font-weight: bold;
 display: flex;
 padding: 10px;
 justify-content: flex-end;
 
+
 }
+
 .send-chat{
 	position: absolute;
 	right:0%;

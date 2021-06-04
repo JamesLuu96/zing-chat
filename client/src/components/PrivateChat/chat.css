@@ -17,7 +17,10 @@
     bottom: 20px;
     font-size: 40px;
     transform: rotate(-1deg);
-    color:#474787;
+    color:#fff;
+    background-color: #474787;
+    padding:15px;
+    border-radius: 50%;
 }
 .message-icon{
     transform: scaleX(-1);
@@ -44,8 +47,7 @@
   
 }
 .chatBox{
-    /* background-color: #eaeaf4; */
-    background-color: #F2F3F5;
+    background-color: #f4f4f4; 
 }
 .ant-btn-primary{
     color:#fff;
@@ -56,4 +58,33 @@
     background-color: #434379;   
 }
 
+.private-chat{
+    padding:5px 10px 5px 10px;
+}
+.private-chat li{
+    background-color: #434379;
+    list-style: none;
+
+    border-bottom-left-radius: 18px;
+    border-top-right-radius: 18px;
+    border-bottom-right-radius: 18px;
+    padding:0 10px 0 10px;
+    overflow-wrap: break-word;
+}
+.private-converation{
+    padding:0 10px 0 10px;
+}
+.private-chat li:nth-child(odd){
+    color:#000000b9;	
+    background-color: #E4E6EB;
+    margin-bottom: 10px;
+    display: inline-block;
+
+}
+.private-chat li:nth-child(even){
+    background-color: #9340bd88;
+	color: #fff;
+    margin-bottom: 10px;
+   
+}
 /*--------Chat-----------*/

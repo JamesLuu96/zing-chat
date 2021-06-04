@@ -13,7 +13,7 @@ const { Meta } = Card;
 
 export default function RoomCard({ room, setFilterString }) {
   const { users, tags, roomName } = room;
-  
+
   const [deleteRoom] = useMutation(DELETE_ROOM);
   const [updateRoom] = useMutation(UPDATE_ROOM);
   const [visible, setVisible] = useState(false);
@@ -70,6 +70,7 @@ export default function RoomCard({ room, setFilterString }) {
   return (
     <>
       <Card
+        size="small"
         title={roomName}
         extra={
           <Link
@@ -117,13 +118,13 @@ export default function RoomCard({ room, setFilterString }) {
             <Avatar.Group maxCount={5}>
               {users.map((user, i) => {
                 return (
-                  <Tooltip title={user.username}>
+                  <Tooltip title={user.username} key={i}>
                     <Avatar
                       key={i}
                       className="avatar-round"
                       size="32"
                       src={user.avatar}
-                      round={true}
+                      round="true"
                       name={user.username}
                     />
                   </Tooltip>

@@ -29,15 +29,16 @@ export default function Chat() {
   const [chat, setChat] = useState([]);
   const chatBox = document.querySelector(".chat-area");
   useEffect(() => {
+    // chatBox.scrollTop = chatBox.scrollHeight;
     if (data) {
       const chatData = data.room[0].roomChat;
       setChat((old) => [...chatData, ...old]);
     }
     if (socket) {
       socket.emit("join room", roomId, roomName);
+
       socket.on("receive message", (message) => {
         setChat((old) => [...old, message]);
-        chatBox.scrollTop = chatBox.scrollHeight;
       });
 
       return () => {
@@ -50,6 +51,7 @@ export default function Chat() {
     e.preventDefault();
     socket.emit("send message", msg);
     setMsg("");
+
     try {
       await addChat({
         variables: {
@@ -91,7 +93,7 @@ export default function Chat() {
           </Col>
           <Col span={13}>
             <Content className="chat-area">
-              <div className="chat-header">Group Chat</div>
+              <div className="chat-header"><span>Group Chat</span></div>
               {chat.map((message, i) => (
                 // Renders the message component
                 <>
