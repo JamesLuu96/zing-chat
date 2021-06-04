@@ -1,5 +1,5 @@
 import React from "react";
-import { Layout, Menu } from "antd";
+import { Layout, Tooltip } from "antd";
 import Auth from "../../utils/auth";
 import { Link } from "react-router-dom";
 import { LogoutOutlined } from "@ant-design/icons";
@@ -37,9 +37,9 @@ class Nav extends React.Component {
         {/* <Menu.Item key="2"> */}
         <>
           {Auth.loggedIn() ? (
-            <a className="nav-link" to="/" onClick={() => Auth.logout()}>
+            <Tooltip title="Logout"><a className="nav-link" to="/" onClick={() => Auth.logout()}>
               <LogoutOutlined style={{ fontSize: "1.3rem", color: "#fff" }} />
-            </a>
+            </a></Tooltip>
           ) : null}
         </>
         {/* </Menu.Item> */}

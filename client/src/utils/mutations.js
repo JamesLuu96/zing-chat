@@ -1,12 +1,13 @@
 import gql from "graphql-tag";
 
 export const ADD_USER = gql`
-  mutation addUser($username: String!, $password: String!, $avatar: String!) {
-    addUser(username: $username, password: $password, avatar: $avatar) {
+  mutation addUser($username: String!, $password: String!, $displayName: String!, $avatar: String!) {
+    addUser(username: $username, displayName: $displayName, password: $password, avatar: $avatar) {
       token
       user {
         _id
         username
+        displayName
         avatar
       }
     }
@@ -20,6 +21,7 @@ export const LOGIN = gql`
       user {
         _id
         username
+        displayName
         avatar
       }
     }
@@ -32,16 +34,19 @@ export const ADD_ROOM = gql`
     $colors: [String]!
     $tags: [String]!
     $privacy: String!
+    $password: String
   ) {
     addRoom(
       roomName: $roomName
       colors: $colors
       tags: $tags
       privacy: $privacy
+      password: $password
     ) {
       _id
       roomName
       username
+      password
       colors
       tags
       privacy
@@ -67,6 +72,23 @@ export const ADD_CHAT = gql`
     }
   }
 `;
+
+export const SEND_DM = gql`
+  mutation sendDM($receiver: String!, $message: String!) {
+    sendDM(receiver: $receiver, message: $message) {
+      _id
+      username
+      displayName
+      avatar
+      privateMessages{
+        sender
+        message
+        receiver
+      }
+    }
+  }
+`;
+
 export const DELETE_CHAT = gql`
   mutation deleteChat($chatId: String!) {
     deleteChat(chatId: $chatId) {
@@ -101,6 +123,7 @@ export const UPDATE_ROOM = gql`
     $colors: [String]!
     $tags: [String]!
     $privacy: String!
+    $password: String
   ) {
     updateRoom(
       roomId: $roomId
@@ -108,10 +131,12 @@ export const UPDATE_ROOM = gql`
       colors: $colors
       tags: $tags
       privacy: $privacy
+      password: $password
     ) {
       _id
       roomName
       username
+      password
       colors
       tags
       privacy

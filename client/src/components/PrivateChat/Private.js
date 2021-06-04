@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import PrivateChat from "./index";
 import { MessageOutlined } from "@ant-design/icons";
 import { Badge } from "antd";
+import {useVisible} from "./BlurHandler"
+
 function Private() {
-  const [visible, setVisibility] = useState(false);
+  const {visible, setVisibility} = useVisible();
+  const [count, setCount] = useState(0)
+
   const showPrivateMessage = (e) => {
     e.preventDefault();
     setVisibility(!visible);
@@ -15,13 +19,13 @@ function Private() {
 
   return (
     <div>
-      <Badge count={4} overflowCount={4} className="message-badge" >
+      <Badge count={count} overflowCount={100} className="message-badge" >
         <MessageOutlined
           onClick={showPrivateMessage}
           className="message-icon"
         />
       </Badge>
-      <PrivateChat visible={visible} onClose={onClose} />
+      <PrivateChat setCount={setCount} onClose={onClose} />
     </div>
   );
 }

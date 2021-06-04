@@ -102,6 +102,21 @@ const resolvers = {
       throw new AuthenticationError("Not logged in");
     },
 
+    sendDM: async (parent, {message, receiver}, context) => {
+      if(context.user) {
+        const user = await User.findByIdAndUpdate(
+          {_id: context.user._id},
+          {$push: { privateMessages: {receiver, message, sender: context.user.username}}},
+          {new:true}
+        )
+        await User.findOneAndUpdate(
+          {username: receiver},
+          {$push: { privateMessages: {receiver, message, sender: context.user.username}}}
+        )
+        return user
+      }
+    },
+
     deleteRoom: async (parent, args, context) => {
       console.log(args, "args");
       if (context.user) {
@@ -116,7 +131,7 @@ const resolvers = {
         const user = await User.findByIdAndUpdate(
           context.user._id,
           {
-            $addToSet: { friends: args.friendId },
+            $addToSet: { friends: args.friendId }
           },
           { new: true }
         ).populate("friends");

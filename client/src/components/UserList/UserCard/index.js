@@ -11,7 +11,7 @@ export default function UserCard({ user, friends, setFriends }) {
   const [addFriend, { error }] = useMutation(ADD_FRIEND);
   const socket = useSocket();
   const userData = useMyInfo();
-
+  
   const addFriendHandler = async (event) => {
     event.preventDefault();
     try {
@@ -21,13 +21,12 @@ export default function UserCard({ user, friends, setFriends }) {
       const response = await addFriend({
         variables: { friendId: user.id },
       });
-      socket.emit("add friend", user.id);
+      socket.emit("add friend", user);
       setFriends((old) => [...old, { _id: user.id, username: user.username }]);
     } catch (e) {
       console.log(e);
     }
   };
-  console.log(user);
 
   return (
     <>
@@ -35,9 +34,10 @@ export default function UserCard({ user, friends, setFriends }) {
         <List.Item.Meta
           avatar={
             <Badge dot status="success" size="default">
-              <Avatar src={user.avatar} />{" "}
+              <Avatar src={user.avatar} />
             </Badge>
           }
+          style={{color: "red"}}
           title={user.username}
           description={`${user.username} - ${user.roomName}`}
         />

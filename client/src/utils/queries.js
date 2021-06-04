@@ -5,6 +5,7 @@ export const QUERY_USERS = gql`
     users {
       _id
       username
+      displayName
       rooms {
         _id
         roomName
@@ -34,6 +35,7 @@ export const QUERY_USER = gql`
     user {
       _id
       username
+      displayName
       rooms {
         _id
         roomName
@@ -53,6 +55,12 @@ export const QUERY_USER = gql`
       friends {
         _id
         username
+        avatar
+      }
+      privateMessages{
+        sender
+        message
+        receiver
       }
     }
   }
@@ -63,6 +71,7 @@ export const QUERY_ROOMS = gql`
     rooms {
       _id
       roomName
+      password
       username
       colors
       tags
@@ -81,6 +90,7 @@ export const QUERY_ROOM = gql`
     room(_id: $_id) {
       _id
       roomName
+      password
       username
       colors
       tags

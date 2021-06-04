@@ -1,5 +1,6 @@
 const { gql } = require("apollo-server-express");
 const typeDefs = gql`
+
   type Chat {
     _id: ID
     username: String
@@ -8,9 +9,18 @@ const typeDefs = gql`
     avatar: String
   }
 
+  type DM {
+    sender: String
+    message: String
+    receiver: String
+  }
+
   type User {
     _id: ID
     username: String
+    displayName: String
+    privateMessages: [DM]
+    notifications: [String]
     avatar: String
     rooms: [Room]
     friends: [User]
@@ -20,6 +30,7 @@ const typeDefs = gql`
   type Room {
     _id: ID
     roomName: String
+    password: String
     username: String
     roomChat: [Chat]
     colors: [String]
@@ -42,8 +53,9 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    addUser(username: String!, password: String!, avatar: String!): Auth
+    addUser(username: String!, displayName: String!, password: String!, avatar: String!): Auth
     login(username: String!, password: String!): Auth
+    sendDM(receiver: String!, message: String!): User
     addChat(roomId: String!, message: String!, avatar: String!): Room
     deleteRoom(_id: String!): Room
     addRoom(

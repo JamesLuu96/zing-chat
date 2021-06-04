@@ -6,7 +6,6 @@ import { ADD_USER } from "../../../utils/mutations";
 
 import { AvatarGenerator } from "random-avatar-generator";
 const generator = new AvatarGenerator();
-console.log(generator.generateRandomAvatar());
 
 export default function Signup({ setIdToken }) {
   const [currentAvatar, setAvatar] = useState(generator.generateRandomAvatar());
@@ -14,23 +13,14 @@ export default function Signup({ setIdToken }) {
 
   const [addUser] = useMutation(ADD_USER);
 
-  const normFile = (e) => {
-    console.log("Upload event:", e);
-
-    if (Array.isArray(e)) {
-      return e;
-    }
-
-    return e && e.fileList;
-  };
-
   const onFinish = async (values) => {
-    const { username, password, upload } = values;
+    const { username, password, displayName } = values;
     try {
       const mutationResponse = await addUser({
         variables: {
           username,
           password,
+          displayName,
           avatar: currentAvatar,
         },
       });
@@ -58,7 +48,6 @@ export default function Signup({ setIdToken }) {
         <Form.Item
           name="username"
           label="Username"
-          tooltip="This will be displayed to other users in chat rooms"
           rules={[
             {
               required: true,
@@ -68,6 +57,20 @@ export default function Signup({ setIdToken }) {
           ]}
         >
           <Input placeholder="Username" style={{ padding: "0.8rem" }} />
+        </Form.Item>
+        <Form.Item
+          name="displayName"
+          label="Display Name"
+          tooltip="This will be displayed to other users in chat rooms"
+          rules={[
+            {
+              required: true,
+              message: "Please add a username",
+              whitespace: true,
+            },
+          ]}
+        >
+          <Input placeholder="Display Name" style={{ padding: "0.8rem" }} />
         </Form.Item>
         <Form.Item
           name="password"
@@ -129,9 +132,7 @@ export default function Signup({ setIdToken }) {
 					</Upload>
 				</Form.Item> */}
         <Avatar
-          size={{
-            xxl: 100,
-          }}
+          size={64}
           src={currentAvatar}
         />
         <Button onClick={(e) => setAvatar(generator.generateRandomAvatar())}>

@@ -1,8 +1,24 @@
 const mongoose = require("mongoose");
 
 const { Schema } = mongoose;
+const {chatSchema} = require('./Chat')
 const bcrypt = require("bcrypt");
 const dateFormat = require("../utils/dateFormat");
+
+const DM = new Schema({
+	sender: {
+		type: String,
+		required: true
+	},
+	message: {
+		type: String,
+		required: true
+	},
+	receiver: {
+		type: String,
+		required: true
+	}
+})
 
 const userSchema = new Schema({
 	username: {
@@ -10,10 +26,20 @@ const userSchema = new Schema({
 		required: true,
 		match: [/^\S*$/, "No spaces allowed in a username!"],
 		unique: true,
+		trim: true,
+		lowercase: true,
+		minlength: 4
+	},
+	displayName: {
+		type: String,
+		required: true,
+		trim: true,
+		minlength: 3
 	},
 	password: {
 		type: String,
 		required: true,
+		trim: true,
 		minlength: 5,
 	},
 	avatar: {
@@ -26,6 +52,8 @@ const userSchema = new Schema({
 			ref: "Room",
 		},
 	],
+	privateMessages: [DM],
+	notifications: [String],
 	friends: [
 		{
 			type: Schema.Types.ObjectId,

@@ -14,6 +14,7 @@ import Error from "./components/Error";
 import ApolloClient from "apollo-boost";
 import Auth from "./utils/auth";
 import Private from "./components/PrivateChat/Private"
+import BlurHandler from "./components/PrivateChat/BlurHandler"
 
 export default function App() {
   const [idToken, setIdToken] = useLocalStorage("id_token");
@@ -31,14 +32,17 @@ export default function App() {
     <ApolloProvider client={client}>
       <Router>
         <Socket idToken={idToken}>
-          <Nav idToken={idToken} />
-          <Switch>
-            <Route exact path="/error" component={Error} />
-            <Route exact path="/" component={Main} />
-            <Route exact path="/room/:id" component={Chat} />
-            <Route component={NoMatch} />
-          </Switch>
-          <Private/>
+          
+            <Nav idToken={idToken} />
+            <Switch>
+              <Route exact path="/error" component={Error} />
+              <Route exact path="/" component={Main} />
+              <Route exact path="/room/:id" component={Chat} />
+              <Route component={NoMatch} />
+            </Switch>
+            <BlurHandler>
+              <Private/>
+            </BlurHandler>
         </Socket>
       </Router>
     </ApolloProvider>

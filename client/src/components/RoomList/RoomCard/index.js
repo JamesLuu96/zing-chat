@@ -13,6 +13,7 @@ const { Meta } = Card;
 
 export default function RoomCard({ room, setFilterString }) {
   const { users, tags, roomName } = room;
+  
   const [deleteRoom] = useMutation(DELETE_ROOM);
   const [updateRoom] = useMutation(UPDATE_ROOM);
   const [visible, setVisible] = useState(false);

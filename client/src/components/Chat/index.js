@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import Parser from "html-react-parser";
 import { Avatar, Form, Button, Layout, Col, Row } from "antd";
 import { SendOutlined } from "@ant-design/icons";
@@ -12,22 +12,24 @@ import { ADD_CHAT } from "../../utils/mutations";
 import { QUERY_ROOM } from "../../utils/queries";
 const { Content } = Layout;
 
-export default function Chat({ handleChange }) {
-  const location = useLocation();
-  const { roomName, roomId } = location.state;
+export default function Chat() {
+	const location = useLocation();
+	const { roomId } = location.state;
   const user = useMyInfo();
   const [addChat] = useMutation(ADD_CHAT);
-  const { data, loading } = useQuery(QUERY_ROOM, {
-    variables: {
-      _id: roomId,
-    },
-  });
-
-  const socket = useSocket();
-  const [msg, setMsg] = useState("");
-  const [chat, setChat] = useState([]);
-  //const buttonEl = useRef()
-  useEffect(() => {
+  const { data } = useQuery(QUERY_ROOM, {
+	  variables: {
+		  _id: roomId,
+		},
+	});
+	
+	const socket = useSocket();
+	const [msg, setMsg] = useState("");
+	const [chat, setChat] = useState([]);
+	//const buttonEl = useRef()
+	useEffect(() => {
+	const { roomName, roomId } = location.state;
+	
     if (data) {
       const chatData = data.room[0].roomChat;
       setChat((old) => [...chatData, ...old]);
@@ -43,17 +45,12 @@ export default function Chat({ handleChange }) {
       };
     }
   }, [data, socket]);
-  // function submitForm(e) {
-  // 	e.preventDefault();
-  // 	socket.emit("send message", msg);
-  // 	setMsg("");
-  // }
 
 	async function submitForm(e) {
 		e.preventDefault();
 		socket.emit("send message", msg);
 		try {
-		const response = await addChat({
+			await addChat({
 			variables: {
 			roomId: roomId,
 			message: msg,
@@ -80,10 +77,10 @@ export default function Chat({ handleChange }) {
 			width: "70vw",
 			}}
 		>
-		{chat.map((message, i) => (
+		{chat.map((message, i) => {
 		// Renders the message component
-			<>
-			{message.username !== "zingBot" ?
+			
+			return message.username !== "zingBot" ?
 		
 			<Row
 				key={i}
@@ -108,14 +105,11 @@ export default function Chat({ handleChange }) {
 				</Col>
 			</Row>
 			:
-				<>
-					<p style={{margin: 0, textAlign: "center"}}>{message.message}</p>
+				<div key={i}>
+					<p  style={{margin: 0, textAlign: "center"}}>{message.message}</p>
 					<p style={{textAlign: "center", fontSize: "12px", margin: "0 0 13px 0", color: "grey"}}>{message.createdAt}</p>
-				</>
-			}
-			
-			</>
-		))}
+				</div >
+		})}
 		</Content>
 		<Form.Item className="text-editor">
 			<TextEditor value={msg} setValue={setMsg} />
