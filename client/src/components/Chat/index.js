@@ -13,7 +13,7 @@ import { ADD_CHAT } from "../../utils/mutations";
 import { QUERY_ROOM } from "../../utils/queries";
 const { Content, Sider } = Layout;
 
-export default function Chat() {
+export default function Chat({ handleChange }) {
   const location = useLocation();
   const { roomId, roomName } = location.state;
   const user = useMyInfo();
@@ -65,23 +65,8 @@ export default function Chat() {
     } catch (e) {
       console.log(e);
     }
-  }
 
-  async function submitForm(e) {
-    e.preventDefault();
-    socket.emit("send message", msg);
     setMsg("");
-    try {
-      await addChat({
-        variables: {
-          roomId: roomId,
-          message: msg,
-          avatar: user.avatar,
-        },
-      });
-    } catch (e) {
-      console.log(e);
-    }
   }
 
   return (
