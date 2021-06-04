@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Input, Row, Button, Avatar } from "antd";
+import { Form, Input, Row, Button, Avatar, Alert } from "antd";
 import { useMutation } from "@apollo/react-hooks";
 import Auth from "../../../utils/auth";
 import { ADD_USER } from "../../../utils/mutations";
@@ -12,6 +12,16 @@ export default function Signup({ setIdToken }) {
   const [form] = Form.useForm();
 
   const [addUser] = useMutation(ADD_USER);
+
+  const normFile = (e) => {
+    console.log("Upload event:", e);
+
+    if (Array.isArray(e)) {
+      return e;
+    }
+
+    return e && e.fileList;
+  };
 
   const onFinish = async (values) => {
     const { username, password } = values;
@@ -32,11 +42,12 @@ export default function Signup({ setIdToken }) {
   };
 
   return (
-    <Row type="flex" justify="center">
+    <Row className="form-card" type="flex" justify="center">
       <Form
-        style={{ width: "20%", marginTop: "10rem" }}
+        style={{
+          width: `90%`,
+        }}
         className="signup-form"
-        style={{ width: "30%" }}
         form={form}
         size="large"
         layout="vertical"
@@ -117,20 +128,11 @@ export default function Signup({ setIdToken }) {
             style={{ height: "3rem" }}
           />
         </Form.Item>
-        {/* <Form.Item
-					name="upload"
-					valuePropName="fileList"
-					getValueFromEvent={normFile}>
-					<Upload
-						maxCount={1}
-						name="avatar"
-						action="/upload.do"
-						listType="picture">
-						<Button icon={<UploadOutlined />}>Upload avatar</Button>
-					</Upload>
-				</Form.Item> */}
+
         <Avatar
-          size={64}
+          size={{
+            xxl: 100,
+          }}
           src={currentAvatar}
         />
         <Button onClick={(e) => setAvatar(generator.generateRandomAvatar())}>

@@ -1,79 +1,98 @@
 @import "~antd/dist/antd.css";
-/* 
-general 
--------
-*/
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 body {
-	 /* background-color: rgb(211, 222, 246);  */
- background-color: #eff3fc;
-height:100vh;
-overflow: hidden;
+  font-family: "Roboto", sans-serif;
+  height: 100vh;
+  overflow: hidden;
 }
- ::-webkit-scrollbar {
-	width: 5px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
-	background: #f1f1f1; 
-  }
-   
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-	background: rgb(209, 208, 208);
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-	background: #555; 
-  } */
-/* 
-cards
-------
-*/
-.room-list {
-	padding: 2%;
+
+div#root {
+  height: 100vh;
+}
+
+div.ql-toolbar.ql-snow {
+  padding-left: 0;
+}
+
+span.ql-picker-label {
+  padding-left: 0;
+}
+
+div.ql-editor {
+  height: 10vh;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(209, 208, 208);
+}
+
+.Subnav-Container::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.private-chat {
+  background-color: #e7e7e7;
+  margin: 0 auto;
+  height: auto;
+}
+
+ul.ant-pagination {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  padding: 0 2%;
 }
 
 #user-list {
-	height: 100vh;
-	background-color: white;
-	overflow: scroll;
+  height: 100vh;
+  background-color: white;
+  overflow: scroll;
 }
 
 div.ant-card {
-	border-radius: 8px;
-	background-color: white;
-	padding: 4px;
-	margin: 12px;
-	box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background-color: white;
+  padding: 12px 20px;
+  margin: 12px 0;
+  box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.1);
 }
 
 div.ant-card-head {
-	margin: 0;
-	padding: 0 8px;
+  margin: 0;
+  padding: 0;
 }
 
+div.ant-card-extra {
+  margin: 0;
+  padding: 0;
+}
 div.ant-card-head-title {
-	margin: 4px;
-	padding: 4px;
-	font-size: 24px;
+  margin: 0;
+  padding: 0;
+  font-size: 24px;
+  text-align: left;
 }
 
 div.ant-card-body {
-	padding: 12px 16px;
+  padding: 0;
+  text-align: left;
 }
 
-li.ant-list-item {
-	padding: 4%;
-}
 #room-list h4.ant-list-item-meta-title {
-	font-size: 24px;
-}
-
-h4.ant-list-item-meta-title {
-	font-size: 1px;
-	margin: 0;
+  font-size: 24px;
 }
 
 /* div.ant-col.ant-form-item-label label {
@@ -81,7 +100,7 @@ h4.ant-list-item-meta-title {
 } */
 
 div.ant-row.ant-form-item {
-	margin-bottom: 32px;
+  margin-bottom: 32px;
 }
 
 /* div.ant-col.ant-form-item-label {
@@ -90,169 +109,166 @@ div.ant-row.ant-form-item {
 } */
 
 .block-picker {
-	box-shadow: none !important;
+  box-shadow: none !important;
 }
 
 .color-col {
-	width: 100%;
-	padding: 4px 16px;
+  width: 100%;
+  padding: 4px 16px;
 }
 
 .color-col div {
-	text-align: center;
-	width: 100%;
-	padding: 0;
-	margin: 0 auto;
+  text-align: center;
+  width: 100%;
+  padding: 0;
+  margin: 0 auto;
 }
 
 .filterTags {
-	cursor: pointer;
+  cursor: pointer;
 }
 
 div.ant-card-head {
-	padding-bottom: 0;
-	margin-bottom: 0;
-	border: none;
+  padding-bottom: 0;
+  margin-bottom: 0;
+  border: none;
 }
 
 div.ant-card-body {
-	padding-top: 0;
-	margin-top: 0;
+  padding-top: 0;
+  margin-top: 0;
 }
 
 div.ant-card-meta-description {
-	padding-bottom: 8px;
+  padding-bottom: 8px;
 }
 
-.msg-container p,
-.msg-container ul,
-.msg-container ol {
-	color: #555;
-	padding: 12px;
-	margin: 0;
-	font-size: 14px;
-	line-height: 1.2rem;
-	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+.their-chat {
+  text-align: left;
+  border-radius: 0 16px 16px 16px;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.2rem;
+  overflow-wrap: break-word;
 }
 
-.msg-container h2 {
-	color: white;
-	padding: 16px;
-	margin: 0;
-	font-size: 14px;
-	line-height: 1.2rem;
+.friend-msg-content img {
+  width: 50%;
+  height: 50%;
+  text-align: center;
+  background-color: none;
 }
-
-.msg-container h3 {
-	color: white;
-	padding: 24px;
-	margin: 0;
-	font-size: 14px;
-	line-height: 1.2rem;
-}
-
-.friend-msg-content {
-	background-color: #fff;
-	border-radius: 0 16px 16px 16px;
-	margin: 0;
-	font-size: 14px;
-	line-height: 1.2rem;
-    overflow-wrap: break-word;
-}
-
-
-
-.msg-container {
-	margin-bottom: 8px;
-}
-
-.my-msg-content {
-	font-size: 14px;
-	line-height: 1.2rem;
-	color: white;
-	background-color: rgb(189, 39, 126);
-	padding: 12px;
-	border-radius: 16px 0 16px 16px;
-	margin: 0;
-}
-
-.msg-column {
-	max-width: 50%;
+.my-chat {
+  border-radius: 16px 0 16px 16px;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.2rem;
 }
 
 .chat-metadata {
-	display: flex;
-	margin: 0;
-	padding: 0;
-	color: gray;
-	font-size: 12px;
-	line-height: 1.4rem;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  color: gray;
+  font-size: 12px;
+  line-height: 1.4rem;
 }
 
-
-.flex-end {
-	justify-content: flex-end;
-}
 .ant-avatar {
-	margin: 4px 8px;
+  margin: 4px 8px;
 }
 
 .editor-wrapper {
-	max-height: 200px;
+  max-height: 200px;
 }
 
 .ant-layout-content {
-	overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .chat-container {
-	background-color: white;
-	margin: 4%;
-	
+  background-color: white;
+  margin: 4%;
 }
 
 div.ant-comment-inner {
-	padding: 0;
-	box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+  padding: 0;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 div.text-editor {
-	margin: 0;
-	padding: 0;
+  margin: -1.6px;
+  padding: 0;
+  position: relative;
+  background-color: #fff;
 }
 
 header.ant-layout-header,
 .ant-menu {
-	background-color: #15293c;
+  background-color: #3d50d6;
 }
-.chat-area{
-
-    margin-top: 5%;
-    height: 60vh;
-    background-color: #f7f8f9;
-}
-
-.user-list{
-    background-color: #fff;
-	margin: 3% 1% 0 0;
-    height: 60vh;
-}
-.chat-box{
-	margin-left:25px ;	
+.chat-area {
+  margin-top: 5%;
+  height: 60vh;
+  padding: 0 10%;
+  background-color: #fff;
+  overflow-x: hidden;
 }
 
-
-.msg-column :nth-child(odd) {
-	background-color: #fff; 
-	display: inline-block;
-	margin-right: 150px;
+.user-list {
+  background-color: #fff;
+  margin: 3% 1% 0 0;
+  height: 60vh;
+  border-radius: 10px;
+  overflow: scroll;
 }
-.your-message {
-	text-align: right;
-}
-.msg-column :nth-child(even) {
-	background-color: #725d7e7a;
-	
-	color: #fff;
+.chat-box {
+  margin-left: 25px;
+  border-radius: 10px;
 }
 
+.their-chat .friend-msg-content {
+  display: inline-block;
+  color: #000000b9;
+  background-color: #bbb2be59;
+}
+.my-chat .friend-msg-content {
+  background-color: #9340bd88;
+  color: #fff;
+  display: inline-block;
+  text-align: right;
+}
+
+.chat-header {
+  font-size: 20px;
+  position: fixed;
+  width: 53.85%;
+  z-index: 9999;
+  background-color: #fff;
+  color: #783699e1;
+  font-weight: bold;
+  display: flex;
+  padding: 10px;
+  justify-content: flex-end;
+}
+
+.send-chat {
+  position: absolute;
+  right: 0%;
+  top: -220%;
+}
+.ql-editor p,
+.ql-editor ol,
+.ql-editor ul,
+.ql-editor pre,
+.ql-editor blockquote,
+.ql-editor h1,
+.ql-editor h2,
+.ql-editor h3,
+.ql-editor h4,
+.ql-editor h5,
+.ql-editor h6 {
+  overflow: hidden;
+  width: 40px;
+  height: 50px;
+}

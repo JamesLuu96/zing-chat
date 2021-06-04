@@ -3,6 +3,7 @@ import { Form, Input, Modal, Row, Col, Radio } from "antd";
 import ReactTagInput from "@pathofdev/react-tag-input";
 import "@pathofdev/react-tag-input/build/index.css";
 import ColorPicker from "../../ColorPicker";
+import { InfoCircleOutlined } from "@ant-design/icons";
 
 const EditForm = ({ visible, onCancel, onCreate, room }) => {
   const [form] = Form.useForm();
@@ -17,6 +18,7 @@ const EditForm = ({ visible, onCancel, onCreate, room }) => {
   return (
     <Modal
       style={{ marginTop: "-80px" }}
+      centered
       width="40%"
       visible={visible}
       title="Create a new room"
@@ -43,6 +45,7 @@ const EditForm = ({ visible, onCancel, onCreate, room }) => {
     >
       <Form form={form} layout="vertical" name="form_in_modal">
         <Form.Item
+          requiredMark={"optional"}
           name="roomName"
           label="Room name"
           initialValue={room.roomName}
@@ -55,7 +58,11 @@ const EditForm = ({ visible, onCancel, onCreate, room }) => {
         >
           <Input />
         </Form.Item>
-        <Form.Item name="tags" label="Tags" initialValue={room.tags}>
+        <Form.Item 
+        tooltip={{
+						title: "This will help people find your room",
+						icon: <InfoCircleOutlined />,
+					}}> name="tags" label="Tags" initialValue={room.tags}>
           <ReactTagInput
             tags={tags}
             placeholder="Add tags..."
@@ -71,21 +78,21 @@ const EditForm = ({ visible, onCancel, onCreate, room }) => {
           rules={[{ required: true, message: "Please input your privacy!" }]}
           
         >
-          <Radio.Group defaultValue="public">
-            <Radio value="public">
+          <Radio.Group optionType="button" buttonStyle="solid" defaultValue="public">
+            <Radio.Button value="public">
               Public
-            </Radio>
-            <Radio value="private">Private</Radio>
+            </Radio.Button>
+            <Radio.Button value="private">Private</Radio.Button>
           </Radio.Group>
         </Form.Item>
         <Row>
           <Col className="color-col" span={8}>
-            <Form.Item name="primary" label="Color scheme">
+            <Form.Item name="primary" label="Background">
               <ColorPicker color={color} setColor={setColor} type={"primary"} />
             </Form.Item>
           </Col>
           <Col className="color-col" span={8}>
-            <Form.Item name="secondary" label="Color scheme">
+            <Form.Item name="secondary" label="Your Bubble">
               <ColorPicker
                 color={color}
                 setColor={setColor}
@@ -96,7 +103,7 @@ const EditForm = ({ visible, onCancel, onCreate, room }) => {
           <Col className="color-col" span={8}>
             <Form.Item
               name="tertiary"
-              label="Color scheme"
+              label="Friend's bubble"
               initialValue={color}
             >
               <ColorPicker

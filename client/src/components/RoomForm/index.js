@@ -3,6 +3,7 @@ import { Form, Input, Modal, Row, Col, Radio } from "antd";
 import ReactTagInput from "@pathofdev/react-tag-input";
 import "@pathofdev/react-tag-input/build/index.css";
 import ColorPicker from "../ColorPicker";
+import { InfoCircleOutlined } from "@ant-design/icons";
 
 const RoomForm = ({ visible, onCreate, onCancel }) => {
   const [form] = Form.useForm();
@@ -70,11 +71,11 @@ const RoomForm = ({ visible, onCreate, onCancel }) => {
           className="collection-create-form_last-form-item"
           rules={[{ required: true, message: "Please input your privacy!" }]}
         >
-          <Radio.Group >
-            <Radio value="public">
+          <Radio.Group optionType="button" buttonStyle="solid">
+            <Radio.Button value="public">
               Public
-            </Radio>
-            <Radio value="private">Private</Radio>
+            </Radio.Button>
+            <Radio.Button value="private">Private</Radio.Button>
           </Radio.Group>
         </Form.Item>
         {privateRoom === "private" &&
@@ -97,30 +98,31 @@ const RoomForm = ({ visible, onCreate, onCancel }) => {
         }
         
         <Row>
-          <Col className="color-col" span={8}>
-            <Form.Item name="primary" label="Primary Color">
-              <ColorPicker color={color} setColor={setColor} type={"primary"} />
-            </Form.Item>
-          </Col>
-          <Col className="color-col" span={8}>
-            <Form.Item name="secondary" label="Secondary Color">
-              <ColorPicker
-                color={color}
-                setColor={setColor}
-                type={"secondary"}
-              />
-            </Form.Item>
-          </Col>
-          <Col className="color-col" span={8}>
-            <Form.Item name="tertiary" label="Tertiary Color">
-              <ColorPicker
-                color={color}
-                setColor={setColor}
-                type={"tertiary"}
-              />
-            </Form.Item>
-          </Col>
-        </Row>
+					<Col className="color-col" span={8}>
+						<Form.Item name="primary" label="Background">
+							<ColorPicker color={color} setColor={setColor} type={"primary"} />
+						</Form.Item>
+					</Col>
+					<Col className="color-col" span={8}>
+						<Form.Item name="secondary" label="Your chat bubble">
+							<ColorPicker
+								color={color}
+								setColor={setColor}
+								type={"secondary"}
+							/>
+						</Form.Item>
+					</Col>
+					<Col className="color-col" span={8}>
+						<Form.Item name="tertiary" label="Friends chat bubble">
+							<ColorPicker
+								color={color}
+								setColor={setColor}
+								type={"tertiary"}
+							/>
+						</Form.Item>
+					</Col>
+				</Row>
+
       </Form>
     </Modal>
   );
