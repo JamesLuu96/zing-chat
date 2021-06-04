@@ -100,7 +100,7 @@ export default function RoomList() {
 					/>
 				</Col>
 
-				<Col align="right" span={4}>
+				<Col align="right" span={3}>
 					<Button
 						icon={<PlusOutlined />}
 						shape="round"

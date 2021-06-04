@@ -13,9 +13,9 @@ import {
 import { SendOutlined } from "@ant-design/icons";
 import "../PrivateChat/chat.css";
 import TextEditor from "../TextEditor";
+import UserList from "../UserList";
 import { useSocket, useMyInfo } from "../Socket";
 import { useLocation } from "react-router-dom";
-import Background from "../../images/08.png";
 
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import { ADD_CHAT } from "../../utils/mutations";
@@ -73,121 +73,117 @@ export default function Chat({ handleChange }) {
 
 	return (
 		<>
-			{/* <PageHeader
-				style={{
-					backgroundColor: "transparent",
-					boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.2)",
-				}}
-				onBack={() => window.history.back()}
-				title={roomName}></PageHeader> */}
-
-			<Layout
-				className="private-chat"
-				style={{
-					backgroundImage: `url(${Background})`,
-					backgroundPosition: "center",
-					backgroundSize: "cover",
-					backgroundRepeat: "no-repeat",
-				}}>
-				<h1>{roomName}</h1>
-				<Content
-					style={{
-						padding: "24px",
-						backgroundColor: "#fff",
-						margin: "2% auto",
-						maxHeight: "70vh",
-						boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.2)",
-						overflowX: "hidden",
-					}}>
-					<Row
+			<Layout>
+				<Row>
+					<Col
 						style={{
 							backgroundColor: "#fff",
-							margin: "0 auto",
-							overflow: "scroll",
-							minHeight: "40vh",
-							width: "70vw",
-						}}>
-						{chat.map((message, i) => (
-							// Renders the message component
-							<>
-								{message.username !== "zingBot" ? (
-									<Row key={i} className="friend-msg-container" justify="start">
-										<Col>
-											<Avatar src={message.avatar}></Avatar>
-										</Col>
-										<Col className="msg-column" flex="auto">
-											<span className="chat-metadata">{message.username}</span>
-
-											<div
-												className="friend-msg-content"
-												style={{ padding: "12px", textAlign: "left" }}>
-												{Parser(message.message)}
-											</div>
-											{
-												<span className="chat-metadata">
-													{message.createdAt}
-												</span>
-											}
-										</Col>
-									</Row>
-								) : (
-									<>
-										<p style={{ margin: 0, textAlign: "center" }}>
-											{message.message}
-										</p>
-										<p
-											style={{
-												textAlign: "center",
-												fontSize: "12px",
-												margin: "0 0 13px 0",
-												color: "grey",
-											}}>
-											{message.createdAt}
-										</p>
-									</>
-								)}
-							</>
-						))}
-					</Row>
-					<Row
+							boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.2)",
+						}}
+						span={4}>
+						<h1>
+							{user.length} users in {roomName}
+						</h1>
+						<UserList />
+					</Col>
+					<Content
 						style={{
-							padding: "4px",
-							margin: "0",
-							border: "1px solid ",
-							maxHeight: "10vh",
+							overflow: "hidden",
 						}}>
-						<Col flex="auto">
-							<Form.Item
-								className="text-editor"
+						<Content
+							style={{
+								padding: "24px",
+								backgroundColor: "#fff",
+								overflowX: "hidden",
+								overflowY: "scroll",
+								height: "50vh",
+							}}>
+							{chat.map((message, i) => (
+								// Renders the message component
+								<>
+									{message.username !== "zingBot" ? (
+										<Row key={i} className="friend-msg-container">
+											<Col>
+												<Avatar src={message.avatar}></Avatar>
+											</Col>
+											<Col className="msg-column" flex="auto">
+												<span className="chat-metadata">
+													{message.username}
+												</span>
+
+												<div
+													className="friend-msg-content"
+													style={{ padding: "12px", textAlign: "left" }}>
+													{Parser(message.message)}
+												</div>
+												{
+													<span className="chat-metadata">
+														{message.createdAt}
+													</span>
+												}
+											</Col>
+										</Row>
+									) : (
+										<>
+											<p style={{ margin: 0, textAlign: "center" }}>
+												{message.message}
+											</p>
+											<p
+												style={{
+													textAlign: "center",
+													fontSize: "12px",
+													margin: "0 0 13px 0",
+													color: "grey",
+												}}>
+												{message.createdAt}
+											</p>
+										</>
+									)}
+								</>
+							))}
+						</Content>
+						<Content
+							style={{
+								padding: "24px",
+								backgroundColor: "#fff",
+
+								height: "20vh",
+								overflow: "hidden",
+							}}>
+							<Row
 								style={{
-									padding: "0",
+									padding: "4px",
 									margin: "0",
+									height: "100%",
 								}}>
-								<TextEditor
-									style={{
-										height: "100%",
-									}}
-									value={msg}
-									setValue={setMsg}
-								/>
-							</Form.Item>
-						</Col>
-						<Col flex="50px">
-							<Form.Item>
-								<Button
-									style={{
-										margin: "4px 0",
-										borderRadius: "8px",
-									}}
-									icon={<SendOutlined />}
-									htmlType="submit"
-									onClick={submitForm}
-									type="primary"
-								/>
-							</Form.Item>
-						</Col>
-					</Row>
-				</Content>
+								<Col flex="auto">
+									<Form.Item
+										className="text-editor"
+										style={{
+											padding: "0",
+											margin: "0",
+										}}>
+										<TextEditor value={msg} setValue={setMsg} />
+									</Form.Item>
+								</Col>
+								<Col flex="50px">
+									<Form.Item>
+										<Button
+											shape="circle"
+											style={{
+												backgroundColor: "#3d50d6",
+											}}
+											icon={<SendOutlined />}
+											htmlType="submit"
+											onClick={submitForm}
+											type="primary"
+										/>
+									</Form.Item>
+								</Col>
+							</Row>
+						</Content>
+					</Content>
+				</Row>
 			</Layout>
 		</>
 	);
