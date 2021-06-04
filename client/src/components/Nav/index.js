@@ -14,18 +14,15 @@ class Nav extends React.Component {
 
 	render() {
 		return (
-			<Header style={{ display: "flex", justifyContent: "space-between" }}>
-				{/* <Menu
-          mode="horizontal"
-          defaultSelectedKeys={["2"]}
-          style={{ display: "flex", justifyContent: "space-between" }}
-        > */}
-				{/* <Menu.Item key="1"> */}
-				<h3 style={{ fontSize: "2rem" }}>
-					<Link style={{ color: "#fff" }} to="/">
-						<img width={120} preview="false" src={Logo} />
-					</Link>
-				</h3>
+			<Header
+				style={{
+					height: "72px",
+					display: "flex",
+					justifyContent: "space-between",
+				}}>
+				<Link style={{ color: "#fff" }} to="/">
+					<img width={160} preview="false" src={Logo} />
+				</Link>
 
 				{Auth.loggedIn() ? (
 					<a className="nav-link" to="/" onClick={() => Auth.logout()}>

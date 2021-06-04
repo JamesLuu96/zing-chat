@@ -1,13 +1,9 @@
 @import "~antd/dist/antd.less";
-/* 
-general 
--------
-*/
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+body {
+	font-family: "Roboto", sans-serif;
+}
 
-/* 
-cards
-------
-*/
 div#root {
 	height: 100vh;
 }
@@ -56,10 +52,6 @@ span.ql-picker-label {
 	height: auto;
 }
 
-.room-list {
-	padding: 4%;
-}
-
 ul.ant-pagination {
 	margin: 0 auto;
 	display: flex;
@@ -75,38 +67,34 @@ ul.ant-pagination {
 div.ant-card {
 	border-radius: 8px;
 	background-color: white;
-	padding: 8px;
-	margin: 12px;
+	padding: 12px 20px;
+	margin: 12px 0;
 	box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.1);
 }
 
 div.ant-card-head {
 	margin: 0;
-	padding: 0 8px;
+	padding: 0;
 }
 
+div.ant-card-extra {
+	margin: 0;
+	padding: 0;
+}
 div.ant-card-head-title {
-	margin: 4px;
-	padding: 2px;
+	margin: 0;
+	padding: 0;
 	font-size: 24px;
 	text-align: left;
 }
 
 div.ant-card-body {
-	padding: 12px 16px;
+	padding: 0;
 	text-align: left;
 }
 
-li.ant-list-item {
-	padding: 4%;
-}
 #room-list h4.ant-list-item-meta-title {
 	font-size: 24px;
-}
-
-h4.ant-list-item-meta-title {
-	font-size: 1px;
-	margin: 0;
 }
 
 /* div.ant-col.ant-form-item-label label {
@@ -215,5 +203,5 @@ div.text-editor {
 
 header.ant-layout-header,
 .ant-menu {
-	background-color: #15293c;
+	background-color: #3d50d6;
 }
