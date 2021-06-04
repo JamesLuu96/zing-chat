@@ -53,7 +53,7 @@ function PrivateChat({setCount}) {
   }, [socket, openChat, visible, currentConv])
 
   setCount(notif.length)
-
+  
   useEffect(()=>{
     if(!user || (Array.isArray(currentConvChat) && currentConvChat.length)){
     }else{

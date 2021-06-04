@@ -64,6 +64,7 @@ export default function Chat() {
 	async function submitForm(e) {
 		e.preventDefault();
 		socket.emit("send message", msg);
+    setMsg('')
 		try {
 			await addChat({
 			variables: {
@@ -89,32 +90,39 @@ export default function Chat() {
             <Content className="chat-area">
               {chat.map((message, i) => (
                 // Renders the message component
-                <Row
-                  key={i}
-                  className="msg-container friend-msg-container"
-                  justify="start"
-                >
-                  <Col>
-                    <Avatar src={message.avatar}></Avatar>
-                  </Col>
-                  <Col flex="auto">
-                    <div className="msg-column">
-                      <span className="chat-metadata" flex="end">
-                        {message.username}
-                      </span>
-
-                      <p className="friend-msg-content">
-                        {Parser(message.message)}
-                      </p>
-
-                      {
-                        <span className="chat-metadata">
-                          {message.createdAt}
-                        </span>
-                      }
-                    </div>
-                  </Col>
-                </Row>
+                <>
+			{message.username !== "zingBot" ?
+		
+			<Row
+				key={i}
+				className="msg-container friend-msg-container"
+				justify="start"
+			>
+				<Col>
+					<Avatar src={message.avatar}></Avatar>
+				</Col>
+				<Col className="msg-column" flex="auto">
+				<span className="chat-metadata" flex="end">
+					{message.username}
+				</span>
+				
+				<div
+					className="friend-msg-content"
+					style={{ padding: "10px", display: "inline-block" }}
+				>
+						{Parser(message.message)}
+				</div>
+				{<span className="chat-metadata">{message.createdAt}</span>}
+				</Col>
+			</Row>
+			:
+				<>
+					<p style={{margin: 0, textAlign: "center"}}>{message.message}</p>
+					<p style={{textAlign: "center", fontSize: "12px", margin: "0 0 13px 0", color: "grey"}}>{message.createdAt}</p>
+				</>
+			}
+			
+			</>
               ))}
             </Content>
           </Col>
