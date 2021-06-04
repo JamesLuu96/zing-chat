@@ -75,7 +75,6 @@ export default function Chat({ handleChange }) {
 	}
 	scrollBottom();
 
-	
 
 	return (
 	<>
@@ -128,17 +127,17 @@ export default function Chat({ handleChange }) {
 			</>
 		))}
 		</Content>
-		<Form.Item className="text-editor">
-			<TextEditor value={msg} setValue={setMsg} />
-		</Form.Item>
-		<Form.Item>
-			<Button
-			icon={<SendOutlined />}
-			htmlType="submit"
-			onClick={submitForm}
-			type="primary"
-			/>
-		</Form.Item>
+			<Form.Item className="text-editor">
+				<TextEditor value={msg} setValue={setMsg} />
+			</Form.Item>
+			<Form.Item>
+				<Button
+				icon={<SendOutlined />}
+				htmlType="submit"
+				onClick={submitForm}
+				type="primary"
+				/>
+			</Form.Item>
 		</Layout>
 	</>
 	);

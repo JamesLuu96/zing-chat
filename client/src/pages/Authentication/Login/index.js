@@ -2,7 +2,7 @@ import { Form, Input, Button, Row, Alert, message } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { useMutation } from "@apollo/react-hooks";
 import { LOGIN } from "../../../utils/mutations";
-
+import { ReactDOM, render } from "react-dom";
 
 function handleError() {
   console.log("LAKUSDYF9PO82Q73ROILU23H4RWF")
@@ -28,9 +28,8 @@ export default function Login({ setIdToken }) {
 
     console.log("Received values of form: ", values);
   };
-
-
  
+   
   return (
     <Row type="flex" justify="center">
       <Form
@@ -43,10 +42,12 @@ export default function Login({ setIdToken }) {
           remember: true,
         }}
         onFinish={onFinish}
+        id = "login-form"
       >
         <Form.Item
           label="Username"
           name="username"
+          id="username"
           rules={[
             {
               required: true,
@@ -59,6 +60,7 @@ export default function Login({ setIdToken }) {
             prefix={<UserOutlined className="site-form-item-icon" />}
             placeholder="Username"
           />
+          <div id="userErrorSlot"></div>
           
         </Form.Item>
         <Form.Item
@@ -74,6 +76,7 @@ export default function Login({ setIdToken }) {
           <Input.Password
             type="password"
             placeholder="Password"
+            id="passInput"
             style={{ padding: "0.8rem" }}
             rules={[
               {
@@ -81,10 +84,10 @@ export default function Login({ setIdToken }) {
               }
             ]}
           />
+          <Alert message="" type="error" closable id="passwordError" />
           
         </Form.Item>
         
-
         <Form.Item>
           <Button
             type="primary"

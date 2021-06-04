@@ -42,6 +42,7 @@ export default function Signup({ setIdToken }) {
     console.log("Received values of form: ", values);
   };
 
+
   return (
     <Row type="flex" justify="center">
       <Form
@@ -62,8 +63,9 @@ export default function Signup({ setIdToken }) {
           rules={[
             {
               required: true,
-              message: "Please add a username",
+              message: "Please add a username that's 3-20 characters long!",
               whitespace: true,
+              pattern: new RegExp(/^[a-z0-9_-]{3,20}$/)
             },
           ]}
         >
@@ -75,7 +77,8 @@ export default function Signup({ setIdToken }) {
           rules={[
             {
               required: true,
-              message: "Please input your password!",
+              message: "Please input a password at least 5 characters long!",
+              pattern: new RegExp(/^[ A-Za-z0-9_!@./#?&+-]{5,}$/)
             },
           ]}
           hasFeedback
