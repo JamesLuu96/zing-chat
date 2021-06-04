@@ -63,9 +63,9 @@ export default function Signup({ setIdToken }) {
           rules={[
             {
               required: true,
-              message: "Please add a username that's 3-20 characters long!",
+              message: "Please add a username 3-20 characters long!",
               whitespace: true,
-              pattern: new RegExp(/^[a-z0-9_-]{3,20}$/)
+              pattern: new RegExp(/^[A-Za-z0-9_-]{3,20}$/)
             },
           ]}
         >
@@ -77,8 +77,8 @@ export default function Signup({ setIdToken }) {
           rules={[
             {
               required: true,
-              message: "Please input a password at least 5 characters long!",
-              pattern: new RegExp(/^[ A-Za-z0-9_!@./#?&+-]{5,}$/)
+              message: "Please input a password 5-20 characters long!",
+              pattern: new RegExp(/^[A-Za-z0-9_!@./#?&+-]{5,}$/)
             },
           ]}
           hasFeedback
