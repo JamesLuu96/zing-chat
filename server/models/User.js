@@ -32,7 +32,7 @@ const userSchema = new Schema({
 	},
 	displayName: {
 		type: String,
-		required: true,
+		default: "WorkInProgress",
 		trim: true,
 		minlength: 3
 	},

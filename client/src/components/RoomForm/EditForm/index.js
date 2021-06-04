@@ -7,6 +7,7 @@ import ColorPicker from "../../ColorPicker";
 const EditForm = ({ visible, onCancel, onCreate, room }) => {
   const [form] = Form.useForm();
   const [tags, setTags] = useState(room.tags);
+  const [privacy, setPrivacy] = useState(0)
   const [color, setColor] = useState({
     primary: room.colors[0],
     secondary: room.colors[1],
@@ -68,9 +69,10 @@ const EditForm = ({ visible, onCancel, onCreate, room }) => {
           initialValue={room.privacy}
           className="collection-create-form_last-form-item"
           rules={[{ required: true, message: "Please input your privacy!" }]}
+          
         >
-          <Radio.Group>
-            <Radio value="public" checked="true">
+          <Radio.Group defaultValue="public">
+            <Radio value="public">
               Public
             </Radio>
             <Radio value="private">Private</Radio>

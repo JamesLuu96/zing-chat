@@ -14,13 +14,12 @@ export default function Signup({ setIdToken }) {
   const [addUser] = useMutation(ADD_USER);
 
   const onFinish = async (values) => {
-    const { username, password, displayName } = values;
+    const { username, password } = values;
     try {
       const mutationResponse = await addUser({
         variables: {
           username,
           password,
-          displayName,
           avatar: currentAvatar,
         },
       });
@@ -58,20 +57,19 @@ export default function Signup({ setIdToken }) {
         >
           <Input placeholder="Username" style={{ padding: "0.8rem" }} />
         </Form.Item>
-        <Form.Item
+        {/* <Form.Item
           name="displayName"
           label="Display Name"
           tooltip="This will be displayed to other users in chat rooms"
           rules={[
             {
-              required: true,
               message: "Please add a username",
               whitespace: true,
             },
           ]}
-        >
-          <Input placeholder="Display Name" style={{ padding: "0.8rem" }} />
-        </Form.Item>
+        > */}
+          {/* <Input placeholder="Display Name" style={{ padding: "0.8rem" }} /> */}
+        {/* </Form.Item> */}
         <Form.Item
           name="password"
           label="Password"

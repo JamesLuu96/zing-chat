@@ -56,7 +56,7 @@ export default function RoomList() {
   }, [data]);
   
   const onCreate = async (values) => {
-    const { roomName, tags, privacy, primary, secondary, tertiary } = values;
+    const { roomName, tags, privacy, password, primary, secondary, tertiary } = values;
     try {
       const response = await createRoom({
         variables: {
@@ -64,6 +64,7 @@ export default function RoomList() {
           colors: [primary, secondary, tertiary],
           tags,
           privacy,
+          password: password || ""
         },
       });
       socket.emit("add room", response.data.addRoom);

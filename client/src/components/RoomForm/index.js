@@ -12,6 +12,14 @@ const RoomForm = ({ visible, onCreate, onCancel }) => {
     secondary: "#333",
     tertiary: "#333",
   });
+  const [privateRoom, setPrivacy] = useState("public")
+  
+  function changePrivate(e){
+    if(e.privacy){
+      setPrivacy(e.privacy)
+    }
+  }
+
   return (
     <Modal
       style={{ marginTop: "-80px", backgroundColor: "#474787" }}
@@ -35,7 +43,7 @@ const RoomForm = ({ visible, onCreate, onCancel }) => {
           });
       }}
     >
-      <Form form={form} layout="vertical" name="form_in_modal">
+      <Form form={form} layout="vertical" name="form_in_modal" onValuesChange={e=>changePrivate(e)}>
         <Form.Item
           name="roomName"
           label="Room name"
@@ -62,13 +70,32 @@ const RoomForm = ({ visible, onCreate, onCancel }) => {
           className="collection-create-form_last-form-item"
           rules={[{ required: true, message: "Please input your privacy!" }]}
         >
-          <Radio.Group>
-            <Radio value="public" checked="true">
+          <Radio.Group >
+            <Radio value="public">
               Public
             </Radio>
             <Radio value="private">Private</Radio>
           </Radio.Group>
         </Form.Item>
+        {privateRoom === "private" &&
+          <Form.Item
+            name="password"
+            label="Password"
+            rules={[
+              {
+                required: true,
+                message: "Please enter a password!",
+              },
+            ]}
+          >
+            <Input.Password
+            type="password"
+            placeholder="Password"
+            style={{ padding: "0.8rem" }}
+            />
+          </Form.Item>
+        }
+        
         <Row>
           <Col className="color-col" span={8}>
             <Form.Item name="primary" label="Primary Color">

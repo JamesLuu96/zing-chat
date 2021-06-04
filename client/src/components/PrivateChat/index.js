@@ -120,9 +120,13 @@ function PrivateChat({setCount}) {
       if (user.username === friend.username) {
         return;
       }
-      await addFriend({
+      friend._id ?
+      (await addFriend({
         variables: { friendId: friend._id },
-      });
+      })) :
+      (await addFriend({
+        variables: { friendId: friend.id },
+      }))
       socket.emit("add friend", {...friend, id: friend._id});
     } catch (e) {
       console.log(e);
