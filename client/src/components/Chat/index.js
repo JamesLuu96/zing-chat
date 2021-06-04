@@ -13,7 +13,6 @@ import { ADD_CHAT } from "../../utils/mutations";
 import { QUERY_ROOM } from "../../utils/queries";
 const { Content } = Layout;
 
-
 export default function Chat() {
   const location = useLocation();
   const { roomId, roomName } = location.state;

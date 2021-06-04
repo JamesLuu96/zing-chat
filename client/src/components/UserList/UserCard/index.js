@@ -42,7 +42,11 @@ export default function UserCard({ user, friends, setFriends }) {
           description={`${user.username} - ${user.roomName}`}
         />
 
+<<<<<<< HEAD
         {friends.length &&
+=======
+        {friends &&
+>>>>>>> 5a077a93664f928719b41d99cb2c3a2d425a7a22
         friends.filter((friend) => friend._id === user.id) < 1 &&
         user.id !== userData._id ? (
           <Tooltip title={`Add ${user.username}?`}>
