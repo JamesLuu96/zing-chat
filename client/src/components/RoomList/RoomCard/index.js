@@ -99,7 +99,7 @@ export default function RoomCard({ room, setFilterString }) {
                     />
                   </>
                 ) : null}
-                <Button shape="round" style={{ marginLeft: "10px" }}>
+                <Button shape="round">
                   Join <RightOutlined />
                 </Button>
               </Link>
@@ -168,13 +168,13 @@ export default function RoomCard({ room, setFilterString }) {
             <Avatar.Group maxCount={5}>
               {users.map((user, i) => {
                 return (
-                  <Tooltip title={user.username}>
+                  <Tooltip title={user.username} key={i}>
                     <Avatar
                       key={i}
                       className="avatar-round"
                       size="32"
                       src={user.avatar}
-                      round={true}
+                      round="true"
                       name={user.username}
                     />
                   </Tooltip>
