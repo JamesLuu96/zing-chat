@@ -27,7 +27,6 @@ export default function UserCard({ user, friends, setFriends }) {
       console.log(e);
     }
   };
-  console.log(user);
 
   return (
     <>

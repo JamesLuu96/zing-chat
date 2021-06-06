@@ -53,7 +53,7 @@ function PrivateChat({setCount}) {
       })
       socket.on('friend request', friend=>{
         if(openChat !== "1" || visible === false){
-          console.log('friend request from: ', friend)
+       
           setNotif(old=>[...old, "friend request"])
           setCount(notif.length)
         }
@@ -116,8 +116,7 @@ function PrivateChat({setCount}) {
     return friends.filter(friend=>userList.includes(friend.username))
   }
   async function addFriendHandler(friend){
-    console.log(user)
-    console.log(friend)
+ 
     try {
       if (user.username === friend.username) {
         return;

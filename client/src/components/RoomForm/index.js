@@ -13,18 +13,19 @@ const RoomForm = ({ visible, onCreate, onCancel }) => {
     secondary: "#333",
     tertiary: "#333",
   });
-  const [privateRoom, setPrivacy] = useState("public")
-  
-  function changePrivate(e){
-    if(e.privacy){
-      setPrivacy(e.privacy)
+  const [privateRoom, setPrivacy] = useState("public");
+
+  function changePrivate(e) {
+    if (e.privacy) {
+      setPrivacy(e.privacy);
     }
   }
 
   return (
     <Modal
-      style={{ marginTop: "-80px", backgroundColor: "#474787" }}
+      style={{ marginTop: "-85px", backgroundColor: "#474787" }}
       width="40%"
+      height="80%"
       visible={visible}
       title="Create a new room"
       okText="Create"
@@ -44,7 +45,12 @@ const RoomForm = ({ visible, onCreate, onCancel }) => {
           });
       }}
     >
-      <Form form={form} layout="vertical" name="form_in_modal" onValuesChange={e=>changePrivate(e)}>
+      <Form
+        form={form}
+        layout="vertical"
+        name="form_in_modal"
+        onValuesChange={(e) => changePrivate(e)}
+      >
         <Form.Item
           name="roomName"
           label="Room name"
@@ -72,13 +78,11 @@ const RoomForm = ({ visible, onCreate, onCancel }) => {
           rules={[{ required: true, message: "Please input your privacy!" }]}
         >
           <Radio.Group optionType="button" buttonStyle="solid">
-            <Radio.Button value="public">
-              Public
-            </Radio.Button>
+            <Radio.Button value="public">Public</Radio.Button>
             <Radio.Button value="private">Private</Radio.Button>
           </Radio.Group>
         </Form.Item>
-        {privateRoom === "private" &&
+        {privateRoom === "private" && (
           <Form.Item
             name="password"
             label="Password"
@@ -90,39 +94,38 @@ const RoomForm = ({ visible, onCreate, onCancel }) => {
             ]}
           >
             <Input.Password
-            type="password"
-            placeholder="Password"
-            style={{ padding: "0.8rem" }}
+              type="password"
+              placeholder="Password"
+              style={{ padding: "0.8rem" }}
             />
           </Form.Item>
-        }
-        
-        <Row>
-					<Col className="color-col" span={8}>
-						<Form.Item name="primary" label="Background">
-							<ColorPicker color={color} setColor={setColor} type={"primary"} />
-						</Form.Item>
-					</Col>
-					<Col className="color-col" span={8}>
-						<Form.Item name="secondary" label="Your chat bubble">
-							<ColorPicker
-								color={color}
-								setColor={setColor}
-								type={"secondary"}
-							/>
-						</Form.Item>
-					</Col>
-					<Col className="color-col" span={8}>
-						<Form.Item name="tertiary" label="Friends chat bubble">
-							<ColorPicker
-								color={color}
-								setColor={setColor}
-								type={"tertiary"}
-							/>
-						</Form.Item>
-					</Col>
-				</Row>
+        )}
 
+        <Row>
+          <Col className="color-col" span={8}>
+            <Form.Item name="primary" label="Background">
+              <ColorPicker color={color} setColor={setColor} type={"primary"} />
+            </Form.Item>
+          </Col>
+          <Col className="color-col" span={8}>
+            <Form.Item name="secondary" label="Your chat bubble">
+              <ColorPicker
+                color={color}
+                setColor={setColor}
+                type={"secondary"}
+              />
+            </Form.Item>
+          </Col>
+          <Col className="color-col" span={8}>
+            <Form.Item name="tertiary" label="Friends chat bubble">
+              <ColorPicker
+                color={color}
+                setColor={setColor}
+                type={"tertiary"}
+              />
+            </Form.Item>
+          </Col>
+        </Row>
       </Form>
     </Modal>
   );

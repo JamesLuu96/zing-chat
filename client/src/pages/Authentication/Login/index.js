@@ -23,7 +23,6 @@ export default function Login({ setIdToken }) {
       setErrorMessage(true);
     }
 
-    console.log("Received values of form: ", values);
   };
 
   return (

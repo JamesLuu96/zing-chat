@@ -68,19 +68,7 @@ export default function Signup({ setIdToken }) {
         >
           <Input placeholder="Username" style={{ padding: "0.8rem" }} />
         </Form.Item>
-        {/* <Form.Item
-          name="displayName"
-          label="Display Name"
-          tooltip="This will be displayed to other users in chat rooms"
-          rules={[
-            {
-              message: "Please add a username",
-              whitespace: true,
-            },
-          ]}
-        > */}
-          {/* <Input placeholder="Display Name" style={{ padding: "0.8rem" }} /> */}
-        {/* </Form.Item> */}
+      
         <Form.Item
           name="password"
           label="Password"
