@@ -117,6 +117,7 @@ export default function Chat() {
             {users.map((user) => (
               <>
                 <List.Item
+               
                   style={{
                     borderRadius: "6px",
                     margin: "12px",
@@ -158,10 +159,10 @@ export default function Chat() {
               >
                 {chat.map((message, i) => (
                   // Renders the message component
-                  <div key={i}>
+                  <>
                     {message.username !== "zingBot" ? (
                       message.username === user.username ? (
-                        <Row justify="end" key={i} className="msg-container">
+                        <Row justify="end" className="msg-container">
                           <Col align="right" className="my-chat">
                             <span
                               style={{
@@ -239,7 +240,7 @@ export default function Chat() {
                         </p>
                       </>
                     )}
-                  </div>
+                  </>
                 ))}
               </Content>
               <Content

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Card, Avatar, Button, Col, Row, Tag, Tooltip } from "antd";
+import { Card, Avatar, Button, Col, Row, Tag, Tooltip, Input } from "antd";
 
 import { Link } from "react-router-dom";
 import { DeleteOutlined, EditOutlined, RightOutlined } from "@ant-design/icons";
@@ -90,11 +90,12 @@ export default function RoomCard({ room, setFilterString }) {
                     <Button
                       icon={<DeleteOutlined style={{ color: "#bd0c0b" }} />}
                       onClick={deleteHandler}
+                      style={{ marginRight: "10px" }}
                     />
 
                     <Button
                       icon={<EditOutlined />}
-                      style={{ marginLeft: "10px" }}
+                      style={{ marginRight: "10px" }}
                       onClick={editHandler}
                     />
                   </>
@@ -121,15 +122,19 @@ export default function RoomCard({ room, setFilterString }) {
                     />
                   </>
                 ) : null}
-                <input
+              
+                <Input
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   type="password"
                   placeholder="Password"
-                  style={{ margin: " 0 10px" }}
-                ></input>
+                  style={{ width: "10rem", marginLeft: "10px" }}
+                />
                 {password !== room.password ? (
-                  <Button onClick={(e) => lockedRoom()}>
+                  <Button
+                    onClick={(e) => lockedRoom()}
+                    style={{ marginLeft: "10px" }}
+                  >
                     Join <RightOutlined />
                   </Button>
                 ) : (
