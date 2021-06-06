@@ -140,9 +140,15 @@ function PrivateChat({ setCount }) {
         <div className="chatBox testThis">
           <Tabs activeKey={openChat} onChange={(e) => newChatHandler(e)}>
             <TabPane tab="Friends" key="1">
-              <li style={{ overflow: "scroll", height: "210px" }}>
-                <p>My Friends: </p>
+              <li
+                style={{
+                  overflowY: "scroll",
+                  height: "270px",
+                }}
+              >
+                <p style={{ marginBottom: "0" }}>My Friends: </p>
                 <List
+                  style={{ paddig: "0 5px" }}
                   dataSource={allFriends()}
                   renderItem={(friend, i) => (
                     <List.Item
@@ -261,6 +267,7 @@ function PrivateChat({ setCount }) {
                       overflowX: "hidden",
                       overflowY: "scroll",
                       height: "210px",
+                      backgroundColor: "#F0F2F5",
                     }}
                     className="private-chat"
                   >
@@ -271,7 +278,15 @@ function PrivateChat({ setCount }) {
                           message.sender === currentConv.username
                       )
                       .map((chat, i) => (
-                        <li key={i}>{chat.message}</li>
+                        <li
+                          key={i}
+                          className={
+                            user.username !== chat.username ? "their" : "mine"
+                          }
+                        >
+                          {console.log(chat.username)}
+                          {chat.message}
+                        </li>
                       ))}
                     <div></div>
                   </ul>

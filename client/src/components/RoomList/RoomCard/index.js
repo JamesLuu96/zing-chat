@@ -114,7 +114,11 @@ export default function RoomCard({ room, setFilterString }) {
                       onClick={deleteHandler}
                     />
 
-                    <Button icon={<EditOutlined />} onClick={editHandler} />
+                    <Button
+                      icon={<EditOutlined />}
+                      onClick={editHandler}
+                      style={{ marginLeft: "10px" }}
+                    />
                   </>
                 ) : null}
                 <input
@@ -122,6 +126,7 @@ export default function RoomCard({ room, setFilterString }) {
                   onChange={(e) => setPassword(e.target.value)}
                   type="password"
                   placeholder="Password"
+                  style={{ margin: " 0 10px" }}
                 ></input>
                 {password !== room.password ? (
                   <Button onClick={(e) => lockedRoom()}>
@@ -168,13 +173,13 @@ export default function RoomCard({ room, setFilterString }) {
             <Avatar.Group maxCount={5}>
               {users.map((user, i) => {
                 return (
-                  <Tooltip title={user.username}>
+                  <Tooltip title={user.username} key={i}>
                     <Avatar
                       key={i}
                       className="avatar-round"
                       size="32"
                       src={user.avatar}
-                      round={true}
+                      round="true"
                       name={user.username}
                     />
                   </Tooltip>
