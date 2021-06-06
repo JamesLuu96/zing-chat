@@ -99,7 +99,7 @@ export default function RoomCard({ room, setFilterString }) {
                     />
                   </>
                 ) : null}
-                <Button shape="round" style={{ marginLeft: "10px" }}>
+                <Button shape="round">
                   Join <RightOutlined />
                 </Button>
               </Link>
