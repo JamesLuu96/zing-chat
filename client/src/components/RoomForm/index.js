@@ -3,7 +3,6 @@ import { Form, Input, Modal, Row, Col, Radio } from "antd";
 import ReactTagInput from "@pathofdev/react-tag-input";
 import "@pathofdev/react-tag-input/build/index.css";
 import ColorPicker from "../ColorPicker";
-import { InfoCircleOutlined } from "@ant-design/icons";
 
 const RoomForm = ({ visible, onCreate, onCancel }) => {
   const [form] = Form.useForm();

@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { List, Button, Badge, Avatar, Tooltip } from "antd";
+import React from "react";
+import { List, Button, Avatar } from "antd";
 import { UserAddOutlined } from "@ant-design/icons";
 import { useMutation } from "@apollo/react-hooks";
 import { ADD_FRIEND } from "../../../utils/mutations";
 import { useMyInfo, useSocket } from "../../Socket";
-import { Link } from "react-router-dom";
-import { RightSquareOutlined } from "@ant-design/icons";
 
 export default function UserCard({ user, friends, setFriends }) {
-  const [addFriend, { error }] = useMutation(ADD_FRIEND);
+  const [addFriend] = useMutation(ADD_FRIEND);
   const socket = useSocket();
   const userData = useMyInfo();
 
@@ -41,10 +39,10 @@ export default function UserCard({ user, friends, setFriends }) {
         <List.Item.Meta
           avatar={<Avatar src={user.avatar} size={56} />}
           title={
-            <h3
+            <div
               style={{ marginTop: "8px", marginBottom: "0" }}
               align="left"
-            >{`${user.username} `}</h3>
+            >{`${user.username} `}</div>
           }
           description={
             <p style={{ marginTop: "0" }} align="left">{`${user.roomName}`}</p>

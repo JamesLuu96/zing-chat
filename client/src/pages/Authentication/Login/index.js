@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Form, Input, Button, Row, Alert, message } from "antd";
+import { Form, Input, Button, Row, Alert } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { useMutation } from "@apollo/react-hooks";
 import { LOGIN } from "../../../utils/mutations";
 
 export default function Login({ setIdToken }) {
-  const [login, { error }] = useMutation(LOGIN);
+  const [login] = useMutation(LOGIN);
   const [errorMessage, setErrorMessage] = useState(false);
   const onFinish = async (values) => {
     const { username, password } = values;

@@ -1,5 +1,5 @@
 import React from "react";
-import { Layout, Menu, Image } from "antd";
+import { Layout } from "antd";
 import Auth from "../../utils/auth";
 import { Link } from "react-router-dom";
 import { LogoutOutlined } from "@ant-design/icons";
@@ -8,7 +8,6 @@ const { Header } = Layout;
 
 class Nav extends React.Component {
   handleClick = (e) => {
-
     this.setState({ current: e.key });
   };
 

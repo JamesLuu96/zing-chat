@@ -1,25 +1,22 @@
 import React, { useEffect, useState } from "react";
 import UserCard from "./UserCard";
-import { Layout } from "antd";
+
 import { useSocket, useUsers } from "../Socket";
 // import Auth from "../../utils/auth";
 import { QUERY_USER } from "../../utils/queries";
 
 import { useQuery } from "@apollo/react-hooks";
 
-const { Content } = Layout;
-
 export default function UserList() {
   const [friends, setFriends] = useState([]);
   const socket = useSocket();
   const { users, setUsers } = useUsers();
 
-  const { data, loading } = useQuery(QUERY_USER);
+  const { data } = useQuery(QUERY_USER);
 
   useEffect(() => {
     if (data) {
-      if(data.user !== null)
-      setFriends(data.user.friends);
+      if (data.user !== null) setFriends(data.user.friends);
     }
   }, [data]);
 

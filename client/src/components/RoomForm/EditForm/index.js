@@ -8,7 +8,7 @@ import { InfoCircleOutlined } from "@ant-design/icons";
 const EditForm = ({ visible, onCancel, onCreate, room }) => {
   const [form] = Form.useForm();
   const [tags, setTags] = useState(room.tags);
-  const [privacy, setPrivacy] = useState(0);
+
   const [color, setColor] = useState({
     primary: room.colors[0],
     secondary: room.colors[1],

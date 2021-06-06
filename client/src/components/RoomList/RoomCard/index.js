@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Card, Avatar, Button, Col, Row, Tag, Tooltip, Input } from "antd";
+import { Card, Avatar, Button, Col, Row, Tag, Tooltip } from "antd";
 
 import { Link } from "react-router-dom";
 import { DeleteOutlined, EditOutlined, RightOutlined } from "@ant-design/icons";
@@ -16,7 +16,7 @@ export default function RoomCard({ room, setFilterString }) {
   const [deleteRoom] = useMutation(DELETE_ROOM);
   const [updateRoom] = useMutation(UPDATE_ROOM);
   const [visible, setVisible] = useState(false);
-  const [password, setPassword] = useState('')
+  const [password, setPassword] = useState("");
 
   const socket = useSocket();
 
@@ -47,8 +47,8 @@ export default function RoomCard({ room, setFilterString }) {
     setFilterString(tagName);
   }
 
-  function lockedRoom(){
-    console.log('wrong pw')
+  function lockedRoom() {
+    console.log("wrong pw");
   }
 
   const onCreate = async (values) => {
@@ -76,62 +76,67 @@ export default function RoomCard({ room, setFilterString }) {
         title={roomName}
         extra={
           <>
-          {room.privacy === 'public' ?
-          <Link
-            to={{
-              pathname: `/room/${id}`,
-              state: { roomName: room.roomName, roomId: id },
-            }}
-          >
-            {" "}
-            {room.username === username ||
-            username.toLowerCase() === "admin" ? (
-              <>
-                <Button
-                  icon={<DeleteOutlined style={{ color: "#bd0c0b" }} />}
-                  onClick={deleteHandler}
-                />
+            {room.privacy === "public" ? (
+              <Link
+                to={{
+                  pathname: `/room/${id}`,
+                  state: { roomName: room.roomName, roomId: id },
+                }}
+              >
+                {" "}
+                {room.username === username ||
+                username.toLowerCase() === "admin" ? (
+                  <>
+                    <Button
+                      icon={<DeleteOutlined style={{ color: "#bd0c0b" }} />}
+                      onClick={deleteHandler}
+                    />
 
-                <Button icon={<EditOutlined />} onClick={editHandler} />
-              </>
-            ) : null}
-            <Button shape="round">
-              Join <RightOutlined />
-            </Button>
-          </Link>
-          :
-          <>
-          {" "}
-            {room.username === username ||
-            username.toLowerCase() === "admin" ? (
+                    <Button icon={<EditOutlined />} onClick={editHandler} />
+                  </>
+                ) : null}
+                <Button shape="round">
+                  Join <RightOutlined />
+                </Button>
+              </Link>
+            ) : (
               <>
-                <Button
-                  icon={<DeleteOutlined style={{ color: "#bd0c0b" }} />}
-                  onClick={deleteHandler}
-                />
+                {" "}
+                {room.username === username ||
+                username.toLowerCase() === "admin" ? (
+                  <>
+                    <Button
+                      icon={<DeleteOutlined style={{ color: "#bd0c0b" }} />}
+                      onClick={deleteHandler}
+                    />
 
-                <Button icon={<EditOutlined />} onClick={editHandler} />
+                    <Button icon={<EditOutlined />} onClick={editHandler} />
+                  </>
+                ) : null}
+                <input
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  type="password"
+                  placeholder="Password"
+                ></input>
+                {password !== room.password ? (
+                  <Button onClick={(e) => lockedRoom()}>
+                    Join <RightOutlined />
+                  </Button>
+                ) : (
+                  <Link
+                    to={{
+                      pathname: `/room/${id}`,
+                      state: { roomName: room.roomName, roomId: id },
+                    }}
+                  >
+                    <Button>
+                      Join <RightOutlined />
+                    </Button>
+                  </Link>
+                )}
               </>
-            ) : null}
-            <input value={password} onChange={e=>setPassword(e.target.value)} type="password" placeholder="Password"></input>
-            {password !== room.password ? 
-            <Button onClick={e=>lockedRoom()}>
-              Join <RightOutlined />
-            </Button>
-            :
-            <Link
-            to={{
-              pathname: `/room/${id}`,
-              state: { roomName: room.roomName, roomId: id },
-            }}
-          >
-            <Button>
-              Join <RightOutlined />
-            </Button>
-          </Link>
-            }
-          </>
-          }
+            )}
           </>
         }
       >

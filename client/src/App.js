@@ -1,5 +1,4 @@
 import React from "react";
-import { Layout } from "antd";
 
 import useLocalStorage from "./hooks/useLocalStorage";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";

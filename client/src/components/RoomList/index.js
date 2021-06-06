@@ -15,14 +15,13 @@ export default function RoomList() {
   const [rooms, setRooms] = useState([]);
   const [filterString, setFilterString] = useState("");
 
-  const [createRoom, { error }] = useMutation(ADD_ROOM);
-  const { data, loading } = useQuery(QUERY_ROOMS);
+  const [createRoom] = useMutation(ADD_ROOM);
+  const { data } = useQuery(QUERY_ROOMS);
   const [visible, setVisible] = useState(false);
   const { users } = useUsers();
 
   useEffect(() => {
     if (data) {
-    
       setRooms((index) => [
         ...index,
         ...data.rooms.map((room) => {
@@ -38,7 +37,6 @@ export default function RoomList() {
         setRooms((index) => [...index.filter((old) => old._id !== room._id)]);
       });
       socket.on("edit room", (room) => {
-       
         setRooms((index) => [
           ...index.map((old) => {
             if (old._id === room._id) {
@@ -56,7 +54,7 @@ export default function RoomList() {
       };
     }
   }, [data]);
-  console.log("rooms: ", rooms);
+
   const onCreate = async (values) => {
     const { roomName, tags, privacy, password, primary, secondary, tertiary } =
       values;

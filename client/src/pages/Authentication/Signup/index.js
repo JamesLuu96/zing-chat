@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Form, Input, Row, Button, Avatar, Alert } from "antd";
 import { useMutation } from "@apollo/react-hooks";
-import Auth from "../../../utils/auth";
+
 import { ADD_USER } from "../../../utils/mutations";
 
 import { AvatarGenerator } from "random-avatar-generator";

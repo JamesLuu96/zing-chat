@@ -23,7 +23,7 @@ export default function Chat() {
     allUsers.filter((user) => user.room === roomId)
   );
   const [addChat] = useMutation(ADD_CHAT);
-  const { data, loading } = useQuery(QUERY_ROOM, {
+  const { data } = useQuery(QUERY_ROOM, {
     variables: {
       _id: roomId,
     },
@@ -53,7 +53,6 @@ export default function Chat() {
         setUsers(socketUsers);
       });
       socket.on("user disconnecting", (id) => {
-      
         setUsers((oldUsers) => [...oldUsers.filter((user) => user.id !== id)]);
       });
       return () => {
@@ -95,6 +94,7 @@ export default function Chat() {
         <Row
           style={{
             backgroundColor: room.colors[0],
+            height: "100vh",
           }}
         >
           <Content
@@ -227,7 +227,7 @@ export default function Chat() {
                     <TextEditor value={msg} setValue={setMsg} />
                   </Form.Item>
                 </Col>
-                <Col flex="50px">
+                <Col flex="50px" style={{ margin: "50px 20px 0 0" }}>
                   <Form.Item>
                     <Button
                       shape="circle"
