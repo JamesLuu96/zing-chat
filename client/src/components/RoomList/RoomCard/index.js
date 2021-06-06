@@ -92,10 +92,14 @@ export default function RoomCard({ room, setFilterString }) {
                       onClick={deleteHandler}
                     />
 
-                    <Button icon={<EditOutlined />} onClick={editHandler} />
+                    <Button
+                      icon={<EditOutlined />}
+                      style={{ marginLeft: "10px" }}
+                      onClick={editHandler}
+                    />
                   </>
                 ) : null}
-                <Button shape="round">
+                <Button shape="round" style={{ marginLeft: "10px" }}>
                   Join <RightOutlined />
                 </Button>
               </Link>

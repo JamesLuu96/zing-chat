@@ -47,7 +47,7 @@ const EditForm = ({ visible, onCancel, onCreate, room }) => {
     >
       <Form form={form} layout="vertical" name="form_in_modal">
         <Form.Item
-          requiredMark={"optional"}
+          requiredmark={"optional"}
           name="roomName"
           label="Room name"
           initialValue={room.roomName}
@@ -69,6 +69,7 @@ const EditForm = ({ visible, onCancel, onCreate, room }) => {
           {/* name="tags" label="Tags" initialValue={room.tags}> */}
           <ReactTagInput
             tags={tags}
+            initialValue={room.tags}
             placeholder="Add tags..."
             editable={true}
             removeOnBackspace={true}
@@ -84,7 +85,7 @@ const EditForm = ({ visible, onCancel, onCreate, room }) => {
           <Radio.Group
             optionType="button"
             buttonStyle="solid"
-            defaultValue="public"
+            initialValue="public"
           >
             <Radio.Button value="public">Public</Radio.Button>
             <Radio.Button value="private">Private</Radio.Button>
