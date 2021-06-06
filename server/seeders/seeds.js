@@ -14,7 +14,6 @@ db.once("open", async () => {
     { message: "hello", username: users[0]._id },
     { message: "holla", username: users[1]._id },
   ]);
-  console.log("chat seeded");
 
   await Room.deleteMany();
   const rooms = await Room.insertMany([

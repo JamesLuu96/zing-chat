@@ -22,7 +22,7 @@ export default function RoomList() {
 
   useEffect(() => {
     if (data) {
-      console.log(data);
+    
       setRooms((index) => [
         ...index,
         ...data.rooms.map((room) => {
@@ -38,7 +38,7 @@ export default function RoomList() {
         setRooms((index) => [...index.filter((old) => old._id !== room._id)]);
       });
       socket.on("edit room", (room) => {
-        console.log(room);
+       
         setRooms((index) => [
           ...index.map((old) => {
             if (old._id === room._id) {
@@ -58,7 +58,8 @@ export default function RoomList() {
   }, [data]);
   console.log("rooms: ", rooms);
   const onCreate = async (values) => {
-    const { roomName, tags, privacy, password, primary, secondary, tertiary } = values;
+    const { roomName, tags, privacy, password, primary, secondary, tertiary } =
+      values;
     try {
       const response = await createRoom({
         variables: {
@@ -66,7 +67,7 @@ export default function RoomList() {
           colors: [primary, secondary, tertiary],
           tags,
           privacy,
-          password: password || ""
+          password: password || "",
         },
       });
       socket.emit("add room", response.data.addRoom);
@@ -81,7 +82,7 @@ export default function RoomList() {
       <Row
         style={{
           padding: "0 4%",
-          marginTop: "4%",
+          marginTop: "1.8%",
         }}
       >
         <Col align="left" flex="auto">

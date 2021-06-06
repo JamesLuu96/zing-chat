@@ -10,7 +10,7 @@ export const reducer = (state, action) => {
       };
     case UPDATE_ROOMS:
       const updatedState = [...state.rooms, ...action.rooms];
-      console.log(updatedState);
+    
       return {
         ...state,
         rooms: updatedState,

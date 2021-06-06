@@ -8,7 +8,7 @@ import { InfoCircleOutlined } from "@ant-design/icons";
 const EditForm = ({ visible, onCancel, onCreate, room }) => {
   const [form] = Form.useForm();
   const [tags, setTags] = useState(room.tags);
-  const [privacy, setPrivacy] = useState(0)
+  const [privacy, setPrivacy] = useState(0);
   const [color, setColor] = useState({
     primary: room.colors[0],
     secondary: room.colors[1],
@@ -17,9 +17,11 @@ const EditForm = ({ visible, onCancel, onCreate, room }) => {
 
   return (
     <Modal
-      style={{ marginTop: "-80px" }}
+      style={{ marginTop: "-50px" }}
       centered
+      w
       width="40%"
+      height="90%"
       visible={visible}
       title="Create a new room"
       okText="Update"
@@ -58,11 +60,13 @@ const EditForm = ({ visible, onCancel, onCreate, room }) => {
         >
           <Input />
         </Form.Item>
-        <Form.Item 
-        tooltip={{
-						title: "This will help people find your room",
-						icon: <InfoCircleOutlined />,
-					}}> name="tags" label="Tags" initialValue={room.tags}>
+        <Form.Item
+          tooltip={{
+            title: "This will help people find your room",
+            icon: <InfoCircleOutlined />,
+          }}
+        >
+          {/* name="tags" label="Tags" initialValue={room.tags}> */}
           <ReactTagInput
             tags={tags}
             placeholder="Add tags..."
@@ -76,12 +80,13 @@ const EditForm = ({ visible, onCancel, onCreate, room }) => {
           initialValue={room.privacy}
           className="collection-create-form_last-form-item"
           rules={[{ required: true, message: "Please input your privacy!" }]}
-          
         >
-          <Radio.Group optionType="button" buttonStyle="solid" defaultValue="public">
-            <Radio.Button value="public">
-              Public
-            </Radio.Button>
+          <Radio.Group
+            optionType="button"
+            buttonStyle="solid"
+            defaultValue="public"
+          >
+            <Radio.Button value="public">Public</Radio.Button>
             <Radio.Button value="private">Private</Radio.Button>
           </Radio.Group>
         </Form.Item>

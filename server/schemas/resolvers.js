@@ -9,7 +9,9 @@ const resolvers = {
     },
     user: async (parent, args, context) => {
       if (context.user) {
-        const user = await User.findById(context.user._id).populate("friends").populate("friendRequests");
+        const user = await User.findById(context.user._id)
+          .populate("friends")
+          .populate("friendRequests");
 
         return user;
       }
@@ -57,7 +59,7 @@ const resolvers = {
           ...args,
           username: context.user.username,
         });
-        console.log(room);
+
         return room;
       }
 
@@ -65,7 +67,6 @@ const resolvers = {
     },
 
     updateRoom: async (parent, args, context) => {
-      console.log(args);
       if (context.user) {
         const room = await Room.findOneAndUpdate(
           { _id: args.roomId },
@@ -90,7 +91,7 @@ const resolvers = {
           ...args,
           username: context.user.username,
         });
-        console.log(chat);
+     
         const room = await Room.findByIdAndUpdate(
           { _id: args.roomId },
           { $push: { roomChat: chat._id } },
@@ -102,26 +103,42 @@ const resolvers = {
       throw new AuthenticationError("Not logged in");
     },
 
-    sendDM: async (parent, {message, receiver}, context) => {
-      if(context.user) {
+    sendDM: async (parent, { message, receiver }, context) => {
+      if (context.user) {
         const user = await User.findByIdAndUpdate(
-          {_id: context.user._id},
-          {$push: { privateMessages: {receiver, message, sender: context.user.username}}},
-          {new:true}
-        )
+          { _id: context.user._id },
+          {
+            $push: {
+              privateMessages: {
+                receiver,
+                message,
+                sender: context.user.username,
+              },
+            },
+          },
+          { new: true }
+        );
         await User.findOneAndUpdate(
-          {username: receiver},
-          {$push: { privateMessages: {receiver, message, sender: context.user.username}}}
-        )
-        return user
+          { username: receiver },
+          {
+            $push: {
+              privateMessages: {
+                receiver,
+                message,
+                sender: context.user.username,
+              },
+            },
+          }
+        );
+        return user;
       }
     },
 
     deleteRoom: async (parent, args, context) => {
-      console.log(args, "args");
+
       if (context.user) {
         const room = await Room.findByIdAndDelete({ _id: args._id });
-        console.log(room, "room");
+    
         return room;
       }
     },
@@ -131,19 +148,17 @@ const resolvers = {
         const user = await User.findByIdAndUpdate(
           context.user._id,
           {
-            $addToSet: { friends: args.friendId }
+            $addToSet: { friends: args.friendId },
           },
           { new: true }
-        ).populate("friends")
-        .populate("friendRequests");
-
-        await User.findByIdAndUpdate(
-          args.friendId,
-          {
-            $addToSet: { friendRequests: context.user._id }
-          }
         )
-        
+          .populate("friends")
+          .populate("friendRequests");
+
+        await User.findByIdAndUpdate(args.friendId, {
+          $addToSet: { friendRequests: context.user._id },
+        });
+
         return user;
       }
     },

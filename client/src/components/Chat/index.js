@@ -53,7 +53,7 @@ export default function Chat() {
         setUsers(socketUsers);
       });
       socket.on("user disconnecting", (id) => {
-        console.log(id);
+      
         setUsers((oldUsers) => [...oldUsers.filter((user) => user.id !== id)]);
       });
       return () => {

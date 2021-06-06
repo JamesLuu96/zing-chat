@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Input, Button, Row, Alert } from "antd";
+import { Form, Input, Button, Row, Alert, message } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { useMutation } from "@apollo/react-hooks";
 import { LOGIN } from "../../../utils/mutations";
@@ -8,7 +8,6 @@ export default function Login({ setIdToken }) {
   const [login, { error }] = useMutation(LOGIN);
   const [errorMessage, setErrorMessage] = useState(false);
   const onFinish = async (values) => {
-    setErrorMessage(false);
     const { username, password } = values;
     try {
       const response = await login({
@@ -22,8 +21,6 @@ export default function Login({ setIdToken }) {
     } catch (error) {
       setErrorMessage(true);
     }
-
-    console.log("Received values of form: ", values);
   };
 
   return (
