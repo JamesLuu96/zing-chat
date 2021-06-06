@@ -19,7 +19,6 @@ const EditForm = ({ visible, onCancel, onCreate, room }) => {
     <Modal
       style={{ marginTop: "-50px" }}
       centered
-      w
       width="40%"
       height="90%"
       visible={visible}
