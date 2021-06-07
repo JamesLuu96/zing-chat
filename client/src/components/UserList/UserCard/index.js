@@ -19,7 +19,7 @@ export default function UserCard({ user, friends, setFriends }) {
       const response = await addFriend({
         variables: { friendId: user.id },
       });
-      socket.emit("add friend", user.id);
+      socket.emit("add friend", {id: user.id, _id: user.id, username: user.username, avatar: user.avatar});
       setFriends((old) => [...old, { _id: user.id, username: user.username }]);
     } catch (e) {
       console.log(e);

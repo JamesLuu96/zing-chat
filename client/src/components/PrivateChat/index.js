@@ -108,9 +108,10 @@ function PrivateChat({ setCount }) {
     let userList = friends.map((c) => c.username);
     return friendRequests.filter((user) => !userList.includes(user.username));
   }
-  function sentFriends() {
+  function sentFriends() {  
     let userList = friendRequests.map((c) => c.username);
-    return friends.filter((friend) => !userList.includes(friend.username));
+    const sentFriendsList = friends.filter((friend) => !userList.includes(friend.username))
+    return sentFriendsList;
   }
   function allFriends() {
     let userList = friendRequests.map((c) => c.username);
@@ -121,14 +122,17 @@ function PrivateChat({ setCount }) {
       if (user.username === friend.username) {
         return;
       }
-      friend._id
-        ? await addFriend({
+      if(friend._id){
+        await addFriend({
             variables: { friendId: friend._id },
-          })
-        : await addFriend({
-            variables: { friendId: friend.id },
-          });
-      socket.emit("add friend", { ...friend, id: friend._id });
+        })
+        socket.emit("add friend", { ...friend, id: friend._id });
+      } else {
+        await addFriend({
+          variables: { friendId: friend.id },
+        });
+        socket.emit("add friend", { ...friend });
+      }
     } catch (e) {
       console.log(e);
     }
@@ -284,7 +288,6 @@ function PrivateChat({ setCount }) {
                             user.username !== chat.username ? "their" : "mine"
                           }
                         >
-                          {console.log(chat.username)}
                           {chat.message}
                         </li>
                       ))}
