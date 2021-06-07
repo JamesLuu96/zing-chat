@@ -14,11 +14,13 @@ Zing Chat application is powered by Socket.IO. It is a web application that allo
 
 ## Installation
 ```npm i```  
+
 ## Usage
 - Clone the code from the repository to local computer
 - Install dependecies by npm i command
 - Write npm start  command to start the application
--  You can use the application from heroku by the following link :
+-  You can use the application from heroku by the following link :  
+[Zing Chat](https://zing2.herokuapp.com/)
 ## Credits
 - James Luu
 - Florence Kamp
