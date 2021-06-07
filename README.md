@@ -24,8 +24,6 @@ Zing Chat application is powered by Socket.IO. It is a web application that allo
 ## Credits
 - James Luu
 - Florence Kamp
-- Jacob Kashlak  
-- Nick Duran 
 - Fasika Demelash 
 
  ## Licence
