@@ -40,8 +40,8 @@ This Licence belongs to Apache
 - Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change. Please make sure to update the code as appropriate.   
 
 ## screenshot
-![zing2](https://user-images.githubusercontent.com/73629983/120970193-b8570380-c730-11eb-81ba-3e9e7ddfb815.png)
 ![React-App](https://user-images.githubusercontent.com/73629983/120970196-b8570380-c730-11eb-94a3-705775249405.png)
+![zing2](https://user-images.githubusercontent.com/73629983/120970193-b8570380-c730-11eb-81ba-3e9e7ddfb815.png)
 ![zing1](https://user-images.githubusercontent.com/73629983/120970197-b8ef9a00-c730-11eb-9e52-0230b8f2a01e.png)
 
 
