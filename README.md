@@ -27,28 +27,15 @@ Zing Chat is a live chat application powered by Socket.IO. Features include:
 - [contributing](#contributing)
 
 ## Installation
-```npm i```  
+`npm i`
 
 ## Usage
-- Clone the code from the repository to local computer
-- Install dependecies by npm i command
-- Write npm start  command to start the application
--  You can use the application from heroku by the following link :  
-[Zing Chat](https://zing2.herokuapp.com/)
-## Credits
-- James Luu
-- Florence Kamp
-- Fasika Demelash 
+### From the command line
+- Clone this repo `git clone git@github.com:JamesLuu96/zing-chat.git`
+- Install dependecies `npm i`
+- Start the app `npm start`
 
- ## Licence
-This Licence belongs to Apache 
- 
-## Features
-- Create public and private  chat room
-- responsive
-- Add friends
-- Delete your chat room 
-- Edit your chat room
+## Credits
 
 - [James Luu](https://github.com/JamesLuu96/)
 - [Florence Kamp](https://github.com/flokamp/)
