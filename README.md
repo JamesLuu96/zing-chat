@@ -7,7 +7,7 @@
 ## Description
 
 ![loginpage](/app-screenshots/login.png)
-![roompage](/app-screenshots/rooom.png)
+![roompage](/app-screenshots/room.png)
 Zing Chat is a live chat application powered by Socket.IO. Features include:
 
 - create and join public chat rooms
