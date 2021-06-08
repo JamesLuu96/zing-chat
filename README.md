@@ -10,13 +10,14 @@
 ![roompage](/app-screenshots/room.png)
 Zing Chat is a live chat application powered by Socket.IO. Features include:
 
-- :white_check_mark: create and join public chat rooms
-- :white_check_mark: create and private, password protected chat rooms
-- :white_check_mark: customize the look and feel of chat rooms with color
-- :white_check_mark: add friends
-- :white_check_mark: private chat friends
-- :white_check_mark: format chat messages using a rich text editor
-- :white_check_mark: send images and videos
+:white_check_mark: Create and join public chat rooms <br>
+
+:white_check_mark: create and private, password protected chat rooms<br>
+:white_check_mark: customize the look and feel of chat rooms with color<br>
+:white_check_mark: Add friends<br>
+:white_check_mark: Private chat friends<br>
+:white_check_mark: Format chat messages using a rich text editor<br>
+:white_check_mark: Send images and videos
 
 ## Table of Contents
 
@@ -40,9 +41,9 @@ Zing Chat is a live chat application powered by Socket.IO. Features include:
 
 ## Credits
 
-[James Luu](https://github.com/JamesLuu96/)
-[Florence Kamp](https://github.com/flokamp/)
-[Fasika Demelash](https://github.com/fasikaWalle)
+- [James Luu](https://github.com/JamesLuu96/)
+- [Florence Kamp](https://github.com/flokamp/)
+- [Fasika Demelash](https://github.com/fasikaWalle)
 
 ## Licence
 
