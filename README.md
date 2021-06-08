@@ -11,9 +11,8 @@
 Zing Chat is a live chat application powered by Socket.IO. Features include:
 
 :white_check_mark: Create and join public chat rooms <br>
-
-:white_check_mark: create and private, password protected chat rooms<br>
-:white_check_mark: customize the look and feel of chat rooms with color<br>
+:white_check_mark: Create and private, password protected chat rooms<br>
+:white_check_mark: Customize the look and feel of chat rooms with color<br>
 :white_check_mark: Add friends<br>
 :white_check_mark: Private chat friends<br>
 :white_check_mark: Format chat messages using a rich text editor<br>
@@ -28,13 +27,10 @@ Zing Chat is a live chat application powered by Socket.IO. Features include:
 - [contributing](#contributing)
 
 ## Installation
-
 `npm i`
 
 ## Usage
-
 ### From the command line
-
 - Clone this repo `git clone git@github.com:JamesLuu96/zing-chat.git`
 - Install dependecies `npm i`
 - Start the app `npm start`
@@ -46,13 +42,10 @@ Zing Chat is a live chat application powered by Socket.IO. Features include:
 - [Fasika Demelash](https://github.com/fasikaWalle)
 
 ## Licence
-
 This Licence belongs to Apache
 
 ## Contributing
-
 - Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change. Please make sure to update the code as appropriate.
 
 ## Questions
-
 If you have any question about the repo, open an issue or contact me directly at [JamesLuu96](https://github.com/JamesLuu96/)
