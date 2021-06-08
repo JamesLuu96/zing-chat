@@ -1,4 +1,4 @@
-# Zing
+# Zing Chat 2.0
 
 [Demo zingchat](https://zing2.herokuapp.com/)
 

@@ -117,7 +117,6 @@ export default function Chat() {
             {users.map((user) => (
               <>
                 <List.Item
-               
                   style={{
                     borderRadius: "6px",
                     margin: "12px",
@@ -262,7 +261,6 @@ export default function Chat() {
                     <Form.Item
                       className="text-editor"
                       style={{
-                        padding: "0",
                         margin: "0",
                       }}
                     >

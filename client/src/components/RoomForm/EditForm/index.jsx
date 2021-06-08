@@ -8,12 +8,19 @@ import { InfoCircleOutlined } from "@ant-design/icons";
 const EditForm = ({ visible, onCancel, onCreate, room }) => {
   const [form] = Form.useForm();
   const [tags, setTags] = useState(room.tags);
+  const [privateRoom, setPrivacy] = useState("public");
 
   const [color, setColor] = useState({
     primary: room.colors[0],
     secondary: room.colors[1],
     tertiary: room.colors[2],
   });
+
+  function changePrivate(e) {
+    if (e.privacy) {
+      setPrivacy(e.privacy);
+    }
+  }
 
   return (
     <Modal
@@ -44,12 +51,13 @@ const EditForm = ({ visible, onCancel, onCreate, room }) => {
           });
       }}
     >
-      <Form form={form} layout="vertical" name="form_in_modal">
+      <Form form={form} layout="vertical" name="form_in_modal" onValuesChange={(e) => changePrivate(e)}>
         <Form.Item
           requiredmark={"optional"}
           name="roomName"
           label="Room name"
           initialValue={room.roomName}
+          
           rules={[
             {
               required: true,
@@ -90,6 +98,24 @@ const EditForm = ({ visible, onCancel, onCreate, room }) => {
             <Radio.Button value="private">Private</Radio.Button>
           </Radio.Group>
         </Form.Item>
+        {privateRoom === "private" && (
+          <Form.Item
+            name="password"
+            label="Password"
+            rules={[
+              {
+                required: true,
+                message: "Please enter a password!",
+              },
+            ]}
+          >
+            <Input.Password
+              type="password"
+              placeholder="Password"
+              style={{ padding: "0.8rem" }}
+            />
+          </Form.Item>
+        )}
         <Row>
           <Col className="color-col" span={8}>
             <Form.Item name="primary" label="Background">
